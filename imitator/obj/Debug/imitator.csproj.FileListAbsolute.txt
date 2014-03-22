@@ -1,0 +1,7 @@
+c:\Projects\imitator\imitator\bin\Debug\imitator.exe
+c:\Projects\imitator\imitator\bin\Debug\imitator.pdb
+c:\Projects\imitator\imitator\obj\Debug\imitator.Form1.resources
+c:\Projects\imitator\imitator\obj\Debug\imitator.Properties.Resources.resources
+c:\Projects\imitator\imitator\obj\Debug\imitator.csproj.GenerateResource.Cache
+c:\Projects\imitator\imitator\obj\Debug\imitator.exe
+c:\Projects\imitator\imitator\obj\Debug\imitator.pdb

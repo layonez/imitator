@@ -1,0 +1,8 @@
+c:\Projects\imitator\imitator\bin\Release\imitator.exe
+c:\Projects\imitator\imitator\bin\Release\imitator.pdb
+c:\Projects\imitator\imitator\obj\Release\imitator.Form1.resources
+c:\Projects\imitator\imitator\obj\Release\imitator.Properties.Resources.resources
+c:\Projects\imitator\imitator\obj\Release\imitator.csproj.GenerateResource.Cache
+c:\Projects\imitator\imitator\obj\Release\imitator.exe
+c:\Projects\imitator\imitator\obj\Release\imitator.pdb
+c:\Projects\imitator\imitator\obj\Release\imitator.csprojResolveAssemblyReference.cache
