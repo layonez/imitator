@@ -14,6 +14,7 @@ namespace imitator
         /// </summary>
         public class InputData
         {
+            public double Fi;
             /// <summary>
             /// Радиус сферического затупления баллистической цели, м
             /// </summary>
@@ -37,34 +38,22 @@ namespace imitator
         /// </summary>
         public class OutputData
         {
+            public double Ne1; //Электронная концентрация плазмы в точке наблюдения;
+            public double Nu1; //Эффективная частота со-ударений электронов в точке наблю-дения
+
+            public double NeKrit;
+            public double NuKrit;
+
             public double Ne; //Электронная концентрация плазмы в точке наблюдения;
             public double Nu; //Эффективная частота со-ударений электронов в точке наблю-дения
-            /// <summary>
-            /// плотность 
-            /// </summary>
-            public double Ro;
-            /// <summary>
-            /// темература 
-            /// </summary>
-            public double T;
             public double Delta; //расстояние отхода удар-ной волны от поверхности баллистиче-ской цели
             public double A; //геометриче-ские пара-метры удар-ной волны
             public double B; //геометриче-ские пара-метры удар-ной волны
+
+            public double M; //Число Маха
+
         }
         
-        /// <summary>
-        /// РЕКУРСИВНАЯ ИНФОРМАЦИЯ
-        /// </summary>
-        public class RecurciveData
-        {
-            public double ro; //Плотность воздуха
-            public double v; //Скорость воздуха
-            public double p; //Давление воздуха
-            public double h; //Энтальпия воздуха
-            public double g; //Ускорение свободного падения
-            public double t; //Температура воздуха
-        }
-
         public class Cnst
         {
             /// <summary>
@@ -75,7 +64,7 @@ namespace imitator
             /// <summary>
             /// средний радиус Земли, м
             /// </summary>
-            public const double Rz = 6371*10e3;
+            public const double Rz = 6371e3;
 
             /// <summary>
             /// плотность
@@ -87,13 +76,13 @@ namespace imitator
             /// </summary>
             public static readonly double[,] T1 = 
             {
-                {-2*10e3, 301.15, -6.5*10e-3},
-                {0, 288.15, -6.5*10e-3},
-                {11*10e3, 216.65, 0},
-                {20*10e3, 216.65, 1*10e-3}, 
-                {32*10e3, 288.65, 2.8*10e-3}, 
-                {47*10e3, 270.65, 0}, 
-                {51*10e3, 270.65, double.NaN}//не понятно что в последнем значении угла(там прочерк в таблице)
+                {-2e3, 301.15, -6.5e-3},
+                {0, 288.15, -6.5e-3},
+                {11e3, 216.65, -6.5e-3},
+                {20e3, 216.65, 0}, 
+                {32e3, 288.65, 1e-3}, 
+                {47e3, 270.65, 2.8e-3}, 
+                {51e3, 270.65, 0}
             };
 
             /// <summary>
@@ -136,11 +125,11 @@ namespace imitator
             /// </summary>
             public static readonly double[,] T3 =
             {
-                {0, 17, 5.7*10e-3, 8, 0.9*10e-3},
-                {30*10e3, 17.5, 5.2*10e-3, 9, 1.1*10e-3},
-                {60*10e3, 15, 3.3*10e-3, 10, 1.6*10e-3},
-                {90*10e3, 20, 3.3*10e-3, 11, 2.2*10e-3},
-                {120*10e3, 6, 0.67*10e-3, 12.5, 2.9*10e-3},
+                {0, 17, 5.7e-3, 8, 0.9e-3},
+                {30e3, 17.5, 5.2e-3, 9, 1.1e-3},
+                {60e3, 15, 3.3e-3, 10, 1.6e-3},
+                {90e3, 20, 3.3e-3, 11, 2.2e-3},
+                {120e3, 6, 0.67e-3, 12.5, 2.9e-3},
             };
 
             /// <summary>
@@ -148,11 +137,11 @@ namespace imitator
             /// </summary>
             public static readonly double[,] T4 =
             {
-                {1, 7.6*10e20, 6.63*10e4},
-                {0.1, 2.5*10e20, 6.5*10e4},
-                {10e-2, 6.3*10e19, 6.4*10e4},
-                {10e-3, 1.35*10e19, 6.29*10e4},
-                {10e-4, 6*10e18, 6.4*10e4}
+                {1, 7.6e18, 6.63e4},
+                {0.1, 2.5e18, 6.5e4},
+                {1e-2, 6.3e17, 6.4e4},
+                {1e-3, 1.35e17, 6.29e4},
+                {1e-4, 6e16, 6.4e4}
             };
 
             /// <summary>
@@ -161,8 +150,8 @@ namespace imitator
             /// </summary>
             public static readonly double[,] T5 =
             {
-                {-1.7*10e-2, -3*10e-4},
-                {-10e-3, -1.2*10e-4}
+                {-1.7e-2, -3e-4},
+                {-1e-3, -1.2e-4}
                 
             };
 
@@ -195,40 +184,52 @@ namespace imitator
 
             double Ts = T*(
                             coeffs.a + 
-                                coeffs.b*(0.001*data.V - 4)
+                                coeffs.b*(data.V - 4000)
                 );
-            double ROs = RO * (coeffs.ro + coeffs.g * (0.001 * data.V - 3));
+            double ROs = RO * (coeffs.ro + coeffs.g * (data.V - 3000));
 
             //ВП4
             //Оценка электронной концентрации и эффективной частоты соударений электронов в критической точке
             double nu = ROs/Cnst.Ro0;
             double NeKrit = GetElectronConc(nu,Ts);
 
-            double nuKrit= (2.8*10e8)*ROs*Math.Pow(Ts, 1/2) +
-                                NeKrit*((2.2*10e-5)/Math.Pow(Ts, 3/2) -
-                                    (1.3*10e-10)*Math.Pow(Ts, 1/2));
+            double x1 =(7.2e9)*ROs*Math.Sqrt(Ts);
+            double x2 = NeKrit * (5.5)/(Ts*Math.Sqrt(Ts))*
+                Math.Log(220 * Ts / Math.Pow(NeKrit,0.33333))  ;
+            double x3 = (1.3e-10) * NeKrit * Math.Sqrt(Ts);
+
+            double nuKrit = x1 + x2 + x3;
             
             //ВП6
             //Оценка электронной концентрации и эф-фективной частоты соударений электро-нов в точке наблюдения
-            double Ne = NeKrit*Math.Exp(
-                            (-5.1*10e-2)*data.Angle - 
-                                 (1.86*10e-4)*data.Angle*data.Angle
-                );
-            double nuEffect = nuKrit*Math.Exp(
-                (-1.79*10e-2)*data.Angle-
-                    (1.2 * 10e-4) * data.Angle * data.Angle
-                );
 
+            double e1 = -(
+                (2.02)*data.Angle +
+                (0.41)*data.Angle*data.Angle);
+            double e2 = (400 * data.Rzatup * data.Rzatup);
+
+            double ex = Math.Exp(e1 / e2);
+
+
+              double Ne = NeKrit*ex;
+              double nuEffect = nuKrit * Math.Exp(
+                  -( (1.01)*data.Angle + (0.294) * data.Angle * data.Angle)/
+                       (400*data.Rzatup * data.Rzatup)
+                   );
             //ВП7
             //Оценка геометрических параметров ударной волны
-            double delta = 0.88 * data.Rzatup * Math.Pow(RO / Cnst.Ro0, 1.053);
+              var d1 = 1/
+                    ((ROs / RO) - 1);
+            double delta = 0.67*data.Rzatup*d1;
+                
+
             //число Маха 
-            double M = data.V/Cnst.c;
+            double M = data.V/330;
             double a = (data.Rzatup + delta) * (M * M - 1);
-            double b = (data.Rzatup + delta) * Math.Pow((M * M - 1), 1 / 2);
+            double b = (data.Rzatup + delta) * Math.Sqrt(M * M - 1);
 
 
-            return new OutputData() { A = a, B = b, Delta = delta, Ne = Ne, Nu = nuEffect };
+            return new OutputData() { A = a, B = b, Delta = delta, Ne = Ne, Nu = nuEffect, NeKrit = NeKrit, NuKrit = nuKrit, M = M };
         }
 
         /// <summary>
@@ -240,15 +241,21 @@ namespace imitator
         {
             if (nu > 1)
                 nu = 1;
-            else if (nu < 10e-4)
-                nu = 10e-4;
+            else if (nu < 1e-4)
+                nu = 1e-4;
             
             for (int i = 0; i < 5; i++)
                 {
                     if (nu <= Cnst.T4[i, 0] && nu >= Cnst.T4[i+1, 0])
                     {
-                        double n = -Math.Log10(Cnst.T4[i + 1, 1]/Cnst.T4[i, 1]);
-                        double A = Cnst.T4[i, 1]*Math.Pow(nu/Cnst.T4[i, 0], n);
+                        //double n = -Math.Log10(Cnst.T4[i + 1, 1]/Cnst.T4[i, 1]);
+                        //double A = Cnst.T4[i, 1]*Math.Pow(nu/Cnst.T4[i, 0], n);
+
+                        double n = Math.Log10(Cnst.T4[i, 1]) - 
+                            (Math.Log10(Cnst.T4[i + 1, 1]) - Math.Log10(Cnst.T4[i, 1]))*
+                            (Math.Log10(nu) - Math.Log10(Cnst.T4[i, 0]));
+                        double A = Math.Pow(10, n);
+                        
                         double B = Cnst.T4[i, 2] +
                                    (Cnst.T4[i + 1, 2] - Cnst.T4[i, 2])*(Math.Log(nu) - Math.Log(Cnst.T4[i, 0]))
                                    /(Math.Log(Cnst.T4[i + 1, 0]) - Math.Log(Cnst.T4[i, 0]));
@@ -294,7 +301,7 @@ namespace imitator
         /// <param name="h">высота от поверхности ОЗЭ</param>
         private static double GetDensity(double h)
         {
-            for (int i = 0; i < 28; i++)
+            for (int i = 0; i < 27; i++)
             {
                 if (h >= Cnst.T2[i, 0] && h <= Cnst.T2[i+1, 0])
                 {
@@ -302,7 +309,10 @@ namespace imitator
                     return Cnst.T2[i, 1]*Math.Exp(-mu*(h - Cnst.T2[i, 0]));
                 }
             }
-            throw new Exception("В таблице 2 не найдено подходящего элемента.");
+
+            double mu1 = Math.Log(Cnst.T2[27, 1] / Cnst.T2[26, 1]) / (-Cnst.T2[27, 0] + Cnst.T2[26, 0]);
+            return Cnst.T2[26, 1] * Math.Exp(-mu1 * (h - Cnst.T2[26, 0]));
+
         }
         
         /// <param name="h">высота от поверхности ОЗЭ</param>
@@ -317,7 +327,7 @@ namespace imitator
                     return Cnst.T1[i, 1] + Cnst.T1[i, 2]*(H - Cnst.T1[i, 0]);
                 }
             }
-            throw new Exception("В таблице 1 не найдено подходящего элемента.");
+            return Cnst.T1[6, 1] + Cnst.T1[6, 2] * (H - Cnst.T1[6, 0]);
         }
     }
 }
