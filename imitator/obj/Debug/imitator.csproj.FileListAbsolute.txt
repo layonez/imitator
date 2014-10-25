@@ -5,3 +5,11 @@ c:\Projects\imitator\imitator\obj\Debug\imitator.Properties.Resources.resources
 c:\Projects\imitator\imitator\obj\Debug\imitator.csproj.GenerateResource.Cache
 c:\Projects\imitator\imitator\obj\Debug\imitator.exe
 c:\Projects\imitator\imitator\obj\Debug\imitator.pdb
+C:\GitHub\imitator\imitator\obj\Debug\imitator.exe
+C:\GitHub\imitator\imitator\obj\Debug\imitator.pdb
+C:\GitHub\imitator\imitator\obj\Debug\imitator.csprojResolveAssemblyReference.cache
+C:\GitHub\imitator\imitator\obj\Debug\imitator.Form1.resources
+C:\GitHub\imitator\imitator\obj\Debug\imitator.Properties.Resources.resources
+C:\GitHub\imitator\imitator\obj\Debug\imitator.csproj.GenerateResource.Cache
+C:\GitHub\imitator\imitator\bin\Debug\imitator.exe
+C:\GitHub\imitator\imitator\bin\Debug\imitator.pdb

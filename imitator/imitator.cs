@@ -3,7 +3,7 @@
 namespace imitator
 {
     
-    public static class Imitator
+    public static class Imit33
     {
         private const double F0 = 3e9;
         private const double Df = 5e6;
@@ -75,7 +75,7 @@ namespace imitator
             {
                 //Расчет  модуля  ККО сферы
                 s0 = 
-                    dot.Rcf * Math.Sqrt(Math.PI)
+                    dot.Rzatup * Math.Sqrt(Math.PI)
                     ;
                 //ips = Math.PI/2 - angle;
 
@@ -154,14 +154,18 @@ namespace imitator
                 double om = MyMath.Actg(dot.D2 - dot.D1)/2*dot.L;
                 s0 = (2*Math.Sqrt(dot.D1)*dot.L*(dot.D2 - dot.D1)*Math.Cos(om - angle))/
                     lambdaK * Math.Sqrt(dot.L * dot.L + 0.25 * (dot.D2 - dot.D1));
+
+                dotParams.s0 = s0;
             }
             else if (dot.Kf == 10)
             {
+                double x = (dot.C*dot.C*Math.Sin(angle)*Math.Sin(angle) +
+                            dot.A*dot.A*Math.Cos(angle)*Math.Cos(angle));
                 double sigma = dot.Kiz*
-                            Math.Pow(
-                                (dot.C*dot.C*Math.Sin(angle)*Math.Sin(angle) +
-                                 dot.A*dot.A*Math.Cos(angle)*Math.Cos(angle)), 3/2)/dot.C;
+                            x* Math.Sqrt(x)/dot.C;
                 s0 = Math.Sqrt(sigma);
+
+                dotParams.s0 = s0;
             }
 
             if (dot.Kf == 7 || dot.Kf == 4)
@@ -210,7 +214,7 @@ namespace imitator
         public int Kf;
         public double Xc;
         public double Yc;
-        public double Rcf;
+        public double Rzatup;
         public double D1;
         public double D2;
         public double L;

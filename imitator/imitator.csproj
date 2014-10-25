@@ -52,6 +52,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="imit42.cs" />
+    <Compile Include="imit42_43.cs" />
+    <Compile Include="imit43.cs" />
+    <Compile Include="imit44.cs" />
+    <Compile Include="imit44_46.cs" />
+    <Compile Include="imit46.cs" />
     <Compile Include="imitator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
