@@ -37,88 +37,88 @@ namespace imitator
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
                 if (TabCntrl.SelectedIndex == 0)
-                {
+            {
                     ShineDot[] dotList = new ShineDot[InputGrid33.Rows.Count - 1];
-                    string[] dataRow = new string[14];
+                string[] dataRow = new string[14];
 
-                    for (int rows = 0; rows < InputGrid33.Rows.Count - 1; rows++)
+                for (int rows = 0; rows < InputGrid33.Rows.Count - 1; rows++)
+                {
+                    for (int col = 0; col < 14; col++)
                     {
-                        for (int col = 0; col < 14; col++)
-                        {
-                            if (InputGrid33.Rows[rows].Cells[col].Value == null)
-                                dataRow[col] = "0";
-                            else
-                                dataRow[col] = InputGrid33.Rows[rows].Cells[col].Value.ToString();
-                        }
-                        dotList[rows] = toShineDot(dataRow);
+                        if (InputGrid33.Rows[rows].Cells[col].Value == null)
+                            dataRow[col] = "0";
+                        else
+                            dataRow[col] = InputGrid33.Rows[rows].Cells[col].Value.ToString();
                     }
+                    dotList[rows] = toShineDot(dataRow);
+                }
 
 
 
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
 
                     double[,] OutArr = Imit33.StartWork(dotList);
 
-                    stopWatch.Stop();
-                    // Get the elapsed time as a TimeSpan value.
-                    TimeSpan ts = stopWatch.Elapsed;
+                stopWatch.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = stopWatch.Elapsed;
 
-                    // Format and display the TimeSpan value. 
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds/10);
-                    TimeLable.Text = elapsedTime;
+                // Format and display the TimeSpan value. 
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds/10);
+                TimeLable.Text = elapsedTime;
 
-                    Bind33(OutArr);
+                Bind33(OutArr);
 
-                    tabCntrl33.SelectTab(1);
-                }
+                tabCntrl33.SelectTab(1);
+            }
                 else if (TabCntrl.SelectedIndex == 1)
-                {
+            {
                     Imit42.InputData[] dotList = new Imit42.InputData[inputGrid42.Rows.Count - 1];
                     string[] dataRow = new string[5];
 
-                    for (int rows = 0; rows < inputGrid42.Rows.Count - 1; rows++)
-                    {
+                for (int rows = 0; rows < inputGrid42.Rows.Count - 1; rows++)
+                {
                         for (int col = 0; col < 5; col++)
-                        {
-                            if (inputGrid42.Rows[rows].Cells[col].Value == null)
-                                dataRow[col] = "0";
-                            else
-                                dataRow[col] = inputGrid42.Rows[rows].Cells[col].Value.ToString();
-                        }
-                        dotList[rows] = toDataPack42(dataRow);
+                    {
+                        if (inputGrid42.Rows[rows].Cells[col].Value == null)
+                            dataRow[col] = "0";
+                        else
+                            dataRow[col] = inputGrid42.Rows[rows].Cells[col].Value.ToString();
                     }
+                        dotList[rows] = toDataPack42(dataRow);
+                }
 
                     double[,] OutArr = new double[dotList.Count(), 8];
 
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-                    for (int i = 0; i < dotList.Count(); i++)
-                    {
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
+                for (int i = 0; i < dotList.Count(); i++)
+                {
                         double[] d = toDouble(Imit42.GeneralOperator(dotList[i]));
-                        for (int j = 0; j < d.Length; j++)
-                        {
-                            OutArr[i, j] = d[j];
-                        }
+                    for (int j = 0; j < d.Length; j++)
+                    {
+                        OutArr[i, j] = d[j];
                     }
-                    stopWatch.Stop();
-
-                    TimeSpan ts = stopWatch.Elapsed;
-
-                    // Format and display the TimeSpan value. 
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds/10);
-                    TimeLable.Text = elapsedTime;
-
-                    Bind42(OutArr);
-
-                    TabCntrl42.SelectTab(1);
                 }
+                stopWatch.Stop();
+
+                TimeSpan ts = stopWatch.Elapsed;
+
+                // Format and display the TimeSpan value. 
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                        ts.Milliseconds/10);
+                TimeLable.Text = elapsedTime;
+
+                Bind42(OutArr);
+
+                TabCntrl42.SelectTab(1);
+            }
                 else if (TabCntrl.SelectedIndex == 2)
                 {
                     Imit43.InputData[] dotList = new Imit43.InputData[inputGrid43.Rows.Count - 1];
@@ -239,7 +239,7 @@ namespace imitator
                     Bind44(OutArr);
 
                     TabCntrl44.SelectTab(1);
-                }
+            }
                 else if (TabCntrl.SelectedIndex == 5)
                 {
                     var dotList = new Imit46.InputData[inputGrid46.Rows.Count - 1];
@@ -353,8 +353,8 @@ namespace imitator
                 if (cell.Value==null)
                 {
                     cell.Value = "0";
-                }
             }
+        }
             for (int i = 0; i < 20; i++)
             {
                 inp[i] = new Imit43.InputData() { Ageo = outArr1[0, 0],
@@ -1182,10 +1182,10 @@ namespace imitator
         {
             FillDefaults44_46();
         }
-
-        #region Копирование/вставка ячеек
         
-        #endregion
+        #region Копирование/вставка ячеек
 
+        #endregion
+        
     }
 }
