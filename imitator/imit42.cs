@@ -78,11 +78,15 @@ namespace imitator
             {
                 {-2e3, 301.15, -6.5e-3},
                 {0, 288.15, -6.5e-3},
-                {11e3, 216.65, -6.5e-3},
-                {20e3, 216.65, 0}, 
-                {32e3, 288.65, 1e-3}, 
+                {11e3, 216.65, 0},
+                {20e3, 216.65, 1e-3}, 
+                {32e3, 228.65, 2.8e-3}, 
                 {47e3, 270.65, 2.8e-3}, 
-                {51e3, 270.65, 0}
+                {52e3, 270.65, -0.2e-3},
+                {61e3, 252.65, -4e-3},
+                {79e3, 180.65, 0},
+                {88.4e3, 180.65, 3e-3},
+                {98.4e3, 210.65, 5e-3}
             };
 
             /// <summary>
@@ -117,7 +121,11 @@ namespace imitator
                 {40000, 0.004},
                 {50000, 0.00103},
                 {60000, 0.00031},
-                {80000, 0.00002}
+                {80000, 0.00002},
+                {90000, 3e-6},
+                {100000, 9e-7},
+                {120000, 9e-8},
+                {150000, 2e-9}
             };
 
             /// <summary>
@@ -141,7 +149,12 @@ namespace imitator
                 {0.1, 2.5e18, 6.5e4},
                 {1e-2, 6.3e17, 6.4e4},
                 {1e-3, 1.35e17, 6.29e4},
-                {1e-4, 6e16, 6.4e4}
+                {1e-4, 6e16, 6.4e4},
+                {1e-5, 2e16, 6.23e4},
+                {1e-6, 7e15, 6.5e4},
+                {1e-7, 2.5e15, 6.4e4},
+                {1e-8, 6.5e14, 6.6e4},
+                {1e-9, 2.1e14, 6.7e4}
             };
 
             /// <summary>
@@ -243,8 +256,8 @@ namespace imitator
                 nu = 1;
             else if (nu < 1e-4)
                 nu = 1e-4;
-            
-            for (int i = 0; i < 5; i++)
+
+            for (int i = 0; i < Cnst.T4.GetLength(0); i++)
                 {
                     if (nu <= Cnst.T4[i, 0] && nu >= Cnst.T4[i+1, 0])
                     {
@@ -275,7 +288,7 @@ namespace imitator
         private static HeightDependCoeffs GetHCoefficients(double h)
         {
             HeightDependCoeffs coeffs = new HeightDependCoeffs();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < Cnst.T3.GetLength(0)-1; i++)
             {
                 if (h >= Cnst.T3[i, 0] && h <= Cnst.T3[i + 1, 0])
                 {
@@ -294,14 +307,28 @@ namespace imitator
                     return coeffs;
                 }
             }
-            throw new Exception("В таблице 3 не найдено подходящего элемента.");
+            int j = Cnst.T3.GetLength(0) - 2;
+
+            coeffs.a = Cnst.T3[j, 1] +
+                               (Cnst.T3[j + 1, 1] - Cnst.T3[j, 1]) *
+                               (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
+            coeffs.b = Cnst.T3[j, 2] +
+                              (Cnst.T3[j + 1, 2] - Cnst.T3[j, 2]) *
+                              (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
+            coeffs.ro = Cnst.T3[j, 3] +
+                              (Cnst.T3[j + 1, 3] - Cnst.T3[j, 3]) *
+                              (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
+            coeffs.g = Cnst.T3[j, 4] +
+                              (Cnst.T3[j + 1, 4] - Cnst.T3[j, 4]) *
+                              (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
+                    return coeffs;
         
         }
 
         /// <param name="h">высота от поверхности ОЗЭ</param>
-        private static double GetDensity(double h)
+        public static double GetDensity(double h)
         {
-            for (int i = 0; i < 27; i++)
+            for (int i = 0; i < Cnst.T2.GetLength(0)-1;i++)
             {
                 if (h >= Cnst.T2[i, 0] && h <= Cnst.T2[i+1, 0])
                 {
@@ -310,8 +337,8 @@ namespace imitator
                 }
             }
 
-            double mu1 = Math.Log(Cnst.T2[27, 1] / Cnst.T2[26, 1]) / (-Cnst.T2[27, 0] + Cnst.T2[26, 0]);
-            return Cnst.T2[26, 1] * Math.Exp(-mu1 * (h - Cnst.T2[26, 0]));
+            double mu1 = Math.Log(Cnst.T2[Cnst.T2.GetLength(0) - 1, 1] / Cnst.T2[Cnst.T2.GetLength(0) - 2, 1]) / (-Cnst.T2[Cnst.T2.GetLength(0) - 1, 0] + Cnst.T2[Cnst.T2.GetLength(0) - 2, 0]);
+            return Cnst.T2[Cnst.T2.GetLength(0) - 2, 1] * Math.Exp(-mu1 * (h - Cnst.T2[Cnst.T2.GetLength(0) - 2, 0]));
 
         }
         
@@ -319,15 +346,18 @@ namespace imitator
         private static double GetTemperature(double h)
         {
             double H = Cnst.Rz*h/(Cnst.Rz + h);
-            
-            for (int i = 0; i < 7; i++)
+
+            for (int i = 0; i < Cnst.T1.GetLength(0); i++)
             {
                 if (H <= Cnst.T1[i, 0])
                 {
-                    return Cnst.T1[i, 1] + Cnst.T1[i, 2]*(H - Cnst.T1[i, 0]);
+                    double Tz = Cnst.T1[i, 1];
+                    double Bz = Cnst.T1[i, 2];
+                    double Hz = Cnst.T1[i, 0];
+                    return Tz + Bz * (H - Hz);
                 }
             }
-            return Cnst.T1[6, 1] + Cnst.T1[6, 2] * (H - Cnst.T1[6, 0]);
+            return Cnst.T1[Cnst.T1.GetLength(0)-1 , 1] + Cnst.T1[Cnst.T1.GetLength(0) - 1, 2] * (H - Cnst.T1[Cnst.T1.GetLength(0) - 1, 0]);
         }
     }
 }

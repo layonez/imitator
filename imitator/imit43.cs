@@ -132,21 +132,17 @@ namespace imitator
         private static double[] GetIPR(List<InputData> dots)
         {
             List<DotParams> NewDots = new List<DotParams>();
-            //если высота меньше 80км
-            if (dots[0].H < 80000)
-            {
-                //ВП0
-                //Начальные значения частоты и длины волны излучения РЛС
-                double LambdaK = (Cnst.C/Cnst.F0);
-                double KLambda = 2*Math.PI/LambdaK;
+            //ВП0
+            //Начальные значения частоты и длины волны излучения РЛС
+            double LambdaK = (Cnst.C/Cnst.F0);
+            double KLambda = 2*Math.PI/LambdaK;
 
-                foreach (InputData dot in dots)
-                {
-                    NewDots.Add(GetReflectionKoeff(LambdaK, KLambda, dot, Cnst.F0));
-                }
-                return new double[] {GetSummaryEpr(NewDots.ToArray())};
+            foreach (InputData dot in dots)
+            {
+                NewDots.Add(GetReflectionKoeff(LambdaK, KLambda, dot, Cnst.F0));
             }
-            return new double[] { };
+            return new double[] {GetSummaryEpr(NewDots.ToArray())};
+            
             //else
             //{
             //    //ВП1
@@ -611,12 +607,12 @@ namespace imitator
             double Kp = Math.Exp(-delta*alfa);
 
             //добавим Kizl
-            if (0.5 <= Fp && Fp <= 1.25)
+            if (0.5 * fk <= Fp && Fp <= 1.25 * fk)
             {
                 Kp = 0.5 * Kp;
                 i.Kiz = 0.5*i.Kiz;
             }
-            else if (Kp > 1.25)
+            else if (Fp > 1.25 * fk)
             {
                 Kp = 0.1 * Kp;
                 i.Kiz = 0.1 * i.Kiz;

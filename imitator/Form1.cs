@@ -201,7 +201,7 @@ namespace imitator
 
                     for (int row = 0; row < inputGrid44.Rows.Count - 1; row++)
                     {
-                        for (int col = 0; col < 8; col++)
+                        for (int col = 0; col < inputGrid44.ColumnCount; col++)
                         {
                             if (inputGrid44.Rows[row].Cells[col].Value == null)
                                 dataRow[col] = "0";
@@ -623,7 +623,7 @@ namespace imitator
             double[,] x = new double[20,3];
             for (int i = 0; i < 20; i++)
             {
-                double k = i + 1;
+                double k = i + 2;
 
                 x[i, 0] = (k - 1) * 10 / Math.Cos(0.2);
                 x[i, 1] = x[i, 0] + 5 / Math.Cos(0.2);
@@ -637,7 +637,7 @@ namespace imitator
                 row.Cells.Add(new DataGridViewTextBoxCell() {Value = H.ToString()});
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = "1000000000000" });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = "100000000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = 0.001.ToString()});
+                //row.Cells.Add(new DataGridViewTextBoxCell() { Value = 0.001.ToString()});
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = "6000" });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 0].ToString() });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 1].ToString() });
@@ -660,9 +660,9 @@ namespace imitator
             double[,] x = new double[20, 3];
             for (int i = 0; i < 20; i++)
             {
-                double k = i + 1;
+                double k = i + 2;
 
-                x[i, 0] = (k - 0.5) * 10 / Math.Cos(0.2);
+                x[i, 0] = (k - 1) * 10 / Math.Cos(0.2);
                 x[i, 1] = x[i, 0] + 5 / Math.Cos(0.2);
                 x[i, 2] = x[i, 1] + 5 / Math.Cos(0.2);
             }
@@ -902,11 +902,10 @@ namespace imitator
                 H = Int32.Parse(data[0]),
                 NeKrit = double.Parse(data[1]),
                 NuKrit = double.Parse(data[2]),
-                Ro = double.Parse(data[3]),
-                V = double.Parse(data[4]),
-                Xkn = double.Parse(data[5]),
-                Xkc = double.Parse(data[6]),
-                Xkk = double.Parse(data[7])
+                V = double.Parse(data[3]),
+                Xkn = double.Parse(data[4]),
+                Xkc = double.Parse(data[5]),
+                Xkk = double.Parse(data[6])
             };
         }
         private Imit44_46.InputData toDataPack44_46(string[] data)
@@ -916,7 +915,6 @@ namespace imitator
                 H = Int32.Parse(data[0]),
                 NeKrit = double.Parse(data[1]),
                 NuKrit = double.Parse(data[2]),
-                Ro = double.Parse(data[3]),
                 V = double.Parse(data[4]),
                 Xkn = double.Parse(data[5]),
                 Xkc = double.Parse(data[6]),

@@ -13,3 +13,4 @@ C:\GitHub\imitator\imitator\obj\Release\imitator.Properties.Resources.resources
 C:\GitHub\imitator\imitator\obj\Release\imitator.csproj.GenerateResource.Cache
 C:\GitHub\imitator\imitator\obj\Release\imitator.exe
 C:\GitHub\imitator\imitator\obj\Release\imitator.pdb
+C:\GitHub\imitator\imitator\obj\Release\imitator.csprojResolveAssemblyReference.cache

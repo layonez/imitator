@@ -40,10 +40,6 @@ namespace imitator
             /// </summary>
             public double Xkk;
             /// <summary>
-            /// Плотность набегающего потока, кг/м3
-            /// </summary>
-            public double Ro;
-            /// <summary>
             /// Текущая высота полета БЦ, м
             /// </summary>
             public double H;
@@ -167,11 +163,14 @@ namespace imitator
 
         public static OutputData GeneralOperator(InputData data)
         {
+            //определим плотность
+            double Ro = Imit42.GetDensity(data.H);
+
             OutputData outData= new OutputData();
 
             //ЛО1
-            if (data.H >= 80000)
-                return outData;
+            //if (data.H >= 80000)
+            //    return outData;
 
             //ВП1
             //Расчет высоты начала турбулизации вязкого следа 
@@ -180,7 +179,7 @@ namespace imitator
             double Hturb = GetHturb(RoTurb);
 
             //Расчет расстояния от горла до точки перехода из ламинарного в турбулентное течение 
-            double Xp = GetXp(Rm,data.V,data.Ro);
+            double Xp = GetXp(Rm,data.V,Ro);
 
             //ВП01
             //Расчет  параметров электронной концентрации
@@ -189,7 +188,7 @@ namespace imitator
             double NeKp = (1.24e-8)*Cnst.f0*Cnst.f0;
 
             //Расчет аэродинамической силы, действующей на БЦ при полете в атмосфере
-            double R = 0.5*Cnst.Cx*Cnst.Sm*data.Ro*data.V*data.V;
+            double R = 0.5*Cnst.Cx*Cnst.Sm*Ro*data.V*data.V;
 
             //ЛО2
             //Проверка условия о прохождении высоты начала турбулизации вязкого следа
@@ -197,10 +196,10 @@ namespace imitator
             {
                 outData = GetParams(data, NeR, NuR, R,NeKp,Rm);
             }
-            //else if (data.Xkk < Xp)
-            //{
-            //    outData = GetParams(data, NeR, NuR, R, NeKp, Rm);
-            //}
+            else if (data.Xkk < Xp)
+            {
+                outData = GetParams(data, NeR, NuR, R, NeKp, Rm);
+            }
             else
             {
                 outData = GetParamsInTurb(data, Rm, R, NeR, NuR, NeKp);
@@ -216,7 +215,7 @@ namespace imitator
         private static double GetHturb(double roTurb)
         {
             double mu;
-            for (int i = 0; i < 27; i++)
+            for (int i = 0; i < Imit42.Cnst.T2.GetLength(0)-1; i++)
             {
                 if (roTurb >= Imit42.Cnst.T2[i, 1] && roTurb <= Imit42.Cnst.T2[i + 1, 1])
                 {
@@ -305,12 +304,8 @@ namespace imitator
         private static OutputData GetParamsInTurb(InputData data, double Rm, double R, double NeR, double NuR, double NeKp)
         {
             double Xkp;
-            double alfa = 0.3333;
+            double alfa = 0.4;
 
-            if (data.Xkn <= 100 * Rm)
-            {
-                alfa = 0.5;
-            }
 
             //Расчет ширины вязкого следа в заданных точках внутри турбулентного вязкого следа 
             double DZkn = GetDzetaInTurb(data.Xkn, R, alfa);

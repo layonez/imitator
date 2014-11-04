@@ -128,7 +128,7 @@ namespace imitator
             /// <summary>
             /// Разрешающая способность по скорости  РЛС
             /// </summary>
-            public const double dV = 1;
+            public const double dV = 10;
             /// <summary>
             /// Размерность дальностно-скоростного портрета по дальности
             /// </summary>
@@ -243,138 +243,193 @@ namespace imitator
             if (data.Hturb < data.H)
             {
                 //ЛО2 
-                if (data.NeXkc < 1.1e9 * Math.Pow(Cnst.LambdaK, -2))
+                if (data.NeXkc < 1.1e9*Math.Pow(Cnst.LambdaK, -2))
                 {
                     //ВП2
-                    s = 0;
                     return new OutputData();
                 }
                 else
                 {
-                    //Расчет ЭПР ламинарного участка следа  
-                    double dr = Cnst.dr / Math.Cos(data.Angle);
-                    s = GetSigma(data, dr);
-
-                    //ЛО3
-                    if (s < 10e-5)
-                    {
-                        s = 0;
-                        return new OutputData();
-                    }
-                    if (s > 20)
-                    {
-                        s = 20;
-                    }
+                    return GetESSforLaminar(data);
                 }
 
-                //ВП4
-                //Расчет количества ячеек в портрете
-                double m = 1 + ((data.VXkn - data.VXkk) * Math.Cos(data.Angle)) / Cnst.dV;
-                m = Math.Round(m);
-                //Расчет диапазона изменения 
-                double jMin = Math.Round(1 + (data.VXkk * Math.Cos(data.Angle)) / Cnst.dV);
-                double jMax = Math.Round(1 + (data.VXkn * Math.Cos(data.Angle)) / Cnst.dV);
-
-                //ВП5
-                Sk = GetSk(jMax, jMin, m, s);
             }
             else
             {
-                //ЛО4
-                if (data.dXkc < data.Xkp)
+                //ЛО 04
+                if (data.Xkp > data.Xp)
                 {
-                    //ВП6
-                    //Вычисление среднего квадратичного отклонения и продольного размера неоднородностей
-                    double Sksi = Cnst.K1 * data.dXkc;
-                    double R = (1.9726e-1) + (2.2647e-4) * Math.Pow(data.dXkc / Cnst.dm, 1.0833);
-                    double Lksi = Cnst.dm * R;
+                    //ЛО 4
+                    if (data.dXkc < data.Xkp)
+                    {
+                        if (data.dXkc < data.Xp)
+                        {
+                            return GetESSforLaminar(data);
+                        }
 
-                    double Sed = 0;
-                    //ЛО5
-                    //Проверка условия шероховатости поверхности СПС
-                    if (Sksi * Sksi / (Lksi * Lksi) < 0.1)
-                    {
-                        //ВП7
-                        //Определение пространственного спектра 
-                        double Fksi = GetFksi(Sksi, Lksi);
-                        //ВП8
-                        //Определение ЭПР сверхкритического  турбулентного участка следа единичной длины 
-                        Sed = Cnst.Ksv2 * Math.Pow(Math.PI * 2 / Cnst.LambdaK, 4) * Math.Sin(data.Angle) *
-                                  Math.Sin(data.Angle) * Fksi;
-                    }
-                    else
-                    {
-                        //ВП9
-                        double F = GetF(data, Lksi, Sksi);
-                        //ВП10
-                        //Определение ЭПР сверхкритического турбулентного участка следа единичной длины  значительной шероховатости
-                        Sed = Cnst.Ksv3 * data.dXkc * Lksi * Lksi * F /
-                                  (2 * Sksi * Sksi);
-
-                    }
-                    //Расчет  ЭПР сверхкритического следа
-                    s = Sed * Cnst.dr / Math.Cos(data.Angle);
-                    //ЛО5
-                    if (s < 1e-5)
-                    {
-                        s = 0;
-                        return new OutputData();
-                    }
-                    if (s > 20)
-                    {
-                        s = 20;
+                        return GetESSSuperCritical(data);
                     }
 
-                    //ВП11
-                    //Расчет количества ячеек в портрете
-                    double m = Math.Round((1 + data.VXkn - data.VXkk) * Math.Cos(data.Angle) / (5 * Cnst.dV));
-                    //Вычисление граничных значений J
-                    double jMin = Math.Round(1 + (data.VXkk * Math.Cos(data.Angle)) / (5 * Cnst.dV));
-                    double jMax = Math.Round(1 + (data.VXkn * Math.Cos(data.Angle)) / (5 * Cnst.dV));
-                    Sk = GetSk1(jMax, jMin, m, s);
-
+                    if (data.Xkc < data.Xp)
+                    {
+                        return GetESSSubCritical(data);
+                    }
+                }
+                //ЛО 004
+                else if (data.Xkc<0.5*(data.Xkp+data.Xp))
+                {
+                    return GetESSforLaminar(data);
                 }
                 else
                 {
-                    //ВП13
-                    //Расчет  ЭПР докритического следа
-                    double Sed = GetSed(data);
-                    //ВП14	 Расчет объема докритического участка СПС
-                    double dVk = (Math.PI / 4) * Cnst.dr * data.dXkc * data.dXkc * (1 / Math.Cos(data.Angle));
-                    //ВП15	Расчет ЭПР i-го  докритического участка
-                    s = Sed * dVk;
-
-                    //ЛО6
-                    if (s < 1e-5)
-                    {
-                        s = 0;
-                        return new OutputData();
-                    }
-                    if (s > 20)
-                    {
-                        s = 20;
-                    }
-
-                    //ВП16	Расчет диапазона изменения скорости
-                    double dV = Cnst.Kv * data.VXkc / Math.Sqrt(data.VXkc);
-                    //Расчет количества элементов разрешения 
-                    double m = Math.Round(dV / (5 * Cnst.dV));
-                    double j = (data.VXkc - 0.5 * Cnst.dV) /
-                        (5 * Cnst.dV);
-
-                    //ВП17	Расчет   ЭПР j-го элемента  строки по скорости для k-го элемента разрешения по дальности
-                    Sk = new VSpair[(int)(m)];
-                    int i = 0;
-                    for (; i < m; j = j + m, i++)
-                    {
-                        double sk = (s / m) * (1 - Math.Cos(Math.PI * 2 * j / m));
-                        double V = 5 * j * Cnst.dV;
-                        Sk[i] = new VSpair() { S = sk, V = V };
-                    }
+                    return GetESSSubCritical(data);
                 }
             }
 
             return new OutputData() { Skj = Sk, Sk = s };
+        }
+
+        private static OutputData GetESSSubCritical(InputData data)
+        {
+            double s;
+            VSpair[] Sk;
+
+            //ВП13
+            //Расчет  ЭПР докритического следа
+            double Sed = GetSed(data);
+            //ВП14	 Расчет объема докритического участка СПС
+            double dVk = (Math.PI/4)*Cnst.dr*data.dXkc*data.dXkc*(1/Math.Cos(data.Angle));
+            //ВП15	Расчет ЭПР i-го  докритического участка
+            s = Sed*dVk;
+
+            //ЛО6
+            if (s < 1e-5)
+            {
+                return new OutputData();
+            }
+            if (s > 10)
+            {
+                s = 10;
+            }
+
+            //ВП16	Расчет диапазона изменения скорости
+            double dV = Cnst.Kv*data.VXkc/Math.Sqrt(data.Xkc);
+            //Расчет количества элементов разрешения 
+            double m = Math.Round((dV + data.VXkn - data.VXkk)*Math.Cos(data.Angle)/(Cnst.dV));
+            if (m > 20)
+                m = 20;
+
+            double jMin = (data.VXkk)*Math.Cos(data.Angle)/
+                          (Cnst.dV);
+            jMin = Math.Round(jMin);
+
+            Sk = GetSk(jMin + m, jMin, m, s);
+
+            return new OutputData() {Skj = Sk, Sk = s};
+        }
+
+        private static OutputData GetESSSuperCritical(InputData data)
+        {
+            double s;
+            VSpair[] Sk;
+            double Sksi;
+            double R;
+            double Lksi;
+            //ВП6
+            //Вычисление среднего квадратичного отклонения и продольного размера неоднородностей
+            Sksi = Cnst.K1*data.dXkc;
+            R = (1.9726e-1) + (2.2647e-4)*Math.Pow(data.dXkc/Cnst.dm, 1.0833);
+            Lksi = Cnst.dm*R;
+
+            double Sed = 0;
+            //ЛО5
+            //Проверка условия шероховатости поверхности СПС
+            if (Sksi*Sksi/(Lksi*Lksi) < 0.1)
+            {
+                //ВП7
+                //Определение пространственного спектра 
+                double Fksi = GetFksi(Sksi, Lksi);
+                //ВП8
+                //Определение ЭПР сверхкритического  турбулентного участка следа единичной длины 
+                Sed = Cnst.Ksv2*Math.Pow(Math.PI*2/Cnst.LambdaK, 4)*Math.Sin(data.Angle)*
+                      Math.Sin(data.Angle)*Fksi;
+            }
+            else
+            {
+                //ВП9
+                double F = GetF(data, Lksi, Sksi);
+                //ВП10
+                //Определение ЭПР сверхкритического турбулентного участка следа единичной длины  значительной шероховатости
+                Sed = Cnst.Ksv3*data.dXkc*Lksi*Lksi*F/
+                      (2*Sksi*Sksi);
+            }
+            //Расчет  ЭПР сверхкритического следа
+            s = Sed*Cnst.dr/Math.Cos(data.Angle);
+            //ЛО5
+            if (s < 1e-5)
+            {
+                s = 0;
+                return new OutputData();
+            }
+            if (s > 10)
+            {
+                s = 10;
+            }
+
+            //ВП11
+            //Расчет количества ячеек в портрете
+            double dV = Cnst.Kv*data.VXkc/Math.Sqrt(data.Xkc);
+
+            double m = Math.Round((data.VXkn + dV - data.VXkk)*Math.Cos(data.Angle)/(Cnst.dV));
+            if (m > 20)
+            {
+                m = 20;
+            }
+
+            //Вычисление граничных значений J
+            double jMin = Math.Round(1 + (data.VXkk*Math.Cos(data.Angle))/(Cnst.dV));
+            double jMax = jMin + m;
+            Sk = GetSk1(jMax, jMin, m, s);
+
+            return new OutputData() {Skj = Sk, Sk = s};
+        }
+
+        /// <summary>
+        /// ВП3-ВП5
+        /// Расчет ЭПР ламинарного участка следа
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static OutputData GetESSforLaminar(InputData data)
+        {
+            double s;
+            VSpair[] Sk;
+            double dr = Cnst.dr/Math.Cos(data.Angle);
+            s = GetSigma(data, dr);
+
+            //ЛО3
+            if (s < 10e-5)
+            {
+                return new OutputData();
+            }
+            if (s > 10)
+            {
+                s = 10;
+            }
+            //ВП4
+            //Расчет количества ячеек в портрете
+            double m1 = 1 + ((data.VXkn - data.VXkk)*Math.Cos(data.Angle))/Cnst.dV;
+            m1 = Math.Round(m1);
+            if (m1 > 20)
+                m1 = 20;
+            //Расчет диапазона изменения 
+            double jMin1 = Math.Round(1 + (data.VXkk*Math.Cos(data.Angle))/Cnst.dV);
+            double jMax1 = jMin1 + m1;
+
+            //ВП5
+            Sk = GetSk(jMax1, jMin1, m1, s);
+
+            return new OutputData() {Skj = Sk, Sk = s};
         }
 
         private static double Sum(VSpair[] sk)
@@ -393,7 +448,7 @@ namespace imitator
             double F = Cnst.K3*Math.Pow(data.Xkc*Cnst.Cx*Cnst.Sm, 0.3333)*
                     (1 - (2/3)*Cnst.K3*Cnst.K3*Math.Pow(data.Xkc*Cnst.Cx*Cnst.Sm, 0.6666) +
                      0.2*Math.Pow(Cnst.K3, 4)*Math.Pow(data.Xkc*Cnst.Cx*Cnst.Sm, 1.3333));
-            double Sed = (10e-18)*
+            double Sed = (10e-19)*
                 5.64*Math.Pow(2*Math.PI/Cnst.LambdaK, 2)*data.NeXkc*data.NeXkc*Math.Pow(L0, 3)*F/
                       Math.Pow(1 + 4 * (Math.Pow(2 * Math.PI / Cnst.LambdaK, 2)) * L0 * L0, 1.8333);
             return Sed;
@@ -417,19 +472,20 @@ namespace imitator
 
         private static double GetSigma(InputData data, double dr)
         {
-            double s1 = Math.PI*data.dXkc*dr*dr*Math.Sin(data.Angle)/
+            double s1 = Math.PI*data.dXkc*dr*dr/
                      Cnst.LambdaK;
-            double s2 = Math.Pow(Math.Sin(Math.PI * 2 * dr * Math.Cos(data.Angle) /
-                     Cnst.LambdaK), 2) /
-                     Math.Pow(Math.PI * 2 * dr * Math.Cos(data.Angle) /
-                     Cnst.LambdaK, 2);
+            double s2 = Math.Pow(Math.Sin(data.Angle),4);
+                //Math.Pow(Math.Sin(Math.PI * 2 * dr * Math.Cos(data.Angle) /
+                //     Cnst.LambdaK), 2) /
+                //     Math.Pow(Math.PI * 2 * dr * Math.Cos(data.Angle) /
+                //     Cnst.LambdaK, 2);
             double s = s1*s2;
             return s;
         }
 
         private static VSpair[] GetSk(double jMax, double jMin, double m, double s)
         {
-            double dim = (jMax - jMin) / m;
+            double dim = 1;
 
             VSpair[] S = new VSpair[(int)m];
             
@@ -438,8 +494,10 @@ namespace imitator
             for (double j = jMin; i < m; j = j + dim,i++)
             {
                double V = j * Cnst.dV;
-               double sk = (s/m)*(1 - Cnst.Kpv*(1/m)*(j - (jMin + m/2)));
-
+               //double sk = (s/m)*(1 - Cnst.Kpv*(1/m)*(j - (jMin + m/2)));
+               double sk = (s / m) * (0.3 + Math.Sin(
+                   Math.PI * (j - jMin) / m)
+                   );  
                 S[i] = new VSpair {S = sk, V = V};
             }
             return S;
@@ -447,7 +505,7 @@ namespace imitator
        
         private static VSpair[] GetSk1(double jMax, double jMin, double m, double s)
         {
-            double dim = (jMax - jMin) / m;
+            double dim = 1;
 
             VSpair[] S = new VSpair[(int)m];
 
@@ -455,8 +513,13 @@ namespace imitator
 
             for (double j = jMin; i < m; j = j + dim, i++)
             {
-                double sk = (s / m) * (1 - 0.5 * (1 / m) * (j - (jMin + m / 2)));
-                double V = 5* j * Cnst.dV;
+                //double sk = (s / m) * (1 - 0.5 * (1 / m) * (j - (jMin + m / 2)));
+
+                double sk = (s / m) * (0.3+Math.Sin(
+                    Math.PI*(j - jMin)/m)
+                    );  
+
+                double V = j * Cnst.dV;
                 S[i] = new VSpair { S = sk, V = V };
             }
             return S;

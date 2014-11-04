@@ -76,12 +76,32 @@
             this.TabCntrl43 = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.inputGrid43 = new System.Windows.Forms.DataGridView();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Angle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.outputGrid43 = new System.Windows.Forms.DataGridView();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.tabControl42_43 = new System.Windows.Forms.TabControl();
             this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
             this.input42_43 = new System.Windows.Forms.DataGridView();
+            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.H = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.V1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.angle11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage12 = new System.Windows.Forms.TabPage();
             this.out42_43 = new System.Windows.Forms.DataGridView();
             this.tabPage44 = new System.Windows.Forms.TabPage();
@@ -89,14 +109,6 @@
             this.tabPage13 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.inputGrid44 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NeKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NuKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Xkn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Xkc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Xkk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage14 = new System.Windows.Forms.TabPage();
             this.outputGrid44 = new System.Windows.Forms.DataGridView();
             this.tabPage15 = new System.Windows.Forms.TabPage();
@@ -150,26 +162,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCtrlVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Angle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.H = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.V1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.angle11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button5 = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NeKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NuKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Xkn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Xkc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Xkk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -649,6 +648,78 @@
             this.inputGrid43.Size = new System.Drawing.Size(628, 340);
             this.inputGrid43.TabIndex = 0;
             // 
+            // Column16
+            // 
+            this.Column16.HeaderText = "Тип цели";
+            this.Column16.Name = "Column16";
+            this.Column16.Width = 78;
+            // 
+            // Column17
+            // 
+            this.Column17.HeaderText = "Подтип цели";
+            this.Column17.Name = "Column17";
+            this.Column17.Width = 96;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Ne";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 46;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Nu";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 46;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Delta";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 57;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Ageo";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 57;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Bgeo";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 57;
+            // 
+            // Angle
+            // 
+            this.Angle.HeaderText = "Angle";
+            this.Angle.Name = "Angle";
+            this.Angle.Width = 59;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "V";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 39;
+            // 
+            // Rc
+            // 
+            this.Rc.HeaderText = "Rc";
+            this.Rc.Name = "Rc";
+            this.Rc.Width = 46;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "H";
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 40;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "NeKrit";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 61;
+            // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.outputGrid43);
@@ -705,6 +776,18 @@
             this.tabPage11.Text = "Входные данные";
             this.tabPage11.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(6, 307);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(622, 23);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "Заполнить стандартными";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // input42_43
             // 
             this.input42_43.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
@@ -722,6 +805,48 @@
             this.input42_43.Name = "input42_43";
             this.input42_43.Size = new System.Drawing.Size(628, 340);
             this.input42_43.TabIndex = 0;
+            // 
+            // Column18
+            // 
+            this.Column18.HeaderText = "Тип цели";
+            this.Column18.Name = "Column18";
+            this.Column18.Width = 78;
+            // 
+            // Column19
+            // 
+            this.Column19.HeaderText = "Подтип цели";
+            this.Column19.Name = "Column19";
+            this.Column19.Width = 96;
+            // 
+            // H
+            // 
+            this.H.HeaderText = "H";
+            this.H.Name = "H";
+            this.H.Width = 40;
+            // 
+            // V1
+            // 
+            this.V1.HeaderText = "V";
+            this.V1.Name = "V1";
+            this.V1.Width = 39;
+            // 
+            // angle11
+            // 
+            this.angle11.HeaderText = "Angle";
+            this.angle11.Name = "angle11";
+            this.angle11.Width = 59;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "fi";
+            this.Column10.Name = "Column10";
+            this.Column10.Width = 37;
+            // 
+            // Column20
+            // 
+            this.Column20.HeaderText = "Rzatup";
+            this.Column20.Name = "Column20";
+            this.Column20.Width = 66;
             // 
             // tabPage12
             // 
@@ -799,7 +924,6 @@
             this.dataGridViewTextBoxColumn61,
             this.NeKrit,
             this.NuKrit,
-            this.Ro,
             this.V,
             this.Xkn,
             this.Xkc,
@@ -809,54 +933,6 @@
             this.inputGrid44.Name = "inputGrid44";
             this.inputGrid44.Size = new System.Drawing.Size(628, 340);
             this.inputGrid44.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn61
-            // 
-            this.dataGridViewTextBoxColumn61.HeaderText = "H";
-            this.dataGridViewTextBoxColumn61.Name = "dataGridViewTextBoxColumn61";
-            this.dataGridViewTextBoxColumn61.Width = 40;
-            // 
-            // NeKrit
-            // 
-            this.NeKrit.HeaderText = "NeKrit";
-            this.NeKrit.Name = "NeKrit";
-            this.NeKrit.Width = 61;
-            // 
-            // NuKrit
-            // 
-            this.NuKrit.HeaderText = "NuKrit";
-            this.NuKrit.Name = "NuKrit";
-            this.NuKrit.Width = 61;
-            // 
-            // Ro
-            // 
-            this.Ro.HeaderText = "Ro";
-            this.Ro.Name = "Ro";
-            this.Ro.Width = 46;
-            // 
-            // V
-            // 
-            this.V.HeaderText = "V";
-            this.V.Name = "V";
-            this.V.Width = 39;
-            // 
-            // Xkn
-            // 
-            this.Xkn.HeaderText = "Xkn";
-            this.Xkn.Name = "Xkn";
-            this.Xkn.Width = 51;
-            // 
-            // Xkc
-            // 
-            this.Xkc.HeaderText = "Xkc";
-            this.Xkc.Name = "Xkc";
-            this.Xkc.Width = 51;
-            // 
-            // Xkk
-            // 
-            this.Xkk.HeaderText = "Xkk";
-            this.Xkk.Name = "Xkk";
-            this.Xkk.Width = 51;
             // 
             // tabPage14
             // 
@@ -1304,131 +1380,47 @@
             this.pasteCtrlVToolStripMenuItem.Name = "pasteCtrlVToolStripMenuItem";
             this.pasteCtrlVToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // Column16
+            // dataGridViewTextBoxColumn61
             // 
-            this.Column16.HeaderText = "Тип цели";
-            this.Column16.Name = "Column16";
-            this.Column16.Width = 78;
+            this.dataGridViewTextBoxColumn61.HeaderText = "H";
+            this.dataGridViewTextBoxColumn61.Name = "dataGridViewTextBoxColumn61";
+            this.dataGridViewTextBoxColumn61.Width = 40;
             // 
-            // Column17
+            // NeKrit
             // 
-            this.Column17.HeaderText = "Подтип цели";
-            this.Column17.Name = "Column17";
-            this.Column17.Width = 96;
+            this.NeKrit.HeaderText = "NeKrit";
+            this.NeKrit.Name = "NeKrit";
+            this.NeKrit.Width = 61;
             // 
-            // Column1
+            // NuKrit
             // 
-            this.Column1.HeaderText = "Ne";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 46;
+            this.NuKrit.HeaderText = "NuKrit";
+            this.NuKrit.Name = "NuKrit";
+            this.NuKrit.Width = 61;
             // 
-            // Column2
+            // V
             // 
-            this.Column2.HeaderText = "Nu";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 46;
+            this.V.HeaderText = "V";
+            this.V.Name = "V";
+            this.V.Width = 39;
             // 
-            // Column3
+            // Xkn
             // 
-            this.Column3.HeaderText = "Delta";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 57;
+            this.Xkn.HeaderText = "Xkn";
+            this.Xkn.Name = "Xkn";
+            this.Xkn.Width = 51;
             // 
-            // Column4
+            // Xkc
             // 
-            this.Column4.HeaderText = "Ageo";
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 57;
+            this.Xkc.HeaderText = "Xkc";
+            this.Xkc.Name = "Xkc";
+            this.Xkc.Width = 51;
             // 
-            // Column5
+            // Xkk
             // 
-            this.Column5.HeaderText = "Bgeo";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 57;
-            // 
-            // Angle
-            // 
-            this.Angle.HeaderText = "Angle";
-            this.Angle.Name = "Angle";
-            this.Angle.Width = 59;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "V";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 39;
-            // 
-            // Rc
-            // 
-            this.Rc.HeaderText = "Rc";
-            this.Rc.Name = "Rc";
-            this.Rc.Width = 46;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "H";
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 40;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "NeKrit";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 61;
-            // 
-            // Column18
-            // 
-            this.Column18.HeaderText = "Тип цели";
-            this.Column18.Name = "Column18";
-            this.Column18.Width = 78;
-            // 
-            // Column19
-            // 
-            this.Column19.HeaderText = "Подтип цели";
-            this.Column19.Name = "Column19";
-            this.Column19.Width = 96;
-            // 
-            // H
-            // 
-            this.H.HeaderText = "H";
-            this.H.Name = "H";
-            this.H.Width = 40;
-            // 
-            // V1
-            // 
-            this.V1.HeaderText = "V";
-            this.V1.Name = "V1";
-            this.V1.Width = 39;
-            // 
-            // angle11
-            // 
-            this.angle11.HeaderText = "Angle";
-            this.angle11.Name = "angle11";
-            this.angle11.Width = 59;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "fi";
-            this.Column10.Name = "Column10";
-            this.Column10.Width = 37;
-            // 
-            // Column20
-            // 
-            this.Column20.HeaderText = "Rzatup";
-            this.Column20.Name = "Column20";
-            this.Column20.Width = 66;
-            // 
-            // button5
-            // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(6, 307);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(622, 23);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Заполнить стандартными";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.Xkk.HeaderText = "Xkk";
+            this.Xkk.Name = "Xkk";
+            this.Xkk.Width = 51;
             // 
             // Form1
             // 
@@ -1558,14 +1550,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn61;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NeKrit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NuKrit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn V;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Xkn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Xkc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Xkk;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TabPage tabPage15;
         private System.Windows.Forms.TabControl TabCntrl46;
@@ -1633,6 +1617,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column20;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn61;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NeKrit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NuKrit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn V;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Xkn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Xkc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Xkk;
     }
 }
 
