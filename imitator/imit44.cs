@@ -304,7 +304,7 @@ namespace imitator
         private static OutputData GetParamsInTurb(InputData data, double Rm, double R, double NeR, double NuR, double NeKp)
         {
             double Xkp;
-            double alfa = 0.4;
+            double alfa = 0.42;
 
 
             //Расчет ширины вязкого следа в заданных точках внутри турбулентного вязкого следа 

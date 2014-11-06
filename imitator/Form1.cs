@@ -648,10 +648,15 @@ namespace imitator
 
         private void FillDefaults44_46()
         {
-            double H = 60000;
+            double H = 40000;
+            double Ne = 1e13;
             if (inputGrid44_46.Rows[0].Cells[0].Value != null)
             {
                 H = double.TryParse(inputGrid44_46.Rows[0].Cells[0].Value.ToString(), out H) ? H : 60000;
+            }
+            if (inputGrid44_46.Rows[0].Cells[1].Value != null)
+            {
+                Ne = double.TryParse(inputGrid44_46.Rows[0].Cells[1].Value.ToString(), out Ne) ? Ne : 1e13;
             }
 
 
@@ -672,7 +677,7 @@ namespace imitator
                 DataGridViewRow row = new DataGridViewRow();
                 // h ne nu ro v 
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = H.ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "1000000000000" });
+                row.Cells.Add(new DataGridViewTextBoxCell() { Value = Ne.ToString() });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = "100000000" });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = 0.001.ToString() });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = "6000" });

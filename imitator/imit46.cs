@@ -136,11 +136,11 @@ namespace imitator
             /// <summary>
             /// Коэффициенты калибровки ЭПР сверхкритического следа
             /// </summary>
-            public const double Ksv2 = 1;
+            public const double Ksv2 = 0.005;
             /// <summary>
             /// Коэффициенты калибровки ЭПР сверхкритического следа
             /// </summary>
-            public const double Ksv3 = 1;
+            public const double Ksv3 = 0.005;
             /// <summary>
             /// Длина волны  излучения РЛС
             /// </summary>
@@ -260,9 +260,9 @@ namespace imitator
                 if (data.Xkp > data.Xp)
                 {
                     //ЛО 4
-                    if (data.dXkc < data.Xkp)
+                    if (data.Xkc < data.Xkp)
                     {
-                        if (data.dXkc < data.Xp)
+                        if (data.Xkc < data.Xp)
                         {
                             return GetESSforLaminar(data);
                         }
@@ -270,10 +270,7 @@ namespace imitator
                         return GetESSSuperCritical(data);
                     }
 
-                    if (data.Xkc < data.Xp)
-                    {
-                        return GetESSSubCritical(data);
-                    }
+                    return GetESSSubCritical(data);
                 }
                 //ЛО 004
                 else if (data.Xkc<0.5*(data.Xkp+data.Xp))

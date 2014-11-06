@@ -24,8 +24,7 @@ namespace imitator
 
             foreach (var data in datas)
             {
-                if (data.H>80000)
-                    continue;
+              
 
                 var out42=Imit42.GeneralOperator(data);
                 var inp43 = new Imit43.InputData()
