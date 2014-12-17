@@ -311,14 +311,7 @@ namespace imitator
 
                     var Out = Imit44_46.GeneralOperator(dotList);
 
-                    for (int i = 0; i < dotList.Count(); i++)
-                    {
-                        var outStr = toString(Out[i]);
-                        for (int j = 0; j < outStr.Count(); j++)
-                        {
-                            OutArr[i, j] = outStr[j];
-                        }
-                    }
+                    Bind44_46FromData(Out);
 
                     stopWatch.Stop();
 
@@ -330,7 +323,6 @@ namespace imitator
                         ts.Milliseconds / 10);
                     TimeLable.Text = elapsedTime;
 
-                    Bind44_46(OutArr);
 
                     TabCntrl44_46.SelectTab(1);
                 }
@@ -342,6 +334,69 @@ namespace imitator
           //      MessageBox.Show(exception.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
            // }
 
+        }
+
+        private void Bind44_46FromData(Imit46.OutputData[] Data)
+        {
+            var minV = (int)(from outputData in Data
+                from skj in outputData.Skj
+                select skj).Min(x => x.V);
+            var maxV= (int)(from outputData in Data
+                from skj in outputData.Skj
+                select skj).Max(x => x.V);
+
+            outputGrid44_46.Columns.Clear();
+            outputGrid44_46.Rows.Clear();
+
+            outputGrid44_46.Columns.Add("colxk", "Xkc"); 
+            outputGrid44_46.Columns.Add("coldxk", "dXkc"); 
+
+            outputGrid44_46.Columns.Add("colSk", "Sk");
+            outputGrid44_46.Columns.Add("colSsps", "Ssps");
+
+            for (int i = minV; i <= maxV; i=i+Data[0].dV)
+            {
+                outputGrid44_46.Columns.Add(i.ToString(), "V=" + i);
+            }
+
+            for (int j = 0; j < Data.Count(); j++)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+
+                DataGridViewCell XkcCell = new DataGridViewTextBoxCell();
+                XkcCell.Value = Data[j].Xkc.ToString("0.###E+0", CultureInfo.InvariantCulture);
+                row.Cells.Add(XkcCell);
+
+                DataGridViewCell dXkcCell = new DataGridViewTextBoxCell();
+                dXkcCell.Value = Data[j].dXkc.ToString("0.###E+0", CultureInfo.InvariantCulture);
+                row.Cells.Add(dXkcCell);
+
+                DataGridViewCell SkCell = new DataGridViewTextBoxCell();
+                SkCell.Value = Data[j].Sk.ToString("0.###E+0", CultureInfo.InvariantCulture);
+                row.Cells.Add(SkCell);
+
+                DataGridViewCell SspsCell = new DataGridViewTextBoxCell();
+                SspsCell.Value = Data[j].Ssps.ToString("0.###E+0", CultureInfo.InvariantCulture);
+                row.Cells.Add(SspsCell);
+
+                for (int i = 4; i < outputGrid44_46.Columns.Count; i++)
+                {
+                    DataGridViewCell Cell = new DataGridViewTextBoxCell();
+                    row.Cells.Add(Cell);
+                }
+
+                for (int i = 4; i < outputGrid44_46.Columns.Count; i++)
+                {
+                    foreach (var skj in Data[j].Skj)
+                    {
+                        if (outputGrid44_46.Columns[i].Name == skj.V.ToString())
+                        {
+                            row.Cells[i].Value = skj.S.ToString("0.###E+0", CultureInfo.InvariantCulture);
+                        }
+                    }
+                }
+                outputGrid44_46.Rows.Add(row);
+            }
         }
 
         private Imit43.InputData[] to43InputData(double[,] outArr1, DataGridViewCellCollection cells, Imit42.InputData[] dots)

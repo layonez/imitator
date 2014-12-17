@@ -24,6 +24,12 @@ namespace imitator
             /// Матрица значений ЭПР ( дальностно – скоростной потрет СПС);
             /// </summary>
             public VSpair[] Skj;
+
+            //информация для отладки
+            public double dXkc;
+            public double Xkc;
+
+            public int dV = Cnst.dV;
         }
 
         /// <summary>
@@ -128,7 +134,7 @@ namespace imitator
             /// <summary>
             /// Разрешающая способность по скорости  РЛС
             /// </summary>
-            public const double dV = 10;
+            public const int dV = 20;
             /// <summary>
             /// Размерность дальностно-скоростного портрета по дальности
             /// </summary>
@@ -229,6 +235,14 @@ namespace imitator
                 {
                     output[i].Ssps = output[i].Sk;
                 }
+
+                output[i].Xkc = data[i].Xkc;
+                output[i].dXkc = data[i].dXkc;
+
+                if (output[i].Skj==null)
+                {
+                    output[i].Skj=new VSpair[0];
+                }
             }
 
             return output;
@@ -312,7 +326,7 @@ namespace imitator
             //ВП16	Расчет диапазона изменения скорости
             double dV = Cnst.Kv*data.VXkc/Math.Sqrt(data.Xkc);
             //Расчет количества элементов разрешения 
-            double m = Math.Round((dV + data.VXkn - data.VXkk)*Math.Cos(data.Angle)/(Cnst.dV));
+            double m = Math.Round(Math.Abs(dV + data.VXkn - data.VXkk)*Math.Cos(data.Angle)/(Cnst.dV));
             if (m > 20)
                 m = 20;
 

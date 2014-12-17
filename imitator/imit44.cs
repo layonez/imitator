@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms.VisualStyles;
 
 namespace imitator
 {
@@ -178,17 +179,23 @@ namespace imitator
             double RoTurb = 0.3/(Rm*data.V);
             double Hturb = GetHturb(RoTurb);
 
+            //Расчет аэродинамической силы, действующей на БЦ при полете в атмосфере
+            double R = 0.5*Cnst.Cx*Cnst.Sm*Ro*data.V*data.V;
+
             //Расчет расстояния от горла до точки перехода из ламинарного в турбулентное течение 
             double Xp = GetXp(Rm,data.V,Ro);
+
+            //double DZp = Math.Log10(Xp*Math.Pow(Cnst.Cx*Cnst.Sm, -0.5) + 1);
+            //double Vp = data.V*Math.Pow(
+            //    (1 + (7 + 1.5*Math.Log10(R))*DZp -
+            //     (3/(Math.Log10(R) + 8)*DZp*DZp)), 
+            //     -0.6 );
 
             //ВП01
             //Расчет  параметров электронной концентрации
             double NeR = 0.1*data.NeKrit;
             double NuR = 0.1*data.NuKrit;
             double NeKp = (1.24e-8)*Cnst.f0*Cnst.f0;
-
-            //Расчет аэродинамической силы, действующей на БЦ при полете в атмосфере
-            double R = 0.5*Cnst.Cx*Cnst.Sm*Ro*data.V*data.V;
 
             //ЛО2
             //Проверка условия о прохождении высоты начала турбулизации вязкого следа
@@ -202,7 +209,7 @@ namespace imitator
             }
             else
             {
-                outData = GetParamsInTurb(data, Rm, R, NeR, NuR, NeKp);
+                outData = GetParamsInTurb(data, Rm, R, NeR, NuR, NeKp, Xp);
             }
 
             outData.Xp = Xp;
@@ -235,12 +242,12 @@ namespace imitator
 
         #region Приватные методы 
 
-        private static double GetSpeed(double V, double Xkn)
+        private static double GetSpeed(double V, double Xk)
         {
-            double powArg = -0.6666;
-            return V *Math.Pow((Xkn / Math.Sqrt(Cnst.Cx * Cnst.Sm)+1),powArg);
+            const double powArg = -0.64;
+            return V *Math.Pow((Xk / Math.Sqrt(Cnst.Cx * Cnst.Sm)+1),powArg);
         }
-        
+
         /// <summary>
         /// Расчет аэродинамической силы,ширины вязкого следа,
         /// скорости потока в заданных точках,
@@ -259,9 +266,9 @@ namespace imitator
             double Dkk = DZkk*Math.Sqrt(Cnst.Cx*Cnst.Sm);
 
             //Расчет скорости потока в заданных точках ламинарного вязкого следа
-            double Vkn = data.V*(1/(DZkn*DZkn));
-            double Vkc = data.V*(1/(DZkc*DZkc));
-            double Vkk = data.V*(1/(DZkk*DZkk));
+            double Vkn = GetSpeed(data.V, data.Xkn);// data.V*(Math.Pow(DZkn,-0.6));
+            double Vkc = GetSpeed(data.V, data.Xkc);//data.V*(Math.Pow(DZkc,-0.6));
+            double Vkk = GetSpeed(data.V, data.Xkk);//data.V*(Math.Pow(DZkk,-0.6));
 
             //Расчет электронной концентрации в заданных точках ламинарного вязкого следа 
             double NeXkn = GetElectrKonc(NeR, data.Xkn);
@@ -301,7 +308,7 @@ namespace imitator
         /// эффективной частоты соударений электронов,
         /// электронной концентрации в заданных точках
         /// </summary>
-        private static OutputData GetParamsInTurb(InputData data, double Rm, double R, double NeR, double NuR, double NeKp)
+        private static OutputData GetParamsInTurb(InputData data, double Rm, double R, double NeR, double NuR, double NeKp, double Xp)
         {
             double Xkp;
             double alfa = 0.42;
@@ -371,16 +378,16 @@ namespace imitator
 
         private static double GetElectrKonc(double NeR, double Xk)
         {
-            double x1 = Math.Exp(-0.037*Xk);
-            double x2 = NeR/(1 + 0.025*Xk);
+            double x1 = Math.Exp(-0.033*Xk);
+            double x2 = NeR/(1 + 0.023*Xk);
 
             return x1*x2;
         }
 
         private static double GetElectrKoncInTurb(double NeR, double Xk)
         {
-            double x1 = Math.Exp(-0.029 * Xk);
-            double x2 = NeR / (1 + 0.021 * Xk);
+            double x1 = Math.Exp(-0.033 * Xk);
+            double x2 = NeR / (1 + 0.023 * Xk);
 
             return x1 * x2;
         }
@@ -412,8 +419,8 @@ namespace imitator
 
             for (double X = 0;; X = X + Rm)
             {
-                double l = Math.Exp(-0.037*X);
-                double r = (((1.24e-8) * Cnst.f0 * Cnst.f0) / NeR) * (1 + 0.025 * X);
+                double l = Math.Exp(-0.033*X);
+                double r = (((1.24e-8) * Cnst.f0 * Cnst.f0) / NeR) * (1 + 0.023 * X);
 
                 if (l<=r)
                     return X;
@@ -427,8 +434,8 @@ namespace imitator
             
             for (double X = 0; ; X = X + Rm)
             {
-                double l = Math.Exp(-0.029 * X);
-                double r = (NeKp / NeR) * (1 + 0.021 * X);
+                double l = Math.Exp(-0.033 * X);
+                double r = (NeKp / NeR) * (1 + 0.023 * X);
 
                 if (l <= r)
                     return X;
