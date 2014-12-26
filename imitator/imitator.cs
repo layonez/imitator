@@ -9,7 +9,7 @@ namespace imitator
         private const double Df = 5e6;
         private const double C = 3e8;
         
-        public static double[,] StartWork(ShineDot[] dots)
+        public static double[,] Exec(ShineDot[] dots)
         {
             double[,] outputData = new double[180,32];
 
@@ -225,6 +225,14 @@ namespace imitator
         public double Omin;
         public double Omax;
         public double Gamma;
+        /// <summary>
+        /// Коэффициент лобового сопротивления
+        /// </summary>
+        public double Cx;
+        /// <summary>
+        /// Площадь миделевого сечения
+        /// </summary>
+        public double Sm;
     }
 
     public struct DotParams

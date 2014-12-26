@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms.VisualStyles;
 
 namespace imitator
 {
     class Imit44
     {
-        #region входные и выходные параметры, константы
+        #region входные и выходные параметры
 
         /// <summary>
         /// ВХОДНАЯ ИНФОРМАЦИЯ
@@ -122,47 +118,10 @@ namespace imitator
             public double Hturb;
 
         }
-
-        /// <summary>
-        /// Константы
-        /// </summary>
-        public class Cnst
-        {
-            /// <summary>
-            /// Частота радиолокационного сигнала
-            /// </summary>
-            public const double f0 = 3e9;
-
-            /// <summary>
-            /// Аэродинамический коэффициент лобового сопротивления БЦ
-            /// </summary>
-            public const double Cx = 0.01;
-
-            /// <summary>
-            /// площадь миделевого сечения БЦ 
-            /// </summary>
-            public const double Sm = 1;
-
-            /// <summary>
-            /// скорость звука,  м/с
-            /// </summary>
-            public const double c = 340.29;
-
-            /// <summary>
-            /// средний радиус Земли, м
-            /// </summary>
-            public const double Rz = 6371e3;
-
-            /// <summary>
-            /// плотность
-            /// </summary>
-            public const double Ro0 = 1.125;
-
-        }
-
+        
         #endregion
 
-        public static OutputData GeneralOperator(InputData data)
+        public static OutputData Exec(InputData data)
         {
             //определим плотность
             double Ro = Imit42.GetDensity(data.H);
@@ -175,12 +134,12 @@ namespace imitator
 
             //ВП1
             //Расчет высоты начала турбулизации вязкого следа 
-            double Rm = Math.Pow(Cnst.Sm/Math.PI, 0.5);
+            double Rm = Math.Pow(Const.Sm/Math.PI, 0.5);
             double RoTurb = 0.3/(Rm*data.V);
             double Hturb = GetHturb(RoTurb);
 
             //Расчет аэродинамической силы, действующей на БЦ при полете в атмосфере
-            double R = 0.5*Cnst.Cx*Cnst.Sm*Ro*data.V*data.V;
+            double R = 0.5*Const.Cx*Const.Sm*Ro*data.V*data.V;
 
             //Расчет расстояния от горла до точки перехода из ламинарного в турбулентное течение 
             double Xp = GetXp(Rm,data.V,Ro);
@@ -195,7 +154,7 @@ namespace imitator
             //Расчет  параметров электронной концентрации
             double NeR = 0.1*data.NeKrit;
             double NuR = 0.1*data.NuKrit;
-            double NeKp = (1.24e-8)*Cnst.f0*Cnst.f0;
+            double NeKp = (1.24e-8)*Const.F0*Const.F0;
 
             //ЛО2
             //Проверка условия о прохождении высоты начала турбулизации вязкого следа
@@ -218,34 +177,34 @@ namespace imitator
             return outData;
 
         }
+        
+        #region Приватные методы 
 
         private static double GetHturb(double roTurb)
         {
             double mu;
-            for (int i = 0; i < Imit42.Cnst.T2.GetLength(0)-1; i++)
+            for (int i = 0; i < Const.T2.GetLength(0) - 1; i++)
             {
-                if (roTurb >= Imit42.Cnst.T2[i, 1] && roTurb <= Imit42.Cnst.T2[i + 1, 1])
+                if (roTurb >= Const.T2[i, 1] && roTurb <= Const.T2[i + 1, 1])
                 {
-                    mu = Math.Log(Imit42.Cnst.T2[i + 1, 1] / Imit42.Cnst.T2[i, 1]) / (-Imit42.Cnst.T2[i + 1, 0] + Imit42.Cnst.T2[i, 0]);
-                    return Imit42.Cnst.T2[i, 0] - (Math.Log(roTurb) - Math.Log(Imit42.Cnst.T2[i, 1])) / mu;
+                    mu = Math.Log(Const.T2[i + 1, 1] / Const.T2[i, 1]) / (-Const.T2[i + 1, 0] + Const.T2[i, 0]);
+                    return Const.T2[i, 0] - (Math.Log(roTurb) - Math.Log(Const.T2[i, 1])) / mu;
                 }
             }
-            mu = Math.Log(Imit42.Cnst.T2[27, 1] / Imit42.Cnst.T2[26, 1]) / (-Imit42.Cnst.T2[27, 0] + Imit42.Cnst.T2[26, 0]);
-            return Imit42.Cnst.T2[26, 0] - (Math.Log(roTurb) - Math.Log(Imit42.Cnst.T2[26, 1])) / mu;
+            mu = Math.Log(Const.T2[27, 1] / Const.T2[26, 1]) / (-Const.T2[27, 0] + Const.T2[26, 0]);
+            return Const.T2[26, 0] - (Math.Log(roTurb) - Math.Log(Const.T2[26, 1])) / mu;
         }
 
         private static double GetXp(double Rm, double V, double Ro)
         {
             double Re = (5.3e4) * Rm * V * Ro;
-            return Rm*(256.5 - 45*(Math.Log10(Re) - 1));
+            return Rm * (256.5 - 45 * (Math.Log10(Re) - 1));
         }
-
-        #region Приватные методы 
 
         private static double GetSpeed(double V, double Xk)
         {
             const double powArg = -0.64;
-            return V *Math.Pow((Xk / Math.Sqrt(Cnst.Cx * Cnst.Sm)+1),powArg);
+            return V *Math.Pow((Xk / Math.Sqrt(Const.Cx * Const.Sm)+1),powArg);
         }
 
         /// <summary>
@@ -261,14 +220,14 @@ namespace imitator
             double DZkc = GetDzeta(data.Xkc, R);
             double DZkk = GetDzeta(data.Xkk, R);
 
-            double Dkn = DZkn*Math.Sqrt(Cnst.Cx*Cnst.Sm);
-            double Dkc = DZkc*Math.Sqrt(Cnst.Cx*Cnst.Sm);
-            double Dkk = DZkk*Math.Sqrt(Cnst.Cx*Cnst.Sm);
+            double Dkn = DZkn*Math.Sqrt(Const.Cx*Const.Sm);
+            double Dkc = DZkc*Math.Sqrt(Const.Cx*Const.Sm);
+            double Dkk = DZkk*Math.Sqrt(Const.Cx*Const.Sm);
 
             //Расчет скорости потока в заданных точках ламинарного вязкого следа
-            double Vkn = GetSpeed(data.V, data.Xkn);// data.V*(Math.Pow(DZkn,-0.6));
-            double Vkc = GetSpeed(data.V, data.Xkc);//data.V*(Math.Pow(DZkc,-0.6));
-            double Vkk = GetSpeed(data.V, data.Xkk);//data.V*(Math.Pow(DZkk,-0.6));
+            double Vkn = GetSpeed(data.V, data.Xkn);
+            double Vkc = GetSpeed(data.V, data.Xkc);
+            double Vkk = GetSpeed(data.V, data.Xkk);
 
             //Расчет электронной концентрации в заданных точках ламинарного вязкого следа 
             double NeXkn = GetElectrKonc(NeR, data.Xkn);
@@ -319,9 +278,9 @@ namespace imitator
             double DZkc = GetDzetaInTurb(data.Xkc, R, alfa);
             double DZkk = GetDzetaInTurb(data.Xkk, R, alfa);
 
-            double Dkn = DZkn * Math.Sqrt(Cnst.Cx * Cnst.Sm);
-            double Dkc = DZkc * Math.Sqrt(Cnst.Cx * Cnst.Sm);
-            double Dkk = DZkk * Math.Sqrt(Cnst.Cx * Cnst.Sm);
+            double Dkn = DZkn * Math.Sqrt(Const.Cx * Const.Sm);
+            double Dkc = DZkc * Math.Sqrt(Const.Cx * Const.Sm);
+            double Dkk = DZkk * Math.Sqrt(Const.Cx * Const.Sm);
 
             //Расчет скорости потока в заданных точках ламинарного вязкого следа
             double Vkn = GetSpeed(data.V, data.Xkn);
@@ -395,7 +354,7 @@ namespace imitator
         private static double GetDzeta(double Xk,double R)
         {
             double k = Math.Log10(
-                Xk/(Math.Sqrt(Cnst.Cx*Cnst.Sm)+1)
+                Xk/(Math.Sqrt(Const.Cx*Const.Sm)+1)
                 );
 
             return
@@ -407,20 +366,20 @@ namespace imitator
         private static double GetDzetaInTurb(double Xk, double R, double alfa)
         {
             double x1 = 0.2 * (4 + Math.Log10(R));
-            double x2 = 1 + Math.Pow((Xk / Math.Sqrt(Cnst.Cx * Cnst.Sm)), alfa);
+            double x2 = 1 + Math.Pow((Xk / Math.Sqrt(Const.Cx * Const.Sm)), alfa);
 
             return x1 * x2;
         }
         
         private static double GetTrackLength(double NeR, double Rm, double NeKp)
         {
-            if (NeR <= (1.24e-8)*Cnst.f0*Cnst.f0)
+            if (NeR <= (1.24e-8)*Const.F0*Const.F0)
                 return 0;
 
             for (double X = 0;; X = X + Rm)
             {
                 double l = Math.Exp(-0.033*X);
-                double r = (((1.24e-8) * Cnst.f0 * Cnst.f0) / NeR) * (1 + 0.023 * X);
+                double r = (((1.24e-8) * Const.F0 * Const.F0) / NeR) * (1 + 0.023 * X);
 
                 if (l<=r)
                     return X;
@@ -429,7 +388,7 @@ namespace imitator
 
         private static double GetTrackLengthInTurb(double NeR, double Rm,double  NeKp)
         {
-            if (NeR <= (1.24e-8) * Cnst.f0 * Cnst.f0)
+            if (NeR <= (1.24e-8) * Const.F0 * Const.F0)
                 return 0;
             
             for (double X = 0; ; X = X + Rm)

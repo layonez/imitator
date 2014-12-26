@@ -18,7 +18,7 @@ namespace imitator
             public int SubType;
         }
         
-        public static List<double[]> GeneralOperator(InputData[] datas)
+        public static List<double[]> Exec(InputData[] datas)
         {
             var inp43Array = new List< Imit43.InputData>();
 
@@ -26,7 +26,7 @@ namespace imitator
             {
               
 
-                var out42=Imit42.GeneralOperator(data);
+                var out42=Imit42.Exec(data);
                 var inp43 = new Imit43.InputData()
                     {
                         Type = data.Type,
@@ -43,7 +43,7 @@ namespace imitator
                     };
                  inp43Array.Add(inp43);
             }
-            return Imit43.GeneralOperator(inp43Array.ToArray());
+            return Imit43.Exec(inp43Array.ToArray());
         }
 
         #endregion

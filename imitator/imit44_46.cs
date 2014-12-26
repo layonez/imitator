@@ -22,14 +22,14 @@ namespace imitator
         #endregion
 
 
-        public static Imit46.OutputData[] GeneralOperator(InputData[] data)
+        public static Imit46.OutputData[] Exec(InputData[] data)
         {
             Imit44.OutputData[] Out_44=new Imit44.OutputData[data.Length];
             Imit46.InputData[] Inp_46 = new Imit46.InputData[data.Length];
 
             for (int i = 0; i < data.Length; i++)
             {
-                Out_44[i] = Imit44.GeneralOperator(data[i]);
+                Out_44[i] = Imit44.Exec(data[i]);
 
                 Inp_46[i] = new Imit46.InputData()
                 {
@@ -65,7 +65,7 @@ namespace imitator
                 Inp_46[i].Angle = data[i].angle;
             }
 
-            return Imit46.GeneralOperator(Inp_46);
+            return Imit46.Exec(Inp_46);
         }
     }
 }

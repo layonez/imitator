@@ -60,7 +60,7 @@ namespace imitator
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
 
-                    double[,] OutArr = Imit33.StartWork(dotList);
+                    double[,] OutArr = Imit33.Exec(dotList);
 
                 stopWatch.Stop();
                 // Get the elapsed time as a TimeSpan value.
@@ -99,7 +99,7 @@ namespace imitator
                 stopWatch.Start();
                 for (int i = 0; i < dotList.Count(); i++)
                 {
-                        double[] d = toDouble(Imit42.GeneralOperator(dotList[i]));
+                        double[] d = toDouble(Imit42.Exec(dotList[i]));
                     for (int j = 0; j < d.Length; j++)
                     {
                         OutArr[i, j] = d[j];
@@ -141,7 +141,7 @@ namespace imitator
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
-                    OutArr = Imit43.GeneralOperator(dotList);
+                    OutArr = Imit43.Exec(dotList);
 
                     stopWatch.Stop();
 
@@ -178,7 +178,7 @@ namespace imitator
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
-                    List<double[]> OutArr1 = imit42_43.GeneralOperator(dots);
+                    List<double[]> OutArr1 = imit42_43.Exec(dots);
                    
                     stopWatch.Stop();
 
@@ -218,7 +218,7 @@ namespace imitator
 
                     for (int i = 0; i < dotList.Count(); i++)
                     {
-                        var Out = Imit44.GeneralOperator(dotList[i]);
+                        var Out = Imit44.Exec(dotList[i]);
                         //addToInput46(Out, dotList[i]);
                         var outData = toDouble(Out);
                         for (int j = 0; j < 15; j++)
@@ -263,7 +263,7 @@ namespace imitator
                     stopWatch.Start();
 
 
-                    Imit46.OutputData[] outData = Imit46.GeneralOperator(dotList);
+                    Imit46.OutputData[] outData = Imit46.Exec(dotList);
 
                     for (int i = 0; i < dotList.Count(); i++)
                     {
@@ -309,7 +309,7 @@ namespace imitator
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
 
-                    var Out = Imit44_46.GeneralOperator(dotList);
+                    var Out = Imit44_46.Exec(dotList);
 
                     Bind44_46FromData(Out);
 
@@ -397,49 +397,6 @@ namespace imitator
                 }
                 outputGrid44_46.Rows.Add(row);
             }
-        }
-
-        private Imit43.InputData[] to43InputData(double[,] outArr1, DataGridViewCellCollection cells, Imit42.InputData[] dots)
-        {
-            var inp = new Imit43.InputData[20];
-
-            foreach (DataGridViewCell cell in cells)
-            {
-                if (cell.Value==null)
-                {
-                    cell.Value = "0";
-            }
-        }
-            for (int i = 0; i < 20; i++)
-            {
-                inp[i] = new Imit43.InputData() { Ageo = outArr1[0, 0],
-                                                  Bgeo = outArr1[i, 1], 
-                                                  Delta = outArr1[i, 2], 
-                                                  Ne = outArr1[i, 3], 
-                                                  Nu = outArr1[i, 4], 
-                                                  NeKrit = outArr1[i, 5],
-                                                  Kf =int.Parse( cells[0].Value.ToString()),
-                                                  Xc = double.Parse(cells[1].Value.ToString()),
-                                                  Yc = double.Parse(cells[2].Value.ToString()),
-                                                  Omin = double.Parse(cells[3].Value.ToString()),
-                                                  Omax = double.Parse(cells[4].Value.ToString()),
-                                                  Rzatup = double.Parse(cells[5].Value.ToString()),
-                                                  D1 = double.Parse(cells[6].Value.ToString()),
-                                                  D2 = double.Parse(cells[7].Value.ToString()),
-                                                  L = double.Parse(cells[8].Value.ToString()),
-                                                  Gamma = double.Parse(cells[9].Value.ToString()),
-                                                  D = double.Parse(cells[10].Value.ToString()),
-                                                  Kiz = double.Parse(cells[11].Value.ToString()),
-                                                  A = double.Parse(cells[12].Value.ToString()),
-                                                  C = double.Parse(cells[13].Value.ToString()),
-                                                  H = dots[i].H,
-                                                  V = dots[i].V,
-                                                  Angle = 0.2
-
-                };
-               
-            }
-            return inp;
         }
 
         private double[] toDouble(Imit42.OutputData data)
@@ -678,9 +635,9 @@ namespace imitator
             double[,] x = new double[20,3];
             for (int i = 0; i < 20; i++)
             {
-                double k = i + 2;
+                double k = i;
 
-                x[i, 0] = (k - 1) * 10 / Math.Cos(0.2);
+                x[i, 0] = 5 + (k) * 10 / Math.Cos(0.2);
                 x[i, 1] = x[i, 0] + 5 / Math.Cos(0.2);
                 x[i, 2] = x[i, 1] + 5 / Math.Cos(0.2);
             }
@@ -720,9 +677,9 @@ namespace imitator
             double[,] x = new double[20, 3];
             for (int i = 0; i < 20; i++)
             {
-                double k = i + 2;
+                double k = i;
 
-                x[i, 0] = (k - 1) * 10 / Math.Cos(0.2);
+                x[i, 0] = 5+ (k) * 10 / Math.Cos(0.2);
                 x[i, 1] = x[i, 0] + 5 / Math.Cos(0.2);
                 x[i, 2] = x[i, 1] + 5 / Math.Cos(0.2);
             }

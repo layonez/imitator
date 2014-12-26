@@ -7,7 +7,7 @@ namespace imitator
 {
     class Imit42
     {
-        #region входные и выходные параметры, константы
+        #region входные и выходные параметры
 
         /// <summary>
         /// ВХОДНАЯ ИНФОРМАЦИЯ
@@ -54,132 +54,11 @@ namespace imitator
 
         }
         
-        public class Cnst
-        {
-            /// <summary>
-            /// скорость звука,  м/с
-            /// </summary>
-            public const double c = 340.29;
-
-            /// <summary>
-            /// средний радиус Земли, м
-            /// </summary>
-            public const double Rz = 6371e3;
-
-            /// <summary>
-            /// плотность
-            /// </summary>
-            public const double Ro0 = 1.125;
-
-            /// <summary>
-            /// H,км; Т,К; Betta, град/км
-            /// </summary>
-            public static readonly double[,] T1 = 
-            {
-                {-2e3, 301.15, -6.5e-3},
-                {0, 288.15, -6.5e-3},
-                {11e3, 216.65, 0},
-                {20e3, 216.65, 1e-3}, 
-                {32e3, 228.65, 2.8e-3}, 
-                {47e3, 270.65, 2.8e-3}, 
-                {52e3, 270.65, -0.2e-3},
-                {61e3, 252.65, -4e-3},
-                {79e3, 180.65, 0},
-                {88.4e3, 180.65, 3e-3},
-                {98.4e3, 210.65, 0}
-                //{11e4, 215.45, 1.8e-2},
-                //{15e4, 935.45, 0}
-
-
-            };
-
-            /// <summary>
-            /// Высота,м	Плотность,кг/м³
-            /// </summary>
-            public static readonly double[,] T2 = 
-            {
-                {0,1.225 },
-                {500, 1.1673},
-                {1000, 1.1117},
-                {1500, 1.0581}, 
-                {2000, 1.0065}, 
-                {2500, 0.9569}, 
-                {3000, 0.9093},
-                {4000, 0.8194},
-                {5000, 0.7365},
-                {6000, 0.6601},
-                {7000, 0.59}, 
-                {8000, 0.5258}, 
-                {9000, 0.4671}, 
-                {10000, 0.4135}, 
-                {11000, 0.3648},
-                {12000, 0.3119},
-                {14000, 0.2279}, 
-                {16000, 0.1665}, 
-                {18000, 0.1216}, 
-                {20000, 0.0889},
-                {24000, 0.0469},
-                {28000, 0.0251},
-                {32000, 0.0136},
-                {36000, 0.0073}, 
-                {40000, 0.004},
-                {50000, 0.00103},
-                {60000, 0.00031},
-                {80000, 0.00002},
-                {90000, 3e-6},
-                {100000, 9e-7},
-                {120000, 9e-8},
-                {150000, 2e-9}
-            };
-
-            /// <summary>
-            /// Высота, м;  a, б/р;	b, с/км;	ρ, б/р;	 g, с/км;
-            /// </summary>
-            public static readonly double[,] T3 =
-            {
-                {0, 17, 5.7e-3, 10.5, 2.1e-3},
-                {30e3, 16.5, 5.2e-3, 11, 2.3e-3},
-                {60e3, 15, 4.3e-3, 11.5, 2.5e-3},
-                {90e3, 12, 3.3e-3, 12, 2.7e-3},
-                {120e3, 6, 1.67e-3, 12.5, 2.9e-3},
-                {150e3, 1.05, 0.87e-2, 13.2, 3.1e-3}
-            };
-
-            /// <summary>
-            /// nu;  А(nu), эл/см3;  В(nu), К
-            /// </summary>
-            public static readonly double[,] T4 =
-            {
-                {1, 7.6e18, 6.63e4},
-                {0.1, 2.5e18, 6.5e4},
-                {1e-2, 6.3e17, 6.4e4},
-                {1e-3, 1.35e17, 6.29e4},
-                {1e-4, 6e16, 6.4e4},
-                {1e-5, 2e16, 6.23e4},
-                {1e-6, 7e15, 6.5e4},
-                {1e-7, 2.5e15, 6.4e4},
-                {1e-8, 6.5e14, 6.6e4},
-                {1e-9, 2.1e14, 6.7e4}
-            };
-
-            /// <summary>
-            /// ai, 1/град	bi, 1/град2
-            /// Fi(O)
-            /// </summary>
-            public static readonly double[,] T5 =
-            {
-                {-1.7e-2, -3e-4},
-                {-1e-3, -1.2e-4}
-                
-            };
-
-        }
-
         #endregion
 
         #region дополнительные классы, используемые в логике
 
-        public struct HeightDependCoeffs
+        private struct HeightDependCoeffs
         {
             public double a;
             public double b;
@@ -189,7 +68,7 @@ namespace imitator
         
         #endregion
 
-        public static OutputData GeneralOperator(InputData data)
+        public static OutputData Exec(InputData data)
         {
             //ВП1
             //Оценка текущих значений температуры, давления и плотности воздуха в набегающем потоке
@@ -208,7 +87,7 @@ namespace imitator
 
             //ВП4
             //Оценка электронной концентрации и эффективной частоты соударений электронов в критической точке
-            double nu = ROs/Cnst.Ro0;
+            double nu = ROs/imitator.Const.Ro0;
             double NeKrit = GetElectronConc(nu,Ts);
 
             double x1 =(7.2e9)*ROs*Math.Sqrt(Ts);
@@ -250,6 +129,7 @@ namespace imitator
             return new OutputData() { A = a, B = b, Delta = delta, Ne = Ne, Nu = nuEffect, NeKrit = NeKrit, NuKrit = nuKrit, M = M };
         }
 
+
         /// <summary>
         /// Рассчитывает электронную концентрацию
         /// </summary>
@@ -262,70 +142,87 @@ namespace imitator
             else if (nu < 1e-4)
                 nu = 1e-4;
 
-            for (int i = 0; i < Cnst.T4.GetLength(0); i++)
-                {
-                    if (nu <= Cnst.T4[i, 0] && nu >= Cnst.T4[i+1, 0])
-                    {
-                        //double n = -Math.Log10(Cnst.T4[i + 1, 1]/Cnst.T4[i, 1]);
-                        //double A = Cnst.T4[i, 1]*Math.Pow(nu/Cnst.T4[i, 0], n);
+            return ElectronConc(nu, Ts);
+        }
 
-                        double n = Math.Log10(Cnst.T4[i, 1]) - 
-                            (Math.Log10(Cnst.T4[i + 1, 1]) - Math.Log10(Cnst.T4[i, 1]))*
-                            (Math.Log10(nu) - Math.Log10(Cnst.T4[i, 0]));
-                        double A = Math.Pow(10, n);
-                        
-                        double B = Cnst.T4[i, 2] +
-                                   (Cnst.T4[i + 1, 2] - Cnst.T4[i, 2])*(Math.Log(nu) - Math.Log(Cnst.T4[i, 0]))
-                                   /(Math.Log(Cnst.T4[i + 1, 0]) - Math.Log(Cnst.T4[i, 0]));
-                        
-                        //todo сделать проверку Ne на точность вычисления
-                        
-                        return A*Math.Exp(-B/Ts);
-                        
-                    }
+        /// <summary>
+        /// Оценка электронной концентрации и эффективной частоты соударений элек-тронов в критической точке
+        /// Используя табличные данные
+        /// </summary>
+        private static double ElectronConcFromTable(double nu, double Ts)
+        {
+            for (int i = 0; i < imitator.Const.T4.GetLength(0); i++)
+            {
+                if (nu <= imitator.Const.T4[i, 0] && nu >= imitator.Const.T4[i + 1, 0])
+                {
+                    //double n = -Math.Log10(Cnst.T4[i + 1, 1]/Cnst.T4[i, 1]);
+                    //double A = Cnst.T4[i, 1]*Math.Pow(nu/Cnst.T4[i, 0], n);
+
+                    double n = Math.Log10(imitator.Const.T4[i, 1]) -
+                               (Math.Log10(imitator.Const.T4[i + 1, 1]) - Math.Log10(imitator.Const.T4[i, 1]))*
+                               (Math.Log10(nu) - Math.Log10(imitator.Const.T4[i, 0]));
+                    double A = Math.Pow(10, n);
+
+                    double B = imitator.Const.T4[i, 2] +
+                               (imitator.Const.T4[i + 1, 2] - imitator.Const.T4[i, 2])*
+                               (Math.Log(nu) - Math.Log(imitator.Const.T4[i, 0]))
+                               /(Math.Log(imitator.Const.T4[i + 1, 0]) - Math.Log(imitator.Const.T4[i, 0]));
+
+                    //todo сделать проверку Ne на точность вычисления
+
+                    return A*Math.Exp(-B/Ts);
                 }
+            }
             throw new Exception("В таблице 4 не найдено подходящего элемента.");
-            
-            
+        }
+        
+        /// <summary>
+        /// Оценка электронной концентрации и эффективной частоты соударений элек-тронов в критической точке
+        /// Аналитически
+        /// </summary>
+        private static double ElectronConc(double nu, double Ts)
+        {
+            double NeKrit = 7.6e18*Math.Pow(nu, 0.57)*Math.Exp(-(6.4e4/Ts));
+            return NeKrit;
         }
 
         /// <param name="h">высота от поверхности ОЗЭ</param>
         private static HeightDependCoeffs GetHCoefficients(double h)
         {
             HeightDependCoeffs coeffs = new HeightDependCoeffs();
-            for (int i = 0; i < Cnst.T3.GetLength(0)-1; i++)
+            for (int i = 0; i < imitator.Const.T3.GetLength(0)-1; i++)
             {
-                if (h >= Cnst.T3[i, 0] && h <= Cnst.T3[i + 1, 0])
+                if (h >= imitator.Const.T3[i, 0] && h <= imitator.Const.T3[i + 1, 0])
                 {
-                    coeffs.a = Cnst.T3[i, 1] +
-                               (Cnst.T3[i + 1, 1] - Cnst.T3[i, 1])*
-                               (h - Cnst.T3[i, 0])/(Cnst.T3[i + 1, 0] - Cnst.T3[i, 0]);
-                    coeffs.b = Cnst.T3[i, 2] +
-                              (Cnst.T3[i + 1, 2] - Cnst.T3[i, 2]) *
-                              (h - Cnst.T3[i, 0]) / (Cnst.T3[i + 1, 0] - Cnst.T3[i, 0]);
-                    coeffs.ro= Cnst.T3[i, 3] +
-                              (Cnst.T3[i + 1,3 ] - Cnst.T3[i, 3]) *
-                              (h - Cnst.T3[i, 0]) / (Cnst.T3[i + 1, 0] - Cnst.T3[i, 0]);
-                    coeffs.g = Cnst.T3[i, 4] +
-                              (Cnst.T3[i + 1, 4] - Cnst.T3[i,4]) *
-                              (h - Cnst.T3[i, 0]) / (Cnst.T3[i + 1, 0] - Cnst.T3[i, 0]);
+                    coeffs.a = imitator.Const.T3[i, 1] +
+                               (imitator.Const.T3[i + 1, 1] - imitator.Const.T3[i, 1])*
+                               (h - imitator.Const.T3[i, 0])/(imitator.Const.T3[i + 1, 0] - imitator.Const.T3[i, 0]);
+                    coeffs.b = imitator.Const.T3[i, 2] +
+                              (imitator.Const.T3[i + 1, 2] - imitator.Const.T3[i, 2]) *
+                              (h - imitator.Const.T3[i, 0]) / (imitator.Const.T3[i + 1, 0] - imitator.Const.T3[i, 0]);
+                    coeffs.ro= imitator.Const.T3[i, 3] +
+                              (imitator.Const.T3[i + 1,3 ] - imitator.Const.T3[i, 3]) *
+                              (h - imitator.Const.T3[i, 0]) / (imitator.Const.T3[i + 1, 0] - imitator.Const.T3[i, 0]);
+                    coeffs.g = imitator.Const.T3[i, 4] +
+                              (imitator.Const.T3[i + 1, 4] - imitator.Const.T3[i,4]) *
+                              (h - imitator.Const.T3[i, 0]) / (imitator.Const.T3[i + 1, 0] - imitator.Const.T3[i, 0]);
                     return coeffs;
                 }
             }
-            int j = Cnst.T3.GetLength(0) - 2;
+            int j = imitator.Const.T3.GetLength(0) - 2;
 
-            coeffs.a = Cnst.T3[j, 1] +
-                               (Cnst.T3[j + 1, 1] - Cnst.T3[j, 1]) *
-                               (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
-            coeffs.b = Cnst.T3[j, 2] +
-                              (Cnst.T3[j + 1, 2] - Cnst.T3[j, 2]) *
-                              (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
-            coeffs.ro = Cnst.T3[j, 3] +
-                              (Cnst.T3[j + 1, 3] - Cnst.T3[j, 3]) *
-                              (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
-            coeffs.g = Cnst.T3[j, 4] +
-                              (Cnst.T3[j + 1, 4] - Cnst.T3[j, 4]) *
-                              (h - Cnst.T3[j, 0]) / (Cnst.T3[j + 1, 0] - Cnst.T3[j, 0]);
+            coeffs.a = imitator.Const.T3[j, 1] +
+                               (imitator.Const.T3[j + 1, 1] - imitator.Const.T3[j, 1]) *
+                               (h - imitator.Const.T3[j, 0]) / (imitator.Const.T3[j + 1, 0] - imitator.Const.T3[j, 0]);
+            coeffs.b = imitator.Const.T3[j, 2] +
+                              (imitator.Const.T3[j + 1, 2] - imitator.Const.T3[j, 2]) *
+                              (h - imitator.Const.T3[j, 0]) / (imitator.Const.T3[j + 1, 0] - imitator.Const.T3[j, 0]);
+            coeffs.ro = imitator.Const.T3[j, 3] +
+                              (imitator.Const.T3[j + 1, 3] - imitator.Const.T3[j, 3]) *
+                              (h - imitator.Const.T3[j, 0]) / (imitator.Const.T3[j + 1, 0] - imitator.Const.T3[j, 0]);
+            coeffs.g = imitator.Const.T3[j, 4] +
+                              (imitator.Const.T3[j + 1, 4] - imitator.Const.T3[j, 4]) *
+                              (h - imitator.Const.T3[j, 0]) / (imitator.Const.T3[j + 1, 0] - imitator.Const.T3[j, 0]);
                     return coeffs;
         
         }
@@ -333,36 +230,36 @@ namespace imitator
         /// <param name="h">высота от поверхности ОЗЭ</param>
         public static double GetDensity(double h)
         {
-            for (int i = 0; i < Cnst.T2.GetLength(0)-1;i++)
+            for (int i = 0; i < imitator.Const.T2.GetLength(0)-1;i++)
             {
-                if (h >= Cnst.T2[i, 0] && h <= Cnst.T2[i+1, 0])
+                if (h >= imitator.Const.T2[i, 0] && h <= imitator.Const.T2[i+1, 0])
                 {
-                    double mu = Math.Log(Cnst.T2[i + 1, 1] / Cnst.T2[i, 1]) / (-Cnst.T2[i + 1, 0] + Cnst.T2[i, 0]);
-                    return Cnst.T2[i, 1]*Math.Exp(-mu*(h - Cnst.T2[i, 0]));
+                    double mu = -Math.Log(imitator.Const.T2[i + 1, 1] / imitator.Const.T2[i, 1]) / (imitator.Const.T2[i, 0]-imitator.Const.T2[i + 1, 0]);
+                    return imitator.Const.T2[i, 1]*Math.Exp(-mu*(h - imitator.Const.T2[i, 0]));
                 }
             }
 
-            double mu1 = Math.Log(Cnst.T2[Cnst.T2.GetLength(0) - 1, 1] / Cnst.T2[Cnst.T2.GetLength(0) - 2, 1]) / (-Cnst.T2[Cnst.T2.GetLength(0) - 1, 0] + Cnst.T2[Cnst.T2.GetLength(0) - 2, 0]);
-            return Cnst.T2[Cnst.T2.GetLength(0) - 2, 1] * Math.Exp(-mu1 * (h - Cnst.T2[Cnst.T2.GetLength(0) - 2, 0]));
+            double mu1 = Math.Log(imitator.Const.T2[imitator.Const.T2.GetLength(0) - 1, 1] / imitator.Const.T2[imitator.Const.T2.GetLength(0) - 2, 1]) / (-imitator.Const.T2[imitator.Const.T2.GetLength(0) - 1, 0] + imitator.Const.T2[imitator.Const.T2.GetLength(0) - 2, 0]);
+            return imitator.Const.T2[imitator.Const.T2.GetLength(0) - 2, 1] * Math.Exp(-mu1 * (h - imitator.Const.T2[imitator.Const.T2.GetLength(0) - 2, 0]));
 
         }
         
         /// <param name="h">высота от поверхности ОЗЭ</param>
         private static double GetTemperature(double h)
         {
-            double H = Cnst.Rz*h/(Cnst.Rz + h);
+            double H = imitator.Const.Rz*h/(imitator.Const.Rz + h);
 
-            for (int i = 0; i < Cnst.T1.GetLength(0); i++)
+            for (int i = 0; i < imitator.Const.T1.GetLength(0); i++)
             {
-                if (H <= Cnst.T1[i, 0])
+                if (H <= imitator.Const.T1[i, 0])
                 {
-                    double Tz = Cnst.T1[i, 1];
-                    double Bz = Cnst.T1[i, 2];
-                    double Hz = Cnst.T1[i, 0];
-                    return Tz + Bz * (H - Hz);
+                    double Tz = imitator.Const.T1[i, 1];
+                    double Bz = imitator.Const.T1[i, 2];
+                    double Hz = imitator.Const.T1[i, 0];
+                    return Tz + Bz * (Hz - H);
                 }
             }
-            return Cnst.T1[Cnst.T1.GetLength(0)-1 , 1] + Cnst.T1[Cnst.T1.GetLength(0) - 1, 2] * (H - Cnst.T1[Cnst.T1.GetLength(0) - 1, 0]);
+            return imitator.Const.T1[imitator.Const.T1.GetLength(0)-1 , 1] + imitator.Const.T1[imitator.Const.T1.GetLength(0) - 1, 2] * (H - imitator.Const.T1[imitator.Const.T1.GetLength(0) - 1, 0]);
         }
     }
 }

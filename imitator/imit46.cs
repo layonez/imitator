@@ -29,7 +29,7 @@ namespace imitator
             public double dXkc;
             public double Xkc;
 
-            public int dV = Cnst.dV;
+            public int dV = Const.DV;
         }
 
         /// <summary>
@@ -123,92 +123,6 @@ namespace imitator
         }
 
         /// <summary>
-        /// Константы
-        /// </summary>
-        public class Cnst
-        {
-            /// <summary>
-            /// Разрешающая способность по дальности РЛС, м
-            /// </summary>
-            public const double dr = 5;
-            /// <summary>
-            /// Разрешающая способность по скорости  РЛС
-            /// </summary>
-            public const int dV = 20;
-            /// <summary>
-            /// Размерность дальностно-скоростного портрета по дальности
-            /// </summary>
-            public const double k0 = 10;
-            /// <summary>
-            /// Коэффициенты калибровки ЭПР сверхкритического следа
-            /// </summary>
-            public const double Ksv2 = 0.005;
-            /// <summary>
-            /// Коэффициенты калибровки ЭПР сверхкритического следа
-            /// </summary>
-            public const double Ksv3 = 0.005;
-            /// <summary>
-            /// Длина волны  излучения РЛС
-            /// </summary>
-            public static double LambdaK = 0.1;
-            /// <summary>
-            /// Диаметр Миделя
-            /// </summary>
-            public const double dm = 0.8;
-            /// <summary>
-            /// Калибровочный коэфф.
-            /// </summary>
-            public const double K1 = 0.5;
-            /// <summary>
-            /// Калибровочный коэфф.
-            /// </summary>
-            public const double K2 = 0.5;
-            /// <summary>
-            /// Калибровочный коэфф.
-            /// </summary>
-            public const double K3 = 0.5;
-            /// <summary>
-            /// Калибровочный коэфф.
-            /// </summary>
-            public const double K4 = 0.5;
-            /// <summary>
-            /// Коэффициент Калибровки D-V портрета 
-            /// </summary>
-            public const double Kpv = 0.5;
-            /// <summary>
-            /// Коэффициент Калибровки D-V портрета 
-            /// </summary>
-            public const double Kv = 0.5;
-            
-            
-            /// <summary>
-            /// Частота радиолокационного сигнала
-            /// </summary>
-            public const double f0 = 3e9;
-            /// <summary>
-            /// Аэродинамический коэффициент лобового сопротивления БЦ
-            /// </summary>
-            public const double Cx = 0.01;
-            /// <summary>
-            /// площадь миделевого сечения БЦ 
-            /// </summary>
-            public const double Sm = 1;
-            /// <summary>
-            /// скорость звука,  м/с
-            /// </summary>
-            public const double c = 340.29;
-            /// <summary>
-            /// средний радиус Земли, м
-            /// </summary>
-            public const double Rz = 6371e3;
-            /// <summary>
-            /// плотность
-            /// </summary>
-            public const double Ro0 = 1.125;
-
-        }
-
-        /// <summary>
         /// Структура хранящая значения дальностно-скоростного портрета
         /// </summary>
         public class VSpair
@@ -219,7 +133,7 @@ namespace imitator
 
         #endregion
 
-        public static OutputData[] GeneralOperator(InputData[] data)
+        public static OutputData[] Exec(InputData[] data)
         {
             OutputData[] output=new OutputData[data.Length];
 
@@ -257,14 +171,14 @@ namespace imitator
             if (data.Hturb < data.H)
             {
                 //ЛО2 
-                if (data.NeXkc < 1.1e9*Math.Pow(Cnst.LambdaK, -2))
+                if (data.NeXkc < 1.1e9*Math.Pow(Const.LambdaK, -2))
                 {
                     //ВП2
                     return new OutputData();
                 }
                 else
                 {
-                    return GetESSforLaminar(data);
+                    return GetEsSforLaminar(data);
                 }
 
             }
@@ -278,7 +192,7 @@ namespace imitator
                     {
                         if (data.Xkc < data.Xp)
                         {
-                            return GetESSforLaminar(data);
+                            return GetEsSforLaminar(data);
                         }
 
                         return GetESSSuperCritical(data);
@@ -287,17 +201,15 @@ namespace imitator
                     return GetESSSubCritical(data);
                 }
                 //ЛО 004
-                else if (data.Xkc<0.5*(data.Xkp+data.Xp))
+                else if (data.Xkc<0.1*(data.Xkp+data.Xp))
                 {
-                    return GetESSforLaminar(data);
+                    return GetEsSforLaminar(data);
                 }
                 else
                 {
                     return GetESSSubCritical(data);
                 }
             }
-
-            return new OutputData() { Skj = Sk, Sk = s };
         }
 
         private static OutputData GetESSSubCritical(InputData data)
@@ -309,7 +221,7 @@ namespace imitator
             //Расчет  ЭПР докритического следа
             double Sed = GetSed(data);
             //ВП14	 Расчет объема докритического участка СПС
-            double dVk = (Math.PI/4)*Cnst.dr*data.dXkc*data.dXkc*(1/Math.Cos(data.Angle));
+            double dVk = (Math.PI/4)*Const.Dr*data.dXkc*data.dXkc*(1/Math.Cos(data.Angle));
             //ВП15	Расчет ЭПР i-го  докритического участка
             s = Sed*dVk;
 
@@ -324,17 +236,17 @@ namespace imitator
             }
 
             //ВП16	Расчет диапазона изменения скорости
-            double dV = Cnst.Kv*data.VXkc/Math.Sqrt(data.Xkc);
+            double dV = Const.Kv*data.VXkc/Math.Sqrt(data.Xkc);
             //Расчет количества элементов разрешения 
-            double m = Math.Round(Math.Abs(dV + data.VXkn - data.VXkk)*Math.Cos(data.Angle)/(Cnst.dV));
+            double m = Math.Round(Math.Abs(dV + data.VXkn - data.VXkk)*Math.Cos(data.Angle)/(Const.DV)) + 3;
             if (m > 20)
                 m = 20;
 
             double jMin = (data.VXkk)*Math.Cos(data.Angle)/
-                          (Cnst.dV);
+                          (Const.DV);
             jMin = Math.Round(jMin);
 
-            Sk = GetSk(jMin + m, jMin, m, s);
+            Sk = GetSk(jMin, m, s, false);
 
             return new OutputData() {Skj = Sk, Sk = s};
         }
@@ -348,9 +260,9 @@ namespace imitator
             double Lksi;
             //ВП6
             //Вычисление среднего квадратичного отклонения и продольного размера неоднородностей
-            Sksi = Cnst.K1*data.dXkc;
-            R = (1.9726e-1) + (2.2647e-4)*Math.Pow(data.dXkc/Cnst.dm, 1.0833);
-            Lksi = Cnst.dm*R;
+            Sksi = Const.K1*data.dXkc;
+            R = (1.9726e-1) + (2.2647e-4)*Math.Pow(data.dXkc/Const.Dm, 1.0833);
+            Lksi = Const.Dm*R;
 
             double Sed = 0;
             //ЛО5
@@ -362,7 +274,7 @@ namespace imitator
                 double Fksi = GetFksi(Sksi, Lksi);
                 //ВП8
                 //Определение ЭПР сверхкритического  турбулентного участка следа единичной длины 
-                Sed = Cnst.Ksv2*Math.Pow(Math.PI*2/Cnst.LambdaK, 4)*Math.Sin(data.Angle)*
+                Sed = Const.Ksv2*Math.Pow(Math.PI*2/Const.LambdaK, 4)*Math.Sin(data.Angle)*
                       Math.Sin(data.Angle)*Fksi;
             }
             else
@@ -371,11 +283,11 @@ namespace imitator
                 double F = GetF(data, Lksi, Sksi);
                 //ВП10
                 //Определение ЭПР сверхкритического турбулентного участка следа единичной длины  значительной шероховатости
-                Sed = Cnst.Ksv3*data.dXkc*Lksi*Lksi*F/
+                Sed = Const.Ksv3*data.dXkc*Lksi*Lksi*F/
                       (2*Sksi*Sksi);
             }
             //Расчет  ЭПР сверхкритического следа
-            s = Sed*Cnst.dr/Math.Cos(data.Angle);
+            s = Sed*Const.Dr/Math.Cos(data.Angle);
             //ЛО5
             if (s < 1e-5)
             {
@@ -389,18 +301,17 @@ namespace imitator
 
             //ВП11
             //Расчет количества ячеек в портрете
-            double dV = Cnst.Kv*data.VXkc/Math.Sqrt(data.Xkc);
+            double dV = Const.Kv*data.VXkc/Math.Sqrt(data.Xkc);
 
-            double m = Math.Round((data.VXkn + dV - data.VXkk)*Math.Cos(data.Angle)/(Cnst.dV));
+            double m = Math.Round((data.VXkn + dV - data.VXkk)*Math.Cos(data.Angle)/(Const.DV)) + 1;
             if (m > 20)
             {
                 m = 20;
             }
 
             //Вычисление граничных значений J
-            double jMin = Math.Round(1 + (data.VXkk*Math.Cos(data.Angle))/(Cnst.dV));
-            double jMax = jMin + m;
-            Sk = GetSk1(jMax, jMin, m, s);
+            double jMin = Math.Round(1 + (data.VXkk*Math.Cos(data.Angle))/(Const.DV));
+            Sk = GetSk(jMin, m, s, false);
 
             return new OutputData() {Skj = Sk, Sk = s};
         }
@@ -411,11 +322,11 @@ namespace imitator
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private static OutputData GetESSforLaminar(InputData data)
+        private static OutputData GetEsSforLaminar(InputData data)
         {
             double s;
             VSpair[] Sk;
-            double dr = Cnst.dr/Math.Cos(data.Angle);
+            double dr = Const.Dr/Math.Cos(data.Angle);
             s = GetSigma(data, dr);
 
             //ЛО3
@@ -429,16 +340,15 @@ namespace imitator
             }
             //ВП4
             //Расчет количества ячеек в портрете
-            double m1 = 1 + ((data.VXkn - data.VXkk)*Math.Cos(data.Angle))/Cnst.dV;
-            m1 = Math.Round(m1);
-            if (m1 > 20)
-                m1 = 20;
+            double m = ((data.VXkn - data.VXkk)*Math.Cos(data.Angle))/Const.DV;
+            m = Math.Round(m);
+            if (m > 20)
+                m = 20;
             //Расчет диапазона изменения 
-            double jMin1 = Math.Round(1 + (data.VXkk*Math.Cos(data.Angle))/Cnst.dV);
-            double jMax1 = jMin1 + m1;
-
+            double jMin = Math.Round(1 + (data.VXkk*Math.Cos(data.Angle))/Const.DV);
+            
             //ВП5
-            Sk = GetSk(jMax1, jMin1, m1, s);
+            Sk = GetSk(jMin, m, s,true);
 
             return new OutputData() {Skj = Sk, Sk = s};
         }
@@ -455,26 +365,26 @@ namespace imitator
 
         private static double GetSed(InputData data)
         {
-            double L0 = Cnst.K3*data.dXkc;
-            double F = Cnst.K3*Math.Pow(data.Xkc*Cnst.Cx*Cnst.Sm, 0.3333)*
-                    (1 - (2/3)*Cnst.K3*Cnst.K3*Math.Pow(data.Xkc*Cnst.Cx*Cnst.Sm, 0.6666) +
-                     0.2*Math.Pow(Cnst.K3, 4)*Math.Pow(data.Xkc*Cnst.Cx*Cnst.Sm, 1.3333));
+            double L0 = Const.K3*data.dXkc;
+            double F = Const.K3 * Math.Pow(data.Xkc * Const.Cx * Const.Sm, 0.3333) *
+                    (1 - (2 / 3) * Const.K3 * Const.K3 * Math.Pow(data.Xkc * Const.Cx * Const.Sm, 0.6666) +
+                     0.2 * Math.Pow(Const.K3, 4) * Math.Pow(data.Xkc * Const.Cx * Const.Sm, 1.3333));
             double Sed = (10e-19)*
-                5.64*Math.Pow(2*Math.PI/Cnst.LambdaK, 2)*data.NeXkc*data.NeXkc*Math.Pow(L0, 3)*F/
-                      Math.Pow(1 + 4 * (Math.Pow(2 * Math.PI / Cnst.LambdaK, 2)) * L0 * L0, 1.8333);
+                Math.Pow(2*Math.PI/Const.LambdaK, 2)*data.NeXkc*data.NeXkc*Math.Pow(L0, 3)*F/
+                      Math.Pow(1 + 4 * (Math.Pow(2 * Math.PI / Const.LambdaK, 2)) * L0 * L0, 1.8333);
             return Sed;
         }
 
         private static double GetF(InputData data, double Lksi, double Sksi)
         {
             double F = 0;
-            double dA = Math.PI/200;
+            const double dA = Math.PI/200;
             for (int i = 1; i < 101; i++)
             {
                 double a = i*dA;
-                double D = Lksi*
+                double D = 2*Lksi*
                         Math.Sqrt(1 - Math.Sin(a)*Math.Sin(a)*Math.Sin(data.Angle)*Math.Sin(data.Angle))/
-                        (2*Sksi*Math.Sin(a)*Math.Sin(data.Angle));
+                        (Sksi*Math.Sin(a)*Math.Sin(data.Angle));
                 F += Math.Exp(-D)*dA/
                      (Math.Pow(Math.Sin(a), 4)*Math.Pow(Math.Sin(data.Angle), 4));
             }
@@ -483,18 +393,23 @@ namespace imitator
 
         private static double GetSigma(InputData data, double dr)
         {
-            double s1 = Math.PI*data.dXkc*dr*dr/
-                     Cnst.LambdaK;
+            double s1 = 0.2*data.dXkc*dr*dr/
+                     Const.LambdaK;
             double s2 = Math.Pow(Math.Sin(data.Angle),4);
                 //Math.Pow(Math.Sin(Math.PI * 2 * dr * Math.Cos(data.Angle) /
                 //     Cnst.LambdaK), 2) /
                 //     Math.Pow(Math.PI * 2 * dr * Math.Cos(data.Angle) /
                 //     Cnst.LambdaK, 2);
             double s = s1*s2;
+
+            if (s>0.1)
+            {
+                s = 0.1;
+            }
             return s;
         }
 
-        private static VSpair[] GetSk(double jMax, double jMin, double m, double s)
+        private static VSpair[] GetSk(double jMin, double m, double s, bool isForLaminar)
         {
             double dim = 1;
 
@@ -504,42 +419,30 @@ namespace imitator
 
             for (double j = jMin; i < m; j = j + dim,i++)
             {
-               double V = j * Cnst.dV;
-               //double sk = (s/m)*(1 - Cnst.Kpv*(1/m)*(j - (jMin + m/2)));
-               double sk = (s / m) * (0.3 + Math.Sin(
-                   Math.PI * (j - jMin) / m)
+                double V = j * Const.DV;
+                double sk;
+                //Разный расчет для ламинарного и докритического
+                if (isForLaminar)
+                {
+                    sk = (s / m) * (0.3 + Math.Abs(Math.Cos(
+                   Math.PI * (j - jMin) / m))
                    );  
+                }
+                else
+                {
+                    sk = (s / m) * (0.5 + Math.Abs(Math.Sin(
+                    Math.PI * (j - jMin) / m + 0.5))
+                 );  
+                }
                 S[i] = new VSpair {S = sk, V = V};
             }
             return S;
         }
        
-        private static VSpair[] GetSk1(double jMax, double jMin, double m, double s)
-        {
-            double dim = 1;
-
-            VSpair[] S = new VSpair[(int)m];
-
-            int i = 0;
-
-            for (double j = jMin; i < m; j = j + dim, i++)
-            {
-                //double sk = (s / m) * (1 - 0.5 * (1 / m) * (j - (jMin + m / 2)));
-
-                double sk = (s / m) * (0.3+Math.Sin(
-                    Math.PI*(j - jMin)/m)
-                    );  
-
-                double V = j * Cnst.dV;
-                S[i] = new VSpair { S = sk, V = V };
-            }
-            return S;
-        }
-
         private static double GetFksi(double Sksi, double Lksi)
         {
             return (Sksi*Sksi*Lksi*Lksi/(Math.PI*2))*
-                   Math.Exp(-Math.PI*Math.PI*Lksi*Lksi/(Cnst.LambdaK*Cnst.LambdaK));
+                   Math.Exp(-Math.PI*Math.PI*Lksi*Lksi/(Const.LambdaK*Const.LambdaK));
         }
     }
 }

@@ -50,74 +50,9 @@ namespace imitator
             public double B; //геометриче-ские пара-метры удар-ной волны
         }
         
-        public static class Cnst
-        {
-            /// <summary>
-            /// Минимальная частота зон-дирующего радиосигнала, Гц
-            /// </summary>
-            public const double F0 = 3e9;
-            /// <summary>
-            /// Шаг по частоте зондиру-ющего радиосигнала, Гц
-            /// </summary>
-            public const double DeltaF = 5e6;
-            /// <summary>
-            /// Скорость света, м/с
-            /// </summary>
-            public const double C = 3e8;
-
-
-        }
-
-        #region Данные целей
-
-        private static readonly ShineDot[] Object11 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0, Omax = 2.9, Rzatup = 0.04, Gamma = 0.2 , Kiz = 0.8},
-            new ShineDot() {Kf = 4, Xc = 0.6,Yc = -0.25,Omin = 0,Omax = 2.9,Rzatup = 0.04,D1 = 0.1, D2 = 0.5,L = 1.2,Gamma = 0.2, Kiz = 0.8},
-            new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.3, Kiz = 0.4},
-            new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0, Omin = 1.6, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.5, Kiz = 0.8},
-        };
-        private static readonly ShineDot[] Object12 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0,      Omax = 2.95, Rzatup = 0.03, Gamma = 0.15, Kiz = 0.8},
-            new ShineDot() {Kf = 4, Xc = 0.7,Yc = -0.25,Omin = 0,   Omax = 2.9,  Rzatup = 0.03, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8},
-            new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4, Omin = 0, Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.4},
-            new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0, Omin = 1.6,  Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.8}
-        };
-        private static readonly ShineDot[] Object13 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, Kiz = 0.8},
-            new ShineDot() {Kf = 4, Xc = 0.7, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8},
-            new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4,  Omin = 0,    Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.4},
-            new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.8}
-        };
-        private static readonly ShineDot[] Object21 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8},
-            new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8},
-            new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
-            new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.5, Kiz = 0.8}
-        };
-        private static readonly ShineDot[] Object22 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8},
-            new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8},
-            new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
-            new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0.8}
-        };
-
-        public static readonly List<ShineDot[]>[] Objects =
-        {
-            new List<ShineDot[]>{Object11, Object12, Object13},
-            new List<ShineDot[]>{Object21, Object22}
-        };
-
         #endregion
 
-
-        #endregion
-
-        public static List<double[]> GeneralOperator(InputData[] aims)
+        public static List<double[]> Exec(InputData[] aims)
         {
             List<double[]> outIpr=new List<double[]>();
 
@@ -134,12 +69,12 @@ namespace imitator
             List<DotParams> NewDots = new List<DotParams>();
             //ВП0
             //Начальные значения частоты и длины волны излучения РЛС
-            double LambdaK = (Cnst.C/Cnst.F0);
+            double LambdaK = (Const.C/Const.F0);
             double KLambda = 2*Math.PI/LambdaK;
 
             foreach (InputData dot in dots)
             {
-                NewDots.Add(GetReflectionKoeff(LambdaK, KLambda, dot, Cnst.F0));
+                NewDots.Add(GetReflectionKoeff(LambdaK, KLambda, dot, Const.F0));
             }
             return new double[] {GetSummaryEpr(NewDots.ToArray())};
             
@@ -169,7 +104,7 @@ namespace imitator
         {
             var dotList = new List<InputData>();
             
-                foreach (var dot in Objects[aim.Type-1][aim.SubTupe-1])
+                foreach (var dot in Const.Objects[aim.Type-1][aim.SubTupe-1])
                 {
                     var newInputDataItem = new InputData
                     {
@@ -232,7 +167,8 @@ namespace imitator
                     double k = GetKp(dot, fk, kLambda);
                     return new DotParams { s0 = k * s0 * dot.Kiz, fi = fi };
                 }
-                else if(dot.Angle<1.2)
+                
+                if(dot.Angle<1.2)
                 {
                     double Xk = dot.Ageo*dot.Ageo/
                         Math.Sqrt(dot.Ageo * dot.Ageo - dot.Bgeo * dot.Bgeo * Math.Tan(dot.Angle) * Math.Tan(dot.Angle));
@@ -402,8 +338,8 @@ namespace imitator
         {
             DotParams dotParams = new DotParams();
 
-            double fk = Cnst.F0 + freq * Cnst.DeltaF;
-            double lambdaK = Cnst.C / fk;
+            double fk = Const.F0 + freq * Const.DeltaF;
+            double lambdaK = Const.C / fk;
             double kLambda = 2 * Math.PI / lambdaK;
 
             double s0 = 0;
