@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace imitator
 {
@@ -218,35 +219,35 @@ namespace imitator
 
         #region Данные целей
 
-        private static readonly ShineDot[] Object11 =
+        public static readonly ShineDot[] Object11 =
         {
             new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0, Omax = 2.9, Rzatup = 0.04, Gamma = 0.2 , Kiz = 0.8, Cx = 0.06, Sm = 0.5},
             new ShineDot() {Kf = 4, Xc = 0.6,Yc = -0.25,Omin = 0,Omax = 2.9,Rzatup = 0.04,D1 = 0.1, D2 = 0.5,L = 1.2,Gamma = 0.2, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
             new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.3, Kiz = 0.4, Cx = 0.06, Sm = 0.5},
             new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0, Omin = 1.6, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
         };
-        private static readonly ShineDot[] Object12 =
+        public static readonly ShineDot[] Object12 =
         {
             new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0,      Omax = 2.95, Rzatup = 0.03, Gamma = 0.15, Kiz = 0.8, Cx = 0.07, Sm = 0.6},
             new ShineDot() {Kf = 4, Xc = 0.7,Yc = -0.25,Omin = 0,  Omax = 2.9,  Rzatup = 0.03, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8, Cx = 0.07, Sm = 0.6},
             new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4, Omin = 0, Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.4, Cx = 0.07, Sm = 0.6},
             new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0, Omin = 1.6,  Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.07, Sm = 0.6}
         };
-        private static readonly ShineDot[] Object13 =
+        public static readonly ShineDot[] Object13 =
         {
             new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, Kiz = 0.8, Cx = 0.08, Sm = 0.7},
             new ShineDot() {Kf = 4, Xc = 0.7, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8, Cx = 0.08, Sm = 0.7},
             new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4,  Omin = 0,    Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.4, Cx = 0.08, Sm = 0.7},
             new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.08, Sm = 0.7}
         };
-        private static readonly ShineDot[] Object21 =
+        public static readonly ShineDot[] Object21 =
         {
             new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
             new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
             new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4, Cx = 0.06, Sm = 0.5},
             new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.06, Sm = 0.5}
         };
-        private static readonly ShineDot[] Object22 =
+        public static readonly ShineDot[] Object22 =
         {
             new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8, Cx = 0.05, Sm = 0.5},
             new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8, Cx = 0.05, Sm = 0.5},
@@ -254,10 +255,10 @@ namespace imitator
             new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0.8, Cx = 0.05, Sm = 0.5}
         };
 
-        public static readonly List<ShineDot[]>[] Objects =
+        public static readonly ObservableCollection<ShineDot[]>[] Objects =
         {
-            new List<ShineDot[]>{Object11, Object12, Object13},
-            new List<ShineDot[]>{Object21, Object22}
+            new ObservableCollection<ShineDot[]>{Object11, Object12, Object13},
+            new ObservableCollection<ShineDot[]>{Object21, Object22}
         };
 
         #endregion

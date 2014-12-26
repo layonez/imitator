@@ -211,28 +211,28 @@ namespace imitator
 
     public class ShineDot 
     {
-        public int Kf;
-        public double Xc;
-        public double Yc;
-        public double Rzatup;
-        public double D1;
-        public double D2;
-        public double L;
-        public double D;
-        public double Kiz;
-        public double A;
-        public double C;
-        public double Omin;
-        public double Omax;
-        public double Gamma;
+        public int Kf { get; set; }
+        public double Xc { get; set; }
+        public double Yc { get; set; }
+        public double Rzatup { get; set; }
+        public double D1 { get; set; }
+        public double D2 { get; set;}
+        public double L { get; set; }
+        public double D { get; set; }
+        public double Kiz { get; set; }
+        public double A { get; set; }
+        public double C { get; set; }
+        public double Omin { get; set; }
+        public double Omax { get; set; }
+        public double Gamma { get; set; }
         /// <summary>
         /// Коэффициент лобового сопротивления
         /// </summary>
-        public double Cx;
+        public double Cx { get; set; }
         /// <summary>
         /// Площадь миделевого сечения
         /// </summary>
-        public double Sm;
+        public double Sm { get; set; }
     }
 
     public struct DotParams

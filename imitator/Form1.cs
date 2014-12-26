@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace imitator
 {
@@ -19,7 +23,7 @@ namespace imitator
         {
             InitializeComponent();
         }
-
+        
         private void CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             InputGrid33.Rows[e.RowIndex].ErrorText = "";
@@ -326,6 +330,7 @@ namespace imitator
 
                     TabCntrl44_46.SelectTab(1);
                 }
+                
 
 
            // }
@@ -1197,7 +1202,96 @@ namespace imitator
         {
             FillDefaults44_46();
         }
-        
+
+        private void TabCntrl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabCntrl.SelectedIndex == 7)
+            {
+                var i = 0;
+                var types = new ObservableCollection<int>();
+                foreach (var dot in Const.Objects)
+                {
+                    types.Add(i++);
+                }
+                AimTypeComboBox.DataSource = types;
+
+                K1.Text = Const.K1.ToString();
+                K2.Text = Const.K2.ToString();
+                K3.Text = Const.K3.ToString();
+                K4.Text = Const.K4.ToString();
+
+                Ksv2.Text = Const.Ksv2.ToString();
+                Ksv3.Text = Const.Ksv3.ToString();
+
+                K0.Text = Const.K0.ToString();
+            }
+        }
+
+        private void AimTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var box = sender as ComboBox;
+
+            if (box != null)
+            {
+                var obj = Const.Objects[box.SelectedIndex];
+                var i = 0;
+                var subTypes = new ObservableCollection<int>();
+                foreach (var dot in obj)
+                {
+                    subTypes.Add(i++);
+                }
+
+                AimSubtypeComboBox.DataSource = subTypes;
+            }
+        }
+
+        private void AimSubtypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConstantsView.AutoGenerateColumns = true;
+            ConstantsView.DataSource = Const.Objects[AimTypeComboBox.SelectedIndex][AimSubtypeComboBox.SelectedIndex];
+            ConstantsView.Refresh();
+        }
+
+        private void K_TextChanged(object sender, EventArgs e)
+        {
+            var tBox = sender as TextBox;
+            double val;
+            if (tBox != null && double.TryParse(tBox.Text, out val))
+            {
+                switch ( tBox.Name)
+                {
+                    case "K0":
+                        Const.K0 = val;
+                        break;
+                    case "K1":
+                        Const.K1 = val;
+                        break;
+                    case "K2":
+                        Const.K2 = val;
+                        break;
+                    case "K3":
+                        Const.K3 = val;
+                        break;
+                    case "K4":
+                        Const.K4 = val;
+                        break;
+                    case "Ksv2":
+                        Const.Ksv2 = val;
+                        break;
+                    case "Ksv3":
+                        Const.Ksv3 = val;
+                        break;
+                }
+                tBox.BackColor = Color.White;
+            }
+            else
+            {
+                if (tBox != null) tBox.BackColor = Color.Red;
+            }
+        }
+
+
+
         #region Копирование/вставка ячеек
 
         #endregion

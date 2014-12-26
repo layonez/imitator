@@ -109,6 +109,13 @@
             this.tabPage13 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.inputGrid44 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NeKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NuKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Xkn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Xkc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Xkk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage14 = new System.Windows.Forms.TabPage();
             this.outputGrid44 = new System.Windows.Forms.DataGridView();
             this.tabPage15 = new System.Windows.Forms.TabPage();
@@ -154,6 +161,23 @@
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage20 = new System.Windows.Forms.TabPage();
             this.outputGrid44_46 = new System.Windows.Forms.DataGridView();
+            this.tabPage21 = new System.Windows.Forms.TabPage();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.ConstantsView = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AimSubtypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.AimTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.K4 = new System.Windows.Forms.TextBox();
+            this.K3 = new System.Windows.Forms.TextBox();
+            this.K2 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.K1 = new System.Windows.Forms.TextBox();
             this.delButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
@@ -162,13 +186,14 @@
             this.button2 = new System.Windows.Forms.Button();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteCtrlVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridViewTextBoxColumn61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NeKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NuKrit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Xkn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Xkc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Xkk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Ksv3 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Ksv2 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.K0 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -216,6 +241,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.inputGrid44_46)).BeginInit();
             this.tabPage20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputGrid44_46)).BeginInit();
+            this.tabPage21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ConstantsView)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -237,8 +269,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.TimeLable);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Size = new System.Drawing.Size(789, 404);
-            this.splitContainer1.SplitterDistance = 656;
+            this.splitContainer1.Size = new System.Drawing.Size(1276, 641);
+            this.splitContainer1.SplitterDistance = 1143;
             this.splitContainer1.TabIndex = 0;
             // 
             // TabCntrl
@@ -250,12 +282,14 @@
             this.TabCntrl.Controls.Add(this.tabPage44);
             this.TabCntrl.Controls.Add(this.tabPage15);
             this.TabCntrl.Controls.Add(this.tabPage18);
+            this.TabCntrl.Controls.Add(this.tabPage21);
             this.TabCntrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabCntrl.Location = new System.Drawing.Point(0, 0);
             this.TabCntrl.Name = "TabCntrl";
             this.TabCntrl.SelectedIndex = 0;
-            this.TabCntrl.Size = new System.Drawing.Size(656, 404);
+            this.TabCntrl.Size = new System.Drawing.Size(1143, 641);
             this.TabCntrl.TabIndex = 1;
+            this.TabCntrl.SelectedIndexChanged += new System.EventHandler(this.TabCntrl_SelectedIndexChanged);
             // 
             // tabPage3
             // 
@@ -263,7 +297,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(648, 378);
+            this.tabPage3.Size = new System.Drawing.Size(1135, 615);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "ЧИ33";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -276,7 +310,7 @@
             this.tabCntrl33.Location = new System.Drawing.Point(3, 3);
             this.tabCntrl33.Name = "tabCntrl33";
             this.tabCntrl33.SelectedIndex = 0;
-            this.tabCntrl33.Size = new System.Drawing.Size(642, 372);
+            this.tabCntrl33.Size = new System.Drawing.Size(1129, 609);
             this.tabCntrl33.TabIndex = 2;
             // 
             // tabPage5
@@ -285,7 +319,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(634, 346);
+            this.tabPage5.Size = new System.Drawing.Size(1121, 583);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "Входные данные";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -313,7 +347,7 @@
             this.InputGrid33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InputGrid33.Location = new System.Drawing.Point(3, 3);
             this.InputGrid33.Name = "InputGrid33";
-            this.InputGrid33.Size = new System.Drawing.Size(628, 340);
+            this.InputGrid33.Size = new System.Drawing.Size(1115, 577);
             this.InputGrid33.TabIndex = 0;
             this.InputGrid33.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CellValidating);
             // 
@@ -412,7 +446,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(634, 346);
+            this.tabPage8.Size = new System.Drawing.Size(1121, 583);
             this.tabPage8.TabIndex = 1;
             this.tabPage8.Text = "Выходные данные";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -425,7 +459,7 @@
             this.OutputGrid33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OutputGrid33.Location = new System.Drawing.Point(3, 3);
             this.OutputGrid33.Name = "OutputGrid33";
-            this.OutputGrid33.Size = new System.Drawing.Size(628, 340);
+            this.OutputGrid33.Size = new System.Drawing.Size(1115, 577);
             this.OutputGrid33.TabIndex = 0;
             // 
             // tabPage4
@@ -434,7 +468,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(648, 378);
+            this.tabPage4.Size = new System.Drawing.Size(1135, 615);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "ЧИ42";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -447,7 +481,7 @@
             this.TabCntrl42.Location = new System.Drawing.Point(3, 3);
             this.TabCntrl42.Name = "TabCntrl42";
             this.TabCntrl42.SelectedIndex = 0;
-            this.TabCntrl42.Size = new System.Drawing.Size(642, 372);
+            this.TabCntrl42.Size = new System.Drawing.Size(1129, 609);
             this.TabCntrl42.TabIndex = 3;
             // 
             // tabPage1
@@ -457,7 +491,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(634, 346);
+            this.tabPage1.Size = new System.Drawing.Size(1121, 583);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Входные данные";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -466,9 +500,9 @@
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(3, 277);
+            this.button3.Location = new System.Drawing.Point(3, 514);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(628, 41);
+            this.button3.Size = new System.Drawing.Size(1115, 41);
             this.button3.TabIndex = 1;
             this.button3.Text = "Заполнить стандартнымы.\r\n(Необходимо заполнить данными первую строку и на их осно" +
     "ве будут сгенерированны остальные данные)";
@@ -488,7 +522,7 @@
             this.inputGrid42.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputGrid42.Location = new System.Drawing.Point(3, 3);
             this.inputGrid42.Name = "inputGrid42";
-            this.inputGrid42.Size = new System.Drawing.Size(628, 340);
+            this.inputGrid42.Size = new System.Drawing.Size(1115, 577);
             this.inputGrid42.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn15
@@ -527,7 +561,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(634, 346);
+            this.tabPage2.Size = new System.Drawing.Size(1121, 583);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Выходные данные";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -549,7 +583,7 @@
             this.outputGrid42.Dock = System.Windows.Forms.DockStyle.Fill;
             this.outputGrid42.Location = new System.Drawing.Point(3, 3);
             this.outputGrid42.Name = "outputGrid42";
-            this.outputGrid42.Size = new System.Drawing.Size(628, 340);
+            this.outputGrid42.Size = new System.Drawing.Size(1115, 577);
             this.outputGrid42.TabIndex = 0;
             // 
             // A
@@ -598,7 +632,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(648, 378);
+            this.tabPage6.Size = new System.Drawing.Size(1135, 615);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "ЧИ43";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -611,7 +645,7 @@
             this.TabCntrl43.Location = new System.Drawing.Point(3, 3);
             this.TabCntrl43.Name = "TabCntrl43";
             this.TabCntrl43.SelectedIndex = 0;
-            this.TabCntrl43.Size = new System.Drawing.Size(642, 372);
+            this.TabCntrl43.Size = new System.Drawing.Size(1129, 609);
             this.TabCntrl43.TabIndex = 3;
             // 
             // tabPage7
@@ -620,7 +654,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(634, 346);
+            this.tabPage7.Size = new System.Drawing.Size(1121, 583);
             this.tabPage7.TabIndex = 0;
             this.tabPage7.Text = "Входные данные";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -645,7 +679,7 @@
             this.inputGrid43.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputGrid43.Location = new System.Drawing.Point(3, 3);
             this.inputGrid43.Name = "inputGrid43";
-            this.inputGrid43.Size = new System.Drawing.Size(628, 340);
+            this.inputGrid43.Size = new System.Drawing.Size(1115, 577);
             this.inputGrid43.TabIndex = 0;
             // 
             // Column16
@@ -726,7 +760,7 @@
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(634, 346);
+            this.tabPage9.Size = new System.Drawing.Size(1121, 583);
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Выходные данные";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -739,7 +773,7 @@
             this.outputGrid43.Dock = System.Windows.Forms.DockStyle.Fill;
             this.outputGrid43.Location = new System.Drawing.Point(3, 3);
             this.outputGrid43.Name = "outputGrid43";
-            this.outputGrid43.Size = new System.Drawing.Size(628, 340);
+            this.outputGrid43.Size = new System.Drawing.Size(1115, 577);
             this.outputGrid43.TabIndex = 0;
             // 
             // tabPage10
@@ -748,7 +782,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(648, 378);
+            this.tabPage10.Size = new System.Drawing.Size(1135, 615);
             this.tabPage10.TabIndex = 3;
             this.tabPage10.Text = "ЧИ 42+43";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -761,7 +795,7 @@
             this.tabControl42_43.Location = new System.Drawing.Point(3, 3);
             this.tabControl42_43.Name = "tabControl42_43";
             this.tabControl42_43.SelectedIndex = 0;
-            this.tabControl42_43.Size = new System.Drawing.Size(642, 372);
+            this.tabControl42_43.Size = new System.Drawing.Size(1129, 609);
             this.tabControl42_43.TabIndex = 4;
             // 
             // tabPage11
@@ -771,7 +805,7 @@
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(634, 346);
+            this.tabPage11.Size = new System.Drawing.Size(1121, 583);
             this.tabPage11.TabIndex = 0;
             this.tabPage11.Text = "Входные данные";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -780,9 +814,9 @@
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(6, 307);
+            this.button5.Location = new System.Drawing.Point(6, 544);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(622, 23);
+            this.button5.Size = new System.Drawing.Size(1109, 23);
             this.button5.TabIndex = 1;
             this.button5.Text = "Заполнить стандартными";
             this.button5.UseVisualStyleBackColor = true;
@@ -803,7 +837,7 @@
             this.input42_43.Dock = System.Windows.Forms.DockStyle.Fill;
             this.input42_43.Location = new System.Drawing.Point(3, 3);
             this.input42_43.Name = "input42_43";
-            this.input42_43.Size = new System.Drawing.Size(628, 340);
+            this.input42_43.Size = new System.Drawing.Size(1115, 577);
             this.input42_43.TabIndex = 0;
             // 
             // Column18
@@ -854,7 +888,7 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(634, 346);
+            this.tabPage12.Size = new System.Drawing.Size(1121, 583);
             this.tabPage12.TabIndex = 1;
             this.tabPage12.Text = "Выходные данные";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -867,7 +901,7 @@
             this.out42_43.Dock = System.Windows.Forms.DockStyle.Fill;
             this.out42_43.Location = new System.Drawing.Point(3, 3);
             this.out42_43.Name = "out42_43";
-            this.out42_43.Size = new System.Drawing.Size(628, 340);
+            this.out42_43.Size = new System.Drawing.Size(1115, 577);
             this.out42_43.TabIndex = 0;
             // 
             // tabPage44
@@ -876,7 +910,7 @@
             this.tabPage44.Location = new System.Drawing.Point(4, 22);
             this.tabPage44.Name = "tabPage44";
             this.tabPage44.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage44.Size = new System.Drawing.Size(648, 378);
+            this.tabPage44.Size = new System.Drawing.Size(1135, 615);
             this.tabPage44.TabIndex = 4;
             this.tabPage44.Text = "ЧИ 44";
             this.tabPage44.UseVisualStyleBackColor = true;
@@ -889,7 +923,7 @@
             this.TabCntrl44.Location = new System.Drawing.Point(3, 3);
             this.TabCntrl44.Name = "TabCntrl44";
             this.TabCntrl44.SelectedIndex = 0;
-            this.TabCntrl44.Size = new System.Drawing.Size(642, 372);
+            this.TabCntrl44.Size = new System.Drawing.Size(1129, 609);
             this.TabCntrl44.TabIndex = 5;
             // 
             // tabPage13
@@ -899,7 +933,7 @@
             this.tabPage13.Location = new System.Drawing.Point(4, 22);
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(634, 346);
+            this.tabPage13.Size = new System.Drawing.Size(1121, 583);
             this.tabPage13.TabIndex = 0;
             this.tabPage13.Text = "Входные данные";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -908,9 +942,9 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(3, 282);
+            this.button1.Location = new System.Drawing.Point(3, 519);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(628, 39);
+            this.button1.Size = new System.Drawing.Size(1115, 39);
             this.button1.TabIndex = 1;
             this.button1.Text = "Заполнить стандартными";
             this.button1.UseVisualStyleBackColor = true;
@@ -931,8 +965,50 @@
             this.inputGrid44.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputGrid44.Location = new System.Drawing.Point(3, 3);
             this.inputGrid44.Name = "inputGrid44";
-            this.inputGrid44.Size = new System.Drawing.Size(628, 340);
+            this.inputGrid44.Size = new System.Drawing.Size(1115, 577);
             this.inputGrid44.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn61
+            // 
+            this.dataGridViewTextBoxColumn61.HeaderText = "H";
+            this.dataGridViewTextBoxColumn61.Name = "dataGridViewTextBoxColumn61";
+            this.dataGridViewTextBoxColumn61.Width = 40;
+            // 
+            // NeKrit
+            // 
+            this.NeKrit.HeaderText = "NeKrit";
+            this.NeKrit.Name = "NeKrit";
+            this.NeKrit.Width = 61;
+            // 
+            // NuKrit
+            // 
+            this.NuKrit.HeaderText = "NuKrit";
+            this.NuKrit.Name = "NuKrit";
+            this.NuKrit.Width = 61;
+            // 
+            // V
+            // 
+            this.V.HeaderText = "V";
+            this.V.Name = "V";
+            this.V.Width = 39;
+            // 
+            // Xkn
+            // 
+            this.Xkn.HeaderText = "Xkn";
+            this.Xkn.Name = "Xkn";
+            this.Xkn.Width = 51;
+            // 
+            // Xkc
+            // 
+            this.Xkc.HeaderText = "Xkc";
+            this.Xkc.Name = "Xkc";
+            this.Xkc.Width = 51;
+            // 
+            // Xkk
+            // 
+            this.Xkk.HeaderText = "Xkk";
+            this.Xkk.Name = "Xkk";
+            this.Xkk.Width = 51;
             // 
             // tabPage14
             // 
@@ -940,7 +1016,7 @@
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(634, 346);
+            this.tabPage14.Size = new System.Drawing.Size(1121, 583);
             this.tabPage14.TabIndex = 1;
             this.tabPage14.Text = "Выходные данные";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -953,7 +1029,7 @@
             this.outputGrid44.Dock = System.Windows.Forms.DockStyle.Fill;
             this.outputGrid44.Location = new System.Drawing.Point(3, 3);
             this.outputGrid44.Name = "outputGrid44";
-            this.outputGrid44.Size = new System.Drawing.Size(628, 340);
+            this.outputGrid44.Size = new System.Drawing.Size(1115, 577);
             this.outputGrid44.TabIndex = 0;
             // 
             // tabPage15
@@ -962,7 +1038,7 @@
             this.tabPage15.Location = new System.Drawing.Point(4, 22);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(648, 378);
+            this.tabPage15.Size = new System.Drawing.Size(1135, 615);
             this.tabPage15.TabIndex = 5;
             this.tabPage15.Text = "ЧИ 46";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -975,7 +1051,7 @@
             this.TabCntrl46.Location = new System.Drawing.Point(3, 3);
             this.TabCntrl46.Name = "TabCntrl46";
             this.TabCntrl46.SelectedIndex = 0;
-            this.TabCntrl46.Size = new System.Drawing.Size(642, 372);
+            this.TabCntrl46.Size = new System.Drawing.Size(1129, 609);
             this.TabCntrl46.TabIndex = 6;
             // 
             // tabPage16
@@ -984,7 +1060,7 @@
             this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
             this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage16.Size = new System.Drawing.Size(634, 346);
+            this.tabPage16.Size = new System.Drawing.Size(1121, 583);
             this.tabPage16.TabIndex = 0;
             this.tabPage16.Text = "Входные данные";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -1018,7 +1094,7 @@
             this.inputGrid46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputGrid46.Location = new System.Drawing.Point(3, 3);
             this.inputGrid46.Name = "inputGrid46";
-            this.inputGrid46.Size = new System.Drawing.Size(628, 340);
+            this.inputGrid46.Size = new System.Drawing.Size(1115, 577);
             this.inputGrid46.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn47
@@ -1153,7 +1229,7 @@
             this.tabPage17.Location = new System.Drawing.Point(4, 22);
             this.tabPage17.Name = "tabPage17";
             this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage17.Size = new System.Drawing.Size(634, 346);
+            this.tabPage17.Size = new System.Drawing.Size(1121, 583);
             this.tabPage17.TabIndex = 1;
             this.tabPage17.Text = "Выходные данные";
             this.tabPage17.UseVisualStyleBackColor = true;
@@ -1166,7 +1242,7 @@
             this.outputGrid46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.outputGrid46.Location = new System.Drawing.Point(3, 3);
             this.outputGrid46.Name = "outputGrid46";
-            this.outputGrid46.Size = new System.Drawing.Size(628, 340);
+            this.outputGrid46.Size = new System.Drawing.Size(1115, 577);
             this.outputGrid46.TabIndex = 0;
             // 
             // tabPage18
@@ -1175,7 +1251,7 @@
             this.tabPage18.Location = new System.Drawing.Point(4, 22);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage18.Size = new System.Drawing.Size(648, 378);
+            this.tabPage18.Size = new System.Drawing.Size(1135, 615);
             this.tabPage18.TabIndex = 6;
             this.tabPage18.Text = "ЧИ 44+46";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -1188,7 +1264,7 @@
             this.TabCntrl44_46.Location = new System.Drawing.Point(3, 3);
             this.TabCntrl44_46.Name = "TabCntrl44_46";
             this.TabCntrl44_46.SelectedIndex = 0;
-            this.TabCntrl44_46.Size = new System.Drawing.Size(642, 372);
+            this.TabCntrl44_46.Size = new System.Drawing.Size(1129, 609);
             this.TabCntrl44_46.TabIndex = 6;
             // 
             // tabPage19
@@ -1198,7 +1274,7 @@
             this.tabPage19.Location = new System.Drawing.Point(4, 22);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(634, 346);
+            this.tabPage19.Size = new System.Drawing.Size(1121, 583);
             this.tabPage19.TabIndex = 0;
             this.tabPage19.Text = "Входные данные";
             this.tabPage19.UseVisualStyleBackColor = true;
@@ -1207,9 +1283,9 @@
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(3, 282);
+            this.button4.Location = new System.Drawing.Point(3, 519);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(628, 39);
+            this.button4.Size = new System.Drawing.Size(1115, 39);
             this.button4.TabIndex = 1;
             this.button4.Text = "Заполнить стандартными";
             this.button4.UseVisualStyleBackColor = true;
@@ -1232,7 +1308,7 @@
             this.inputGrid44_46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.inputGrid44_46.Location = new System.Drawing.Point(3, 3);
             this.inputGrid44_46.Name = "inputGrid44_46";
-            this.inputGrid44_46.Size = new System.Drawing.Size(628, 340);
+            this.inputGrid44_46.Size = new System.Drawing.Size(1115, 577);
             this.inputGrid44_46.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn55
@@ -1295,7 +1371,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 22);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(634, 346);
+            this.tabPage20.Size = new System.Drawing.Size(1121, 583);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Выходные данные";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -1308,8 +1384,190 @@
             this.outputGrid44_46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.outputGrid44_46.Location = new System.Drawing.Point(3, 3);
             this.outputGrid44_46.Name = "outputGrid44_46";
-            this.outputGrid44_46.Size = new System.Drawing.Size(628, 340);
+            this.outputGrid44_46.Size = new System.Drawing.Size(1115, 577);
             this.outputGrid44_46.TabIndex = 0;
+            // 
+            // tabPage21
+            // 
+            this.tabPage21.Controls.Add(this.splitContainer2);
+            this.tabPage21.Location = new System.Drawing.Point(4, 22);
+            this.tabPage21.Name = "tabPage21";
+            this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage21.Size = new System.Drawing.Size(1135, 615);
+            this.tabPage21.TabIndex = 7;
+            this.tabPage21.Text = "Редактор констант";
+            this.tabPage21.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.panel1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.label12);
+            this.splitContainer2.Panel2.Controls.Add(this.label13);
+            this.splitContainer2.Panel2.Controls.Add(this.label9);
+            this.splitContainer2.Panel2.Controls.Add(this.K0);
+            this.splitContainer2.Panel2.Controls.Add(this.Ksv3);
+            this.splitContainer2.Panel2.Controls.Add(this.label10);
+            this.splitContainer2.Panel2.Controls.Add(this.label11);
+            this.splitContainer2.Panel2.Controls.Add(this.Ksv2);
+            this.splitContainer2.Panel2.Controls.Add(this.label8);
+            this.splitContainer2.Panel2.Controls.Add(this.K4);
+            this.splitContainer2.Panel2.Controls.Add(this.K3);
+            this.splitContainer2.Panel2.Controls.Add(this.K2);
+            this.splitContainer2.Panel2.Controls.Add(this.label7);
+            this.splitContainer2.Panel2.Controls.Add(this.label6);
+            this.splitContainer2.Panel2.Controls.Add(this.label5);
+            this.splitContainer2.Panel2.Controls.Add(this.label4);
+            this.splitContainer2.Panel2.Controls.Add(this.K1);
+            this.splitContainer2.Size = new System.Drawing.Size(1129, 609);
+            this.splitContainer2.SplitterDistance = 304;
+            this.splitContainer2.TabIndex = 7;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.ConstantsView);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.AimSubtypeComboBox);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.AimTypeComboBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1129, 304);
+            this.panel1.TabIndex = 6;
+            // 
+            // ConstantsView
+            // 
+            this.ConstantsView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ConstantsView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ConstantsView.Location = new System.Drawing.Point(17, 36);
+            this.ConstantsView.Name = "ConstantsView";
+            this.ConstantsView.Size = new System.Drawing.Size(1099, 258);
+            this.ConstantsView.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(200, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Подтип цели";
+            // 
+            // AimSubtypeComboBox
+            // 
+            this.AimSubtypeComboBox.FormattingEnabled = true;
+            this.AimSubtypeComboBox.Location = new System.Drawing.Point(277, 9);
+            this.AimSubtypeComboBox.Name = "AimSubtypeComboBox";
+            this.AimSubtypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.AimSubtypeComboBox.TabIndex = 4;
+            this.AimSubtypeComboBox.SelectedIndexChanged += new System.EventHandler(this.AimSubtypeComboBox_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Тип цели";
+            // 
+            // AimTypeComboBox
+            // 
+            this.AimTypeComboBox.FormattingEnabled = true;
+            this.AimTypeComboBox.Location = new System.Drawing.Point(73, 9);
+            this.AimTypeComboBox.Name = "AimTypeComboBox";
+            this.AimTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.AimTypeComboBox.TabIndex = 3;
+            this.AimTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.AimTypeComboBox_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(167, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Калибровочные коэффициенты";
+            // 
+            // K4
+            // 
+            this.K4.Location = new System.Drawing.Point(40, 114);
+            this.K4.Name = "K4";
+            this.K4.Size = new System.Drawing.Size(100, 20);
+            this.K4.TabIndex = 7;
+            this.K4.TextChanged += new System.EventHandler(this.K_TextChanged);
+            // 
+            // K3
+            // 
+            this.K3.Location = new System.Drawing.Point(40, 87);
+            this.K3.Name = "K3";
+            this.K3.Size = new System.Drawing.Size(100, 20);
+            this.K3.TabIndex = 6;
+            this.K3.TextChanged += new System.EventHandler(this.K_TextChanged);
+            // 
+            // K2
+            // 
+            this.K2.Location = new System.Drawing.Point(40, 57);
+            this.K2.Name = "K2";
+            this.K2.Size = new System.Drawing.Size(100, 20);
+            this.K2.TabIndex = 5;
+            this.K2.TextChanged += new System.EventHandler(this.K_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(14, 117);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(20, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "K4";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 60);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(20, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "K2";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 90);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(20, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "K3";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(20, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "K1";
+            // 
+            // K1
+            // 
+            this.K1.Location = new System.Drawing.Point(40, 27);
+            this.K1.Name = "K1";
+            this.K1.Size = new System.Drawing.Size(100, 20);
+            this.K1.TabIndex = 0;
+            this.K1.TextChanged += new System.EventHandler(this.K_TextChanged);
             // 
             // delButton
             // 
@@ -1324,7 +1582,7 @@
             // loadButton
             // 
             this.loadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadButton.Location = new System.Drawing.Point(3, 326);
+            this.loadButton.Location = new System.Drawing.Point(3, 563);
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(123, 35);
             this.loadButton.TabIndex = 5;
@@ -1335,7 +1593,7 @@
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(3, 367);
+            this.saveButton.Location = new System.Drawing.Point(3, 604);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(123, 33);
             this.saveButton.TabIndex = 4;
@@ -1380,53 +1638,80 @@
             this.pasteCtrlVToolStripMenuItem.Name = "pasteCtrlVToolStripMenuItem";
             this.pasteCtrlVToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // dataGridViewTextBoxColumn61
+            // label9
             // 
-            this.dataGridViewTextBoxColumn61.HeaderText = "H";
-            this.dataGridViewTextBoxColumn61.Name = "dataGridViewTextBoxColumn61";
-            this.dataGridViewTextBoxColumn61.Width = 40;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(187, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(307, 13);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Коэффициенты калибровки ЭПР сверхкритического следа";
             // 
-            // NeKrit
+            // Ksv3
             // 
-            this.NeKrit.HeaderText = "NeKrit";
-            this.NeKrit.Name = "NeKrit";
-            this.NeKrit.Width = 61;
+            this.Ksv3.Location = new System.Drawing.Point(223, 57);
+            this.Ksv3.Name = "Ksv3";
+            this.Ksv3.Size = new System.Drawing.Size(100, 20);
+            this.Ksv3.TabIndex = 12;
+            this.Ksv3.TextChanged += new System.EventHandler(this.K_TextChanged);
             // 
-            // NuKrit
+            // label10
             // 
-            this.NuKrit.HeaderText = "NuKrit";
-            this.NuKrit.Name = "NuKrit";
-            this.NuKrit.Width = 61;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(187, 60);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(32, 13);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Kсв3";
             // 
-            // V
+            // label11
             // 
-            this.V.HeaderText = "V";
-            this.V.Name = "V";
-            this.V.Width = 39;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(187, 30);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "Kсв2";
             // 
-            // Xkn
+            // Ksv2
             // 
-            this.Xkn.HeaderText = "Xkn";
-            this.Xkn.Name = "Xkn";
-            this.Xkn.Width = 51;
+            this.Ksv2.Location = new System.Drawing.Point(223, 27);
+            this.Ksv2.Name = "Ksv2";
+            this.Ksv2.Size = new System.Drawing.Size(100, 20);
+            this.Ksv2.TabIndex = 9;
+            this.Ksv2.TextChanged += new System.EventHandler(this.K_TextChanged);
             // 
-            // Xkc
+            // label12
             // 
-            this.Xkc.HeaderText = "Xkc";
-            this.Xkc.Name = "Xkc";
-            this.Xkc.Width = 51;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(500, 6);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(324, 13);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Размерность дальностно-скоростного портрета по дальности";
             // 
-            // Xkk
+            // label13
             // 
-            this.Xkk.HeaderText = "Xkk";
-            this.Xkk.Name = "Xkk";
-            this.Xkk.Width = 51;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(500, 30);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(20, 13);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "K0";
+            // 
+            // K0
+            // 
+            this.K0.Location = new System.Drawing.Point(536, 27);
+            this.K0.Name = "K0";
+            this.K0.Size = new System.Drawing.Size(100, 20);
+            this.K0.TabIndex = 14;
+            this.K0.TextChanged += new System.EventHandler(this.K_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 404);
+            this.ClientSize = new System.Drawing.Size(1276, 641);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Программный модуль имитации РЛХ ЭСБЦ";
@@ -1478,6 +1763,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.inputGrid44_46)).EndInit();
             this.tabPage20.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.outputGrid44_46)).EndInit();
+            this.tabPage21.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ConstantsView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1624,6 +1918,31 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Xkn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Xkc;
         private System.Windows.Forms.DataGridViewTextBoxColumn Xkk;
+        private System.Windows.Forms.TabPage tabPage21;
+        private System.Windows.Forms.ComboBox AimSubtypeComboBox;
+        private System.Windows.Forms.ComboBox AimTypeComboBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView ConstantsView;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox K1;
+        private System.Windows.Forms.TextBox K4;
+        private System.Windows.Forms.TextBox K3;
+        private System.Windows.Forms.TextBox K2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox Ksv3;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox Ksv2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox K0;
     }
 }
 
