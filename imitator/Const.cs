@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace imitator
 {
@@ -218,7 +219,7 @@ namespace imitator
 
         #region Данные целей
 
-        private static readonly FlyingObject[] Objects = 
+        public static readonly FlyingObject[] Objects = 
         {
          new FlyingObject()
             {
@@ -304,7 +305,7 @@ namespace imitator
             Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
 
             ShineDots = new[]
-            {
+        {
             new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0},
             new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0, },
             new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
@@ -317,7 +318,7 @@ namespace imitator
              Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.03, Smf = 0.5,
 
             ShineDots = new[]
-            {
+        {
                 new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0},
                 new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0},
                 new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
@@ -330,14 +331,14 @@ namespace imitator
             Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
 
             ShineDots = new[]
-            {
+        {
                 new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0, },
                 new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0},
                 new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
                 new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0}
             }
         }
-};
+        };
 
         #endregion
 

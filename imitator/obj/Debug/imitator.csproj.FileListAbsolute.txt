@@ -13,3 +13,11 @@ C:\GitHub\imitator\imitator\obj\Debug\imitator.Properties.Resources.resources
 C:\GitHub\imitator\imitator\obj\Debug\imitator.csproj.GenerateResource.Cache
 C:\GitHub\imitator\imitator\bin\Debug\imitator.exe
 C:\GitHub\imitator\imitator\bin\Debug\imitator.pdb
+D:\Dropbox\code\imitator\imitator\obj\Debug\imitator.exe
+D:\Dropbox\code\imitator\imitator\obj\Debug\imitator.pdb
+D:\Dropbox\code\imitator\imitator\bin\Debug\imitator.exe
+D:\Dropbox\code\imitator\imitator\bin\Debug\imitator.pdb
+D:\Dropbox\code\imitator\imitator\obj\Debug\imitator.csprojResolveAssemblyReference.cache
+D:\Dropbox\code\imitator\imitator\obj\Debug\imitator.Form1.resources
+D:\Dropbox\code\imitator\imitator\obj\Debug\imitator.Properties.Resources.resources
+D:\Dropbox\code\imitator\imitator\obj\Debug\imitator.csproj.GenerateResource.Cache
