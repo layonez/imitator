@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -294,7 +296,7 @@ namespace imitator
 
                     for (int row = 0; row < inputGrid44_46.Rows.Count - 1; row++)
                     {
-                        for (int col = 0; col < 9; col++)
+                        for (int col = 0; col < 11; col++)
                         {
                             if (inputGrid44_46.Rows[row].Cells[col].Value == null)
                                 dataRow[col] = "0";
@@ -654,6 +656,8 @@ namespace imitator
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 0].ToString() });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 1].ToString() });
                 row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 2].ToString() });
+                row.Cells.Add(new DataGridViewTextBoxCell() { Value = 1 });
+                row.Cells.Add(new DataGridViewTextBoxCell() { Value = 1 });
                 inputGrid44.Rows.Add(row);
             }
         }
@@ -922,7 +926,9 @@ namespace imitator
                 V = double.Parse(data[3]),
                 Xkn = double.Parse(data[4]),
                 Xkc = double.Parse(data[5]),
-                Xkk = double.Parse(data[6])
+                Xkk = double.Parse(data[6]),
+                Type = int.Parse(data[7]),
+                SubType = int.Parse(data[8])
             };
         }
         private Imit44_46.InputData toDataPack44_46(string[] data)
@@ -936,7 +942,9 @@ namespace imitator
                 Xkn = double.Parse(data[5]),
                 Xkc = double.Parse(data[6]),
                 Xkk = double.Parse(data[7]),
-                angle = double.Parse(data[8])
+                angle = double.Parse(data[8]),
+                Type = int.Parse(data[9]),
+                SubType = int.Parse(data[10])
             };
         }
         private Imit46.InputData toDataPack46(string[] data)

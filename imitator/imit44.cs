@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace imitator
 {
@@ -11,6 +12,8 @@ namespace imitator
         /// </summary>
         public class InputData
         {
+            public int Type;
+            public int SubType;
             /// <summary>
             /// Электронная концентрация 
             /// в критической точке цели, см^-3
@@ -121,8 +124,12 @@ namespace imitator
         
         #endregion
 
+        private static double Cx;
+        private static double Sm;
         public static OutputData Exec(InputData data)
         {
+            Cx = Const.Cx;
+            Sm = Const.Sm;
             //определим плотность
             double Ro = Imit42.GetDensity(data.H);
 
@@ -134,25 +141,45 @@ namespace imitator
 
             //ВП1
             //Расчет высоты начала турбулизации вязкого следа 
-            double Rm = Math.Pow(Const.Sm/Math.PI, 0.5);
+            double Rm = Math.Pow(Sm/Math.PI, 0.5);
             double RoTurb = 0.3/(Rm*data.V);
             double Hturb = GetHturb(RoTurb);
-
-            //Расчет аэродинамической силы, действующей на БЦ при полете в атмосфере
-            double R = 0.5*Const.Cx*Const.Sm*Ro*data.V*data.V;
-
-            //Расчет расстояния от горла до точки перехода из ламинарного в турбулентное течение 
-            double Xp = GetXp(Rm,data.V,Ro);
-
-            //double DZp = Math.Log10(Xp*Math.Pow(Cnst.Cx*Cnst.Sm, -0.5) + 1);
-            //double Vp = data.V*Math.Pow(
-            //    (1 + (7 + 1.5*Math.Log10(R))*DZp -
-            //     (3/(Math.Log10(R) + 8)*DZp*DZp)), 
-            //     -0.6 );
+            double NeR = 0.1 * data.NeKrit;
 
             //ВП01
             //Расчет  параметров электронной концентрации
-            double NeR = 0.1*data.NeKrit;
+            if (data.Type != 0)
+            {
+                var dot = Const.GetFlyingObject(data.Type,data.SubType);
+
+                if (data.Type == 2 &&
+                    (data.SubType == 4 || data.SubType == 5 || data.SubType == 6) &&
+                    data.H > dot.Hmin)
+                {
+                    Cx = dot.Cxf;
+                    Sm = dot.Smf;
+
+                    double U;
+                    if (Hturb - dot.dHis <= data.H && data.H <= Hturb)
+                    {
+                        U = (Hturb - data.H) / dot.dHis;
+                    }
+                    else if (dot.Hmin + dot.dHis <= data.H && data.H <= Hturb - dot.dHis)
+                    {
+                        U = 1;
+                    }
+                    else //if (dot.Hmin <= data.H && data.H <= dot.Hmin + dot.dHis)
+                    {
+                        U = (data.H - dot.Hmin) / dot.dHis;
+                    }
+                    NeR = 4e10 * U * Math.Pow((0.3 / (Rm * data.V * Ro)), 1.1) * Math.Pow((1e-3 * data.V), 6.04);
+                }
+            }
+            //Расчет аэродинамической силы, действующей на БЦ при полете в атмосфере
+            double R = 0.5*Cx*Sm*Ro*data.V*data.V;
+
+            //Расчет расстояния от горла до точки перехода из ламинарного в турбулентное течение 
+            double Xp = GetXp(Rm,data.V,Ro);
             double NuR = 0.1*data.NuKrit;
             double NeKp = (1.24e-8)*Const.F0*Const.F0;
 
@@ -204,7 +231,7 @@ namespace imitator
         private static double GetSpeed(double V, double Xk)
         {
             const double powArg = -0.64;
-            return V *Math.Pow((Xk / Math.Sqrt(Const.Cx * Const.Sm)+1),powArg);
+            return V *Math.Pow((Xk / Math.Sqrt(Cx * Sm)+1),powArg);
         }
 
         /// <summary>
@@ -220,9 +247,9 @@ namespace imitator
             double DZkc = GetDzeta(data.Xkc, R);
             double DZkk = GetDzeta(data.Xkk, R);
 
-            double Dkn = DZkn*Math.Sqrt(Const.Cx*Const.Sm);
-            double Dkc = DZkc*Math.Sqrt(Const.Cx*Const.Sm);
-            double Dkk = DZkk*Math.Sqrt(Const.Cx*Const.Sm);
+            double Dkn = DZkn*Math.Sqrt(Cx*Sm);
+            double Dkc = DZkc*Math.Sqrt(Cx*Sm);
+            double Dkk = DZkk*Math.Sqrt(Cx*Sm);
 
             //Расчет скорости потока в заданных точках ламинарного вязкого следа
             double Vkn = GetSpeed(data.V, data.Xkn);
@@ -278,9 +305,9 @@ namespace imitator
             double DZkc = GetDzetaInTurb(data.Xkc, R, alfa);
             double DZkk = GetDzetaInTurb(data.Xkk, R, alfa);
 
-            double Dkn = DZkn * Math.Sqrt(Const.Cx * Const.Sm);
-            double Dkc = DZkc * Math.Sqrt(Const.Cx * Const.Sm);
-            double Dkk = DZkk * Math.Sqrt(Const.Cx * Const.Sm);
+            double Dkn = DZkn * Math.Sqrt(Cx * Sm);
+            double Dkc = DZkc * Math.Sqrt(Cx * Sm);
+            double Dkk = DZkk * Math.Sqrt(Cx * Sm);
 
             //Расчет скорости потока в заданных точках ламинарного вязкого следа
             double Vkn = GetSpeed(data.V, data.Xkn);
@@ -354,7 +381,7 @@ namespace imitator
         private static double GetDzeta(double Xk,double R)
         {
             double k = Math.Log10(
-                Xk/(Math.Sqrt(Const.Cx*Const.Sm)+1)
+                Xk/(Math.Sqrt(Cx*Sm)+1)
                 );
 
             return
@@ -366,7 +393,7 @@ namespace imitator
         private static double GetDzetaInTurb(double Xk, double R, double alfa)
         {
             double x1 = 0.2 * (4 + Math.Log10(R));
-            double x2 = 1 + Math.Pow((Xk / Math.Sqrt(Const.Cx * Const.Sm)), alfa);
+            double x2 = 1 + Math.Pow((Xk / Math.Sqrt(Cx * Sm)), alfa);
 
             return x1 * x2;
         }

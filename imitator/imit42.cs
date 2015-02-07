@@ -31,6 +31,9 @@ namespace imitator
             /// Скорость полета БЦ, м/с
             /// </summary>
             public double V;
+
+            public int Type;
+            public int SubType;
         }
 
         /// <summary>

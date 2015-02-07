@@ -225,14 +225,6 @@ namespace imitator
         public double Omin;
         public double Omax;
         public double Gamma;
-        /// <summary>
-        /// Коэффициент лобового сопротивления
-        /// </summary>
-        public double Cx;
-        /// <summary>
-        /// Площадь миделевого сечения
-        /// </summary>
-        public double Sm;
     }
 
     public struct DotParams

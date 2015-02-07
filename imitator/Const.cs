@@ -218,48 +218,142 @@ namespace imitator
 
         #region Данные целей
 
-        private static readonly ShineDot[] Object11 =
+        private static readonly FlyingObject[] Objects = 
         {
-            new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0, Omax = 2.9, Rzatup = 0.04, Gamma = 0.2 , Kiz = 0.8, Cx = 0.06, Sm = 0.5},
-            new ShineDot() {Kf = 4, Xc = 0.6,Yc = -0.25,Omin = 0,Omax = 2.9,Rzatup = 0.04,D1 = 0.1, D2 = 0.5,L = 1.2,Gamma = 0.2, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
-            new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.3, Kiz = 0.4, Cx = 0.06, Sm = 0.5},
-            new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0, Omin = 1.6, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
-        };
-        private static readonly ShineDot[] Object12 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0,      Omax = 2.95, Rzatup = 0.03, Gamma = 0.15, Kiz = 0.8, Cx = 0.07, Sm = 0.6},
-            new ShineDot() {Kf = 4, Xc = 0.7,Yc = -0.25,Omin = 0,  Omax = 2.9,  Rzatup = 0.03, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8, Cx = 0.07, Sm = 0.6},
-            new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4, Omin = 0, Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.4, Cx = 0.07, Sm = 0.6},
-            new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0, Omin = 1.6,  Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.07, Sm = 0.6}
-        };
-        private static readonly ShineDot[] Object13 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, Kiz = 0.8, Cx = 0.08, Sm = 0.7},
-            new ShineDot() {Kf = 4, Xc = 0.7, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8, Cx = 0.08, Sm = 0.7},
-            new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4,  Omin = 0,    Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.4, Cx = 0.08, Sm = 0.7},
-            new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.08, Sm = 0.7}
-        };
-        private static readonly ShineDot[] Object21 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
-            new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8, Cx = 0.06, Sm = 0.5},
-            new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4, Cx = 0.06, Sm = 0.5},
-            new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.5, Kiz = 0.8, Cx = 0.06, Sm = 0.5}
-        };
-        private static readonly ShineDot[] Object22 =
-        {
-            new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8, Cx = 0.05, Sm = 0.5},
-            new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8, Cx = 0.05, Sm = 0.5},
-            new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4, Cx = 0.05, Sm = 0.5},
-            new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0.8, Cx = 0.05, Sm = 0.5}
-        };
+         new FlyingObject()
+            {
+            Type = 1,Subtype = 1,
+            Cx = 0.06, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
 
-        public static readonly List<ShineDot[]>[] Objects =
+            ShineDots= new []
+            {
+                new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0, Omax = 2.9, Rzatup = 0.04, Gamma = 0.2 , Kiz = 0.8, },
+                new ShineDot() {Kf = 4, Xc = 0.6,Yc = -0.25,Omin = 0,Omax = 2.9,Rzatup = 0.04,D1 = 0.1, D2 = 0.5,L = 1.2,Gamma = 0.2, Kiz = 0.8},
+                new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.3, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0, Omin = 1.6, Omax = 3.14, Rzatup = 0.04, Gamma = 0.2, D = 0.5, Kiz = 0.8}
+            }
+        },
+        new FlyingObject()
         {
-            new List<ShineDot[]>{Object11, Object12, Object13},
-            new List<ShineDot[]>{Object21, Object22}
-        };
+            Type = 1, Subtype = 2,
+            Cx = 0.07, Sm = 0.6, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+                new ShineDot() {Kf = 1, Xc = 0, Yc = 0, Omin = 0,      Omax = 2.95, Rzatup = 0.03, Gamma = 0.15, Kiz = 0.8},
+                new ShineDot() {Kf = 4, Xc = 0.7,Yc = -0.25,Omin = 0,  Omax = 2.9,  Rzatup = 0.03, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8},
+                new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4, Omin = 0, Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0, Omin = 1.6,  Omax = 3.14, Rzatup = 0.03, Gamma = 0.2, D = 0.5, Kiz = 0.8}
+            }
+        },
+        new FlyingObject()
+        {
+            Type = 1, Subtype = 3,
+            Cx = 0.08, Sm = 0.7, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+                new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, Kiz = 0.8},
+                new ShineDot() {Kf = 4, Xc = 0.7, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.08, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.4, Kiz = 0.8},
+                new ShineDot() {Kf = 6, Xc = 1.4, Yc = -0.4,  Omin = 0,    Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.4, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.08, Gamma = 0.2, D = 0.5, Kiz = 0.8}
+             }
+        },
+        new FlyingObject()
+        {
+            Type = 2, Subtype = 1,
+            Cx = 0.06, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+                new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8},
+                new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8},
+                new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.5, Kiz = 0.8}
+             }
+        },
+        new FlyingObject()
+        {
+            Type = 2, Subtype = 2,
+            Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+                new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0.8},
+                new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0.8, },
+                new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0.8}
+             }
+        },
+        new FlyingObject()
+        {
+            Type = 2, Subtype = 3,
+            Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+                new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0},
+                new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0, },
+                new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.5, Kiz = 0}
+             }
+        },
+        new FlyingObject()
+        {
+            Type = 2, Subtype = 4,
+            Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+            new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0},
+            new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0, },
+            new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
+            new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0}
+             }
+        },
+        new FlyingObject()
+        {
+            Type = 2, Subtype = 5,
+             Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.03, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+                new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0},
+                new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0},
+                new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0}
+            }
+        }, 
+        new FlyingObject()
+        {
+            Type = 2,Subtype = 6,
+            Cx = 0.05, Sm = 0.5, dHis = 5000, Hmin = 15000, Cxf = 0.01, Smf = 0.5,
+
+            ShineDots = new[]
+            {
+                new ShineDot() {Kf = 1, Xc = 0,   Yc = 0,     Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, Kiz = 0, },
+                new ShineDot() {Kf = 4, Xc = 0.6, Yc = -0.25, Omin = 0,    Omax = 2.9,  Rzatup = 0.02, Gamma = 0.2, D1 = 0.1, D2 = 0.5,L = 1.2, Kiz = 0},
+                new ShineDot() {Kf = 6, Xc = 1.2, Yc = -0.35, Omin = 0,    Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.3, Kiz = 0.4},
+                new ShineDot() {Kf = 8, Xc = 1.2, Yc = 0,     Omin = 1.6,  Omax = 3.14, Rzatup = 0.02, Gamma = 0.2, D = 0.6, Kiz = 0}
+            }
+        }
+};
 
         #endregion
+
+        /// <summary>
+        /// Получить летящую цель по её типу и подтипу
+        /// </summary>
+        public static FlyingObject GetFlyingObject(int type, int subtype)
+        {
+            foreach (var flyingObject in Objects)
+            {
+                if (flyingObject.Type == type && flyingObject.Subtype==subtype)
+                {
+                    return flyingObject;
+                }
+            }
+            return null;
+        }
     }
 }

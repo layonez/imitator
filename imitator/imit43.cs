@@ -18,23 +18,23 @@ namespace imitator
             /// <summary>
             /// Тип объекта
             /// </summary>
-            public int Type;
+            public int Type{ get; set; }
             /// <summary>
             /// Подтип объекта
             /// </summary>
-            public int SubTupe;
+            public int SubTupe{ get; set; }
 
-            public double H; //Высота
+            public double H{ get; set; } //Высота
             // Скорость полета БЦ, м/с
-            public double V;
+            public double V{ get; set; }
 
-            public double Angle; //Угол
-            public double Ne; //Электронная концентрация плазмы в точке наблюдения;
-            public double Nu; //Эффективная частота со-ударений электронов в точке наблю-дения
-            public double NeKrit;
-            public double Delta; //расстояние отхода удар-ной волны от поверхности баллистиче-ской цели
-            public double Ageo; //геометриче-ские пара-метры удар-ной волны
-            public double Bgeo; //геометриче-ские пара-метры удар-ной волны
+            public double Angle{ get; set; } //Угол
+            public double Ne{ get; set; } //Электронная концентрация плазмы в точке наблюдения
+            public double Nu{ get; set; } //Эффективная частота со-ударений электронов в точке наблю-дения
+            public double NeKrit{ get; set; }
+            public double Delta{ get; set; } //расстояние отхода удар-ной волны от поверхности баллистиче-ской цели
+            public double Ageo{ get; set; } //геометриче-ские пара-метры удар-ной волны
+            public double Bgeo{ get; set; } //геометриче-ские пара-метры удар-ной волны
             
         }
 
@@ -104,7 +104,7 @@ namespace imitator
         {
             var dotList = new List<InputData>();
             
-                foreach (var dot in Const.Objects[aim.Type-1][aim.SubTupe-1])
+                foreach (var dot in Const.GetFlyingObject(aim.Type,aim.SubTupe).ShineDots)
                 {
                     var newInputDataItem = new InputData
                     {

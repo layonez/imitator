@@ -119,6 +119,8 @@ namespace imitator
             /// </summary>
             public double Angle;
 
+            public int Type;
+            public int SubType;
 
         }
 
