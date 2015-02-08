@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace imitator
 {
-    class Imit46
+    public class Imit46
     {
         #region входные и выходные параметры, константы
 
@@ -13,23 +14,28 @@ namespace imitator
         public class OutputData
         {
             /// <summary>
-            /// Интегральная ЭПР СПС;
+            /// Интегральная ЭПР СПС
             /// </summary>
-            public double Ssps;
+            public double Ssps{ get; set; }
             /// <summary>
-            /// Распределение ЭПР СПС по дальности ( дальностный портрет);
+            /// Распределение ЭПР СПС по дальности ( дальностный портрет)
             /// </summary>
-            public double Sk;
+            public double Sk{ get; set; }
             /// <summary>
-            /// Матрица значений ЭПР ( дальностно – скоростной потрет СПС);
+            /// Матрица значений ЭПР ( дальностно – скоростной потрет СПС)
             /// </summary>
-            public VSpair[] Skj;
+            public VSpair[] Skj{ get; set; }
 
             //информация для отладки
-            public double dXkc;
-            public double Xkc;
+            public double dXkc{ get; set; }
+            public double Xkc{ get; set; }
+            private int _dV = Const.DV ;
 
-            public int dV = Const.DV;
+            public int dV
+            {
+                get { return _dV; }
+                set { _dV = value; }
+            }
         }
 
         /// <summary>
@@ -40,87 +46,87 @@ namespace imitator
             /// <summary>
             /// Текущая высота полета БЦ, м
             /// </summary>
-            public double H;
+            public double H{ get; set; }
             /// <summary>
             /// Высота турбулизации следа полета БЦ, м
             /// </summary>
-            public double Hturb;
+            public double Hturb{ get; set; }
 
             /// <summary>
             /// Скорость полета БЦ, м/с
             /// </summary>
-            public double V;
+            public double V{ get; set; }
             /// <summary>
             /// Ширина в заданных точках внутри вязкого следа
             /// </summary>
-            public double dXkn;
+            public double dXkn{ get; set; }
             /// <summary>
             /// Ширина в заданных точках внутри вязкого следа
             /// </summary>
-            public double dXkc;
+            public double dXkc{ get; set; }
             /// <summary>
             /// Ширина в заданных точках внутри вязкого следа
             /// </summary>
-            public double dXkk;
+            public double dXkk{ get; set; }
 
-            public double Xkn;
-            public double Xkc;
-            public double Xkk;
+            public double Xkn{ get; set; }
+            public double Xkc{ get; set; }
+            public double Xkk{ get; set; }
 
             /// <summary>
             /// Скорость потока в заданных точках внутри вязкого следа
             /// </summary>
-            public double VXkk;
+            public double VXkk{ get; set; }
             /// <summary>
             /// Скорость потока в заданных точках внутри вязкого следа
             /// </summary>
-            public double VXkn;
+            public double VXkn{ get; set; }
             /// <summary>
             /// Скорость потока в заданных точках внутри вязкого следа
             /// </summary>
-            public double VXkc;
+            public double VXkc{ get; set; }
 
             /// <summary>
             /// Электронная концентрация в заданных точках внутри вязкого следа
             /// </summary>
-            public double NeXkc;
+            public double NeXkc{ get; set; }
             /// <summary>
             /// Электронная концентрация в заданных точках внутри вязкого следа
             /// </summary>
-            public double NeXkn;
+            public double NeXkn{ get; set; }
             /// <summary>
             /// Электронная концентрация в заданных точках внутри вязкого следа
             /// </summary>
-            public double NeXkk;
+            public double NeXkk{ get; set; }
 
             /// <summary>
             /// Эффективная частота соударений электронов в заданных точках внутри вязкого следа
             /// </summary>
-            public double NuXkk;
+            public double NuXkk{ get; set; }
             /// <summary>
             /// Эффективная частота соударений электронов в заданных точках внутри вязкого следа
             /// </summary>
-            public double NuXkc;
+            public double NuXkc{ get; set; }
             /// <summary>
             /// Эффективная частота соударений электронов в заданных точках внутри вязкого следа
             /// </summary>
-            public double NuXkn;
+            public double NuXkn{ get; set; }
 
             /// <summary>
             /// Расстояние от горла до точки перехода из ламинарного в турбулентное течение
             /// </summary>
-            public double Xp;
+            public double Xp{ get; set; }
             /// <summary>
             /// Длина сверхкритической части вязкого следа 
             /// </summary>
-            public double Xkp;
+            public double Xkp{ get; set; }
             /// <summary>
             /// Ракурс наблюдения ЭСБЦ
             /// </summary>
-            public double Angle;
+            public double Angle{ get; set; }
 
-            public int Type;
-            public int SubType;
+            public int Type{ get; set; }
+            public int SubType{ get; set; }
 
         }
 
@@ -135,11 +141,11 @@ namespace imitator
 
         #endregion
 
-        public static OutputData[] Exec(InputData[] data)
+        public static OutputData[] Exec(List<InputData> data)
         {
-            OutputData[] output=new OutputData[data.Length];
+            OutputData[] output=new OutputData[data.Count];
 
-            for (int i=0;i<data.Length;i++)
+            for (int i=0;i<data.Count;i++)
             {
 
                 output[i] = ProcessData(data[i]);

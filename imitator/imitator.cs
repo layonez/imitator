@@ -8,7 +8,14 @@ namespace imitator
         private const double F0 = 3e9;
         private const double Df = 5e6;
         private const double C = 3e8;
-        
+
+        /// <summary>
+        /// ВХОДНАЯ ИНФОРМАЦИЯ
+        /// </summary>
+        public class InputData:ShineDot
+        {
+        }
+
         public static double[,] Exec(ShineDot[] dots)
         {
             double[,] outputData = new double[180,32];

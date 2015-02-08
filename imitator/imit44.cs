@@ -12,41 +12,41 @@ namespace imitator
         /// </summary>
         public class InputData
         {
-            public int Type;
-            public int SubType;
+            public int Type{ get; set; }
+            public int SubType{ get; set; }
             /// <summary>
             /// Электронная концентрация 
             /// в критической точке цели, см^-3
             /// </summary>
-            public double NeKrit;
+            public double NeKrit{ get; set; }
             /// <summary>
             /// Эффективная частота соударений электронов  
             /// в критической точке цели , см^-3
             /// </summary>
-            public double NuKrit;
+            public double NuKrit{ get; set; }
             /// <summary>
             ///Координаты точек начала, центра и окончания 
             ///k-го элемента разрешения по оси следа относительно горла СПС, м
             /// </summary>
-            public double Xkn;
+            public double Xkn{ get; set; }
             /// <summary>
             ///Координаты точек начала, центра и окончания 
             ///k-го элемента разрешения по оси следа относительно горла СПС, м
             /// </summary>
-            public double Xkc;
+            public double Xkc{ get; set; }
             /// <summary>
             ///Координаты точек начала, центра и окончания 
             ///k-го элемента разрешения по оси следа относительно горла СПС, м
             /// </summary>
-            public double Xkk;
+            public double Xkk{ get; set; }
             /// <summary>
             /// Текущая высота полета БЦ, м
             /// </summary>
-            public double H;
+            public double H{ get; set; }
             /// <summary>
             /// Скорость полета БЦ, м/с
             /// </summary>
-            public double V;
+            public double V{ get; set; }
         }
 
         /// <summary>
@@ -57,68 +57,68 @@ namespace imitator
             /// <summary>
             /// Ширина в заданных точках внутри вязкого следа
             /// </summary>
-            public double dXkn; 
+            public double dXkn{ get; set; } 
             /// <summary>
             /// Ширина в заданных точках внутри вязкого следа
             /// </summary>
-            public double dXkc; 
+            public double dXkc{ get; set; } 
             /// <summary>
             /// Ширина в заданных точках внутри вязкого следа
             /// </summary>
-            public double dXkk; 
+            public double dXkk{ get; set; } 
 
             /// <summary>
             /// Скорость потока в заданных точках внутри вязкого следа
             /// </summary>
-            public double VXkk;
+            public double VXkk{ get; set; }
             /// <summary>
             /// Скорость потока в заданных точках внутри вязкого следа
             /// </summary>
-            public double VXkn;
+            public double VXkn{ get; set; }
             /// <summary>
             /// Скорость потока в заданных точках внутри вязкого следа
             /// </summary>
-            public double VXkc;
+            public double VXkc{ get; set; }
 
             /// <summary>
             /// Электронная концентрация в заданных точках внутри вязкого следа
             /// </summary>
-            public double NeXkc;
+            public double NeXkc{ get; set; }
             /// <summary>
             /// Электронная концентрация в заданных точках внутри вязкого следа
             /// </summary>
-            public double NeXkn;
+            public double NeXkn{ get; set; }
             /// <summary>
             /// Электронная концентрация в заданных точках внутри вязкого следа
             /// </summary>
-            public double NeXkk;
+            public double NeXkk{ get; set; }
 
             /// <summary>
             /// Эффективная частота соударений электронов в заданных точках внутри вязкого следа
             /// </summary>
-            public double NuXkk;
+            public double NuXkk{ get; set; }
             /// <summary>
             /// Эффективная частота соударений электронов в заданных точках внутри вязкого следа
             /// </summary>
-            public double NuXkc;
+            public double NuXkc{ get; set; }
             /// <summary>
             /// Эффективная частота соударений электронов в заданных точках внутри вязкого следа
             /// </summary>
-            public double NuXkn; 
+            public double NuXkn{ get; set; } 
 
             /// <summary>
             /// Расстояние от горла до точки перехода из ламинарного в турбулентное течение
             /// </summary>
-            public double Xp;
+            public double Xp{ get; set; }
             /// <summary>
             /// Длина сверхкритической части вязкого следа 
             /// </summary>
-            public double Xkp;
+            public double Xkp{ get; set; }
 
             /// <summary>
             /// Высота турбулизации следа
             /// </summary>
-            public double Hturb;
+            public double Hturb{ get; set; }
 
         }
         

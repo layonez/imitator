@@ -23,1193 +23,180 @@ namespace imitator
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            InputGrid33.Rows[e.RowIndex].ErrorText = "";
-            double newDouble;
-
-            if (InputGrid33.Rows[e.RowIndex].IsNewRow)
-            {
-                return;
-            }
-            if (double.TryParse(e.FormattedValue.ToString(),
-                out newDouble) || string.IsNullOrWhiteSpace(e.FormattedValue.ToString())) return;
-            e.Cancel = true;
-            InputGrid33.Rows[e.RowIndex].ErrorText = "Необходимо ввести число.";
+            OutputView.DefaultCellStyle.Format = "0.###E+0";
+            InputView.DefaultCellStyle.Format = "0.###E+0";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-                if (TabCntrl.SelectedIndex == 0)
+            var bs = InputView.DataSource;
+            var sourse=bs as BindingSource;
+            if (sourse != null)
             {
-                    ShineDot[] dotList = new ShineDot[InputGrid33.Rows.Count - 1];
-                string[] dataRow = new string[14];
+                var type = sourse.DataSource.GetType().ToString();
 
-                for (int rows = 0; rows < InputGrid33.Rows.Count - 1; rows++)
+                switch (type)
                 {
-                    for (int col = 0; col < 14; col++)
-                    {
-                        if (InputGrid33.Rows[rows].Cells[col].Value == null)
-                            dataRow[col] = "0";
-                        else
-                            dataRow[col] = InputGrid33.Rows[rows].Cells[col].Value.ToString();
-                    }
-                    dotList[rows] = toShineDot(dataRow);
+                    case "System.Collections.Generic.List`1[imitator.Imit42+InputData]":
+                        var i42 = sourse.DataSource as List<Imit42.InputData>;
+                        var o42 = from inputItem in i42 select Imit42.Exec(inputItem);
+                        var s42 = new BindingSource {DataSource = o42};
+                        OutputView.DataSource = s42;
+                        break;
+                    case "System.Collections.Generic.List`1[imitator.Imit43+InputData]":
+                        var i43 = sourse.DataSource as List<Imit43.InputData>;
+                        var o43 = Imit43.Exec(i43);
+                        var s43 = new BindingSource {DataSource = o43};
+                        OutputView.DataSource = s43;
+                        break;
+                    case "System.Collections.Generic.List`1[imitator.Imit44+InputData]":
+                        var i44 = sourse.DataSource as List<Imit44.InputData>;
+                        var o44 = from inputItem in i44 select Imit44.Exec(inputItem);
+                        var s44 = new BindingSource {DataSource = o44};
+                        OutputView.DataSource = s44;
+                        break;
+                    case "System.Collections.Generic.List`1[imitator.Imit46+InputData]":
+                        var i46 = sourse.DataSource as List<Imit46.InputData>;
+                        var o46 = Imit46.Exec(i46);
+                        var s46 = new BindingSource { DataSource = o46 };
+                        OutputView.DataSource = s46;
+                        break;
+                    case "System.Collections.Generic.List`1[imitator.imit42_43+InputData]":
+                        var i4243 = sourse.DataSource as List<Imit42.InputData>;
+                        var o4243 = Imit42_43.Exec(i4243);
+                        var s4243 = new BindingSource {DataSource = o4243};
+                        OutputView.DataSource = s4243;
+                        break;
+                    case "System.Collections.Generic.List`1[imitator.Imit44_46+InputData]":
+                        var i4446 = sourse.DataSource as List<Imit44_46.InputData>;
+                        var o4446 = Imit44_46.Exec(i4446);
+                        var s4446 = new BindingSource {DataSource = o4446};
+                        OutputView.DataSource = s4446;
+                        break;
+                    case "System.Collections.Generic.List`1[imitator.Imit42_46+InputData]":
+                        var i4246 = sourse.DataSource as List<Imit42_46.InputData>;
+                        var o4246 = Imit42_46.Exec(i4246.First());
+                        var s4246 = new BindingSource { DataSource = o4246 };
+                        OutputView.DataSource = s4246;
+                        break;
+
                 }
-
-
-
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
-
-                    double[,] OutArr = Imit33.Exec(dotList);
-
-                stopWatch.Stop();
-                // Get the elapsed time as a TimeSpan value.
-                TimeSpan ts = stopWatch.Elapsed;
-
-                // Format and display the TimeSpan value. 
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds/10);
-                TimeLable.Text = elapsedTime;
-
-                Bind33(OutArr);
-
-                tabCntrl33.SelectTab(1);
-            }
-                else if (TabCntrl.SelectedIndex == 1)
-            {
-                    Imit42.InputData[] dotList = new Imit42.InputData[inputGrid42.Rows.Count - 1];
-                    string[] dataRow = new string[5];
-
-                for (int rows = 0; rows < inputGrid42.Rows.Count - 1; rows++)
-                {
-                        for (int col = 0; col < 5; col++)
-                    {
-                        if (inputGrid42.Rows[rows].Cells[col].Value == null)
-                            dataRow[col] = "0";
-                        else
-                            dataRow[col] = inputGrid42.Rows[rows].Cells[col].Value.ToString();
-                    }
-                        dotList[rows] = toDataPack42(dataRow);
-                }
-
-                    double[,] OutArr = new double[dotList.Count(), 8];
-
-                Stopwatch stopWatch = new Stopwatch();
-                stopWatch.Start();
-                for (int i = 0; i < dotList.Count(); i++)
-                {
-                        double[] d = toDouble(Imit42.Exec(dotList[i]));
-                    for (int j = 0; j < d.Length; j++)
-                    {
-                        OutArr[i, j] = d[j];
-                    }
-                }
-                stopWatch.Stop();
-
-                TimeSpan ts = stopWatch.Elapsed;
-
-                // Format and display the TimeSpan value. 
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds/10);
-                TimeLable.Text = elapsedTime;
-
-                Bind42(OutArr);
-
-                TabCntrl42.SelectTab(1);
-            }
-                else if (TabCntrl.SelectedIndex == 2)
-                {
-                    Imit43.InputData[] dotList = new Imit43.InputData[inputGrid43.Rows.Count - 1];
-                    string[] dataRow = new string[inputGrid43.Rows[0].Cells.Count];
-
-                    for (int rows = 0; rows < inputGrid43.Rows.Count - 1; rows++)
-                    {
-                        for (int col = 0; col < inputGrid43.Rows[0].Cells.Count; col++)
-                        {
-                            if (inputGrid43.Rows[rows].Cells[col].Value == null)
-                                dataRow[col] = "0";
-                            else
-                                dataRow[col] = inputGrid43.Rows[rows].Cells[col].Value.ToString();
-                        }
-                        dotList[rows] = toDataPack43(dataRow);
-                    }
-
-                    List<double[]> OutArr = new List<double[]>();
-
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-
-                    OutArr = Imit43.Exec(dotList);
-
-                    stopWatch.Stop();
-
-                    TimeSpan ts = stopWatch.Elapsed;
-
-                    // Format and display the TimeSpan value. 
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds/10);
-                    TimeLable.Text = elapsedTime;
-
-                    Bind43(OutArr);
-
-                    TabCntrl43.SelectTab(1);
-                }
-                else if (TabCntrl.SelectedIndex == 3)
-                {
-                    imit42_43.InputData[] dots = new imit42_43.InputData[input42_43.RowCount - 1];
-                    string[] dataRow1 = new string[input42_43.ColumnCount];
-
-                    for (int row = 0; row < input42_43.Rows.Count - 1; row++)
-                    {
-                        for (int col = 0; col < input42_43.ColumnCount; col++)
-                        {
-                            if (input42_43.Rows[row].Cells[col].Value == null)
-                                dataRow1[col] = "0";
-                            else
-                                dataRow1[col] = input42_43.Rows[row].Cells[col].Value.ToString();
-                        }
-
-                        dots[row] = toDataPack42_43(dataRow1);
-                    }
-
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-
-                    List<double[]> OutArr1 = imit42_43.Exec(dots);
-                   
-                    stopWatch.Stop();
-
-                    TimeSpan ts = stopWatch.Elapsed;
-
-                    // Format and display the TimeSpan value. 
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds / 10);
-                    TimeLable.Text = elapsedTime;
-
-                    Bind42_43(OutArr1);
-
-                    tabControl42_43.SelectTab(1);
-                }
-                else if (TabCntrl.SelectedIndex == 4)
-                {
-                    Imit44.InputData[] dotList = new Imit44.InputData[inputGrid44.Rows.Count - 1];
-                    string[] dataRow = new string[inputGrid44.Rows[0].Cells.Count];
-
-                    for (int row = 0; row < inputGrid44.Rows.Count - 1; row++)
-                    {
-                        for (int col = 0; col < inputGrid44.ColumnCount; col++)
-                        {
-                            if (inputGrid44.Rows[row].Cells[col].Value == null)
-                                dataRow[col] = "0";
-                            else
-                                dataRow[col] = inputGrid44.Rows[row].Cells[col].Value.ToString();
-                        }
-                        dotList[row] = toDataPack44(dataRow);
-                    }
-
-                    double[,] OutArr = new double[dotList.Count(), 15];
-
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-
-                    for (int i = 0; i < dotList.Count(); i++)
-                    {
-                        var Out = Imit44.Exec(dotList[i]);
-                        //addToInput46(Out, dotList[i]);
-                        var outData = toDouble(Out);
-                        for (int j = 0; j < 15; j++)
-                        {
-                            OutArr[i, j] = outData[j];
-                        }
-                    }
-                    stopWatch.Stop();
-
-                    TimeSpan ts = stopWatch.Elapsed;
-
-                    // Format and display the TimeSpan value. 
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds / 10);
-                    TimeLable.Text = elapsedTime;
-
-                    Bind44(OutArr);
-
-                    TabCntrl44.SelectTab(1);
-            }
-                else if (TabCntrl.SelectedIndex == 5)
-                {
-                    var dotList = new Imit46.InputData[inputGrid46.Rows.Count - 1];
-                    string[] dataRow = new string[inputGrid46.Rows[0].Cells.Count];
-
-                    for (int row = 0; row < inputGrid46.Rows.Count - 1; row++)
-                    {
-                        for (int col = 0; col < inputGrid46.ColumnCount; col++)
-                        {
-                            if (inputGrid46.Rows[row].Cells[col].Value == null)
-                                dataRow[col] = "0";
-                            else
-                                dataRow[col] = inputGrid46.Rows[row].Cells[col].Value.ToString();
-                        }
-                        dotList[row] = toDataPack46(dataRow);
-                    }
-
-                    var OutArr = new String[dotList.Count(), 3];
-
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-
-
-                    Imit46.OutputData[] outData = Imit46.Exec(dotList);
-
-                    for (int i = 0; i < dotList.Count(); i++)
-                    {
-                        var outStr= toString(outData[i]);
-                        for (int j = 0; j < outStr.Count(); j++)
-                        {
-                            OutArr[i, j] = outStr[j];
-                        }
-                    }
-                    stopWatch.Stop();
-
-                    TimeSpan ts = stopWatch.Elapsed;
-
-                    // Format and display the TimeSpan value. 
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds / 10);
-                    TimeLable.Text = elapsedTime;
-
-                    Bind46(OutArr);
-
-                    TabCntrl46.SelectTab(1);
-                }
-                else if (TabCntrl.SelectedIndex == 6)
-                {
-                    Imit44_46.InputData[] dotList = new Imit44_46.InputData[inputGrid44_46.Rows.Count - 1];
-                    string[] dataRow = new string[inputGrid44_46.Rows[0].Cells.Count];
-
-                    for (int row = 0; row < inputGrid44_46.Rows.Count - 1; row++)
-                    {
-                        for (int col = 0; col < inputGrid44_46.Columns.Count; col++)
-                        {
-                            if (inputGrid44_46.Rows[row].Cells[col].Value == null)
-                                dataRow[col] = "0";
-                            else
-                                dataRow[col] = inputGrid44_46.Rows[row].Cells[col].Value.ToString();
-                        }
-                        dotList[row] = toDataPack44_46(dataRow);
-                    }
-
-                    var OutArr = new String[dotList.Count(), 3];
-
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-
-                    var Out = Imit44_46.Exec(dotList);
-
-                    Bind44_46FromData(Out);
-
-                    stopWatch.Stop();
-
-                    TimeSpan ts = stopWatch.Elapsed;
-
-                    // Format and display the TimeSpan value. 
-                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                        ts.Hours, ts.Minutes, ts.Seconds,
-                        ts.Milliseconds / 10);
-                    TimeLable.Text = elapsedTime;
-
-
-                    TabCntrl44_46.SelectTab(1);
-                }
-
-
-
-           // }
-           // catch (Exception exception)
-          //  {
-          //      MessageBox.Show(exception.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-           // }
-
-        }
-
-        private void Bind44_46FromData(Imit46.OutputData[] Data)
-        {
-            var minV = (int)(from outputData in Data
-                from skj in outputData.Skj
-                select skj).Min(x => x.V);
-            var maxV= (int)(from outputData in Data
-                from skj in outputData.Skj
-                select skj).Max(x => x.V);
-
-            outputGrid44_46.Columns.Clear();
-            outputGrid44_46.Rows.Clear();
-
-            outputGrid44_46.Columns.Add("colxk", "Xkc"); 
-            outputGrid44_46.Columns.Add("coldxk", "dXkc"); 
-
-            outputGrid44_46.Columns.Add("colSk", "Sk");
-            outputGrid44_46.Columns.Add("colSsps", "Ssps");
-
-            for (int i = minV; i <= maxV; i=i+Data[0].dV)
-            {
-                outputGrid44_46.Columns.Add(i.ToString(), "V=" + i);
-            }
-
-            for (int j = 0; j < Data.Count(); j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-
-                DataGridViewCell XkcCell = new DataGridViewTextBoxCell();
-                XkcCell.Value = Data[j].Xkc.ToString("0.###E+0", CultureInfo.InvariantCulture);
-                row.Cells.Add(XkcCell);
-
-                DataGridViewCell dXkcCell = new DataGridViewTextBoxCell();
-                dXkcCell.Value = Data[j].dXkc.ToString("0.###E+0", CultureInfo.InvariantCulture);
-                row.Cells.Add(dXkcCell);
-
-                DataGridViewCell SkCell = new DataGridViewTextBoxCell();
-                SkCell.Value = Data[j].Sk.ToString("0.###E+0", CultureInfo.InvariantCulture);
-                row.Cells.Add(SkCell);
-
-                DataGridViewCell SspsCell = new DataGridViewTextBoxCell();
-                SspsCell.Value = Data[j].Ssps.ToString("0.###E+0", CultureInfo.InvariantCulture);
-                row.Cells.Add(SspsCell);
-
-                for (int i = 4; i < outputGrid44_46.Columns.Count; i++)
-                {
-                    DataGridViewCell Cell = new DataGridViewTextBoxCell();
-                    row.Cells.Add(Cell);
-                }
-
-                for (int i = 4; i < outputGrid44_46.Columns.Count; i++)
-                {
-                    foreach (var skj in Data[j].Skj)
-                    {
-                        if (outputGrid44_46.Columns[i].Name == skj.V.ToString())
-                        {
-                            row.Cells[i].Value = skj.S.ToString("0.###E+0", CultureInfo.InvariantCulture);
-                        }
-                    }
-                }
-                outputGrid44_46.Rows.Add(row);
+                ImitTabCtrl.SelectTab(1);;
             }
         }
 
-        private double[] toDouble(Imit42.OutputData data)
-        {
-            return new double[] { data.A,data.B,data.Delta,data.Ne,data.Nu,data.NeKrit,data.NuKrit,data.M};
-        }
-        private double[] toDouble(Imit44.OutputData data)
-        {
-            return new double[] { data.NeXkc, data.NeXkk, data.NeXkn, 
-                data.NuXkc, data.NuXkk, data.NuXkn, 
-                data.VXkc, data.VXkk, data.VXkn, 
-                data.dXkc, data.dXkk, data.dXkn,
-            data.Xkp,data.Xp,data.Hturb
-            };
-        }
-
-        private void addToInput46(Imit44.OutputData data, Imit44.InputData dotList)
-        {
-            DataGridViewRow row = new DataGridViewRow();
-            // rz v h angle fi
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = dotList.H });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = dotList.V });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.dXkn });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.dXkc});
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.dXkk});
-
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.VXkn });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.VXkc });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.VXkk });
-
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.NeXkn });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.NeXkc });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.NeXkk });
-
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.NuXkn });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.NuXkc });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.NuXkk });
-
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.Xp });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.Xkp });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = "0,2" });
-
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = data.Hturb });
-
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = dotList.Xkn });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = dotList.Xkc });
-            row.Cells.Add(new DataGridViewTextBoxCell() { Value = dotList.Xkk });
-
-            inputGrid46.Rows.Add(row);
-        }
-
-        private string[] toString(Imit46.OutputData data)
-        {
-            return new[] { data.Sk.ToString("0.###E+0", CultureInfo.InvariantCulture), data.Ssps.ToString("0.###E+0", CultureInfo.InvariantCulture), toOneValue(data.Skj)
-            };
-        }
-
-        private string toOneValue(Imit46.VSpair[] doubles)
-        {
-            if (doubles!=null)
-            {
-                string s = "";
-                s = doubles.Aggregate(s, (current, d) => 
-                    current + (d.S.ToString("0.###E+0", CultureInfo.InvariantCulture) + string.Format("({0}), ", d.V.ToString("0.###E+0", CultureInfo.InvariantCulture))));
-                return s;
-            }
-            return "";
-        }
-
-
-        private void Bind33(double[,] arrDoubles)
-        {
-            OutputGrid33.Columns.Clear();
-            for (int i = 0; i < 180; i++)
-            {
-                OutputGrid33.Columns.Add(i.ToString(), i.ToString());
-            }
-
-            for (int j = 0; j < 32; j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-
-                for (int i = 0; i < 180; i++)
-                {
-                    
-                    DataGridViewCell cell = new DataGridViewTextBoxCell();
-                    cell.Value = arrDoubles[i, j].ToString("0.###E+0", CultureInfo.InvariantCulture);
-                    row.Cells.Add(cell);
-                }
-                OutputGrid33.Rows.Add(row);
-            }
-        }
-        private void Bind42(double[,] arrDoubles)
-        {
-            outputGrid42.Rows.Clear();
-
-            for (int j = 0; j < arrDoubles.GetLength(0); j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-
-                for (int i = 0; i < arrDoubles.GetLength(1); i++)
-                {
-
-                    DataGridViewCell cell = new DataGridViewTextBoxCell();
-                    cell.Value = arrDoubles[j, i].ToString("0.###E+0", CultureInfo.InvariantCulture);
-                    row.Cells.Add(cell);
-                }
-                outputGrid42.Rows.Add(row);
-            }
-        }
-        private void Bind43(List<double[]> arrDoubles)
-        {
-            outputGrid43.Columns.Clear();
-            outputGrid43.Rows.Clear();
-
-            outputGrid43.Columns.Add("col","S sum");
-            foreach (var array in arrDoubles)
-            {
-                if (array.Length>1)
-                {
-                    for (int i = 0; i < 32; i++)
-                    {
-                        outputGrid43.Columns.Add("col", "S "+i);
-                    }
-                    break;
-                }
-            }
-
-            for (int j = 0; j < arrDoubles.Count; j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-                int i = 0;
-                if (arrDoubles[j].Length > 1)
-                    i++;
-                for (; i < arrDoubles[j].Length; i++)
-                {
-                    DataGridViewCell cell = new DataGridViewTextBoxCell();
-                    cell.Value = arrDoubles[j][i].ToString("0.###E+0", CultureInfo.InvariantCulture);
-                    row.Cells.Add(cell);
-                }
-                outputGrid43.Rows.Add(row);
-            }
-        }
-        private void Bind44(double[,] arrDoubles)
-        {
-            outputGrid44.Columns.Clear();
-            outputGrid44.Rows.Clear();
-
-            outputGrid44.Columns.Add("col1", "NeXkc");
-            outputGrid44.Columns.Add("col2", "NeXkk");
-            outputGrid44.Columns.Add("col3", "NeXkn");
-            outputGrid44.Columns.Add("col4", "NuXkc");
-            outputGrid44.Columns.Add("col5", "NuXkk");
-            outputGrid44.Columns.Add("col6", "NuXkn");
-            outputGrid44.Columns.Add("col7", "VXkc");
-            outputGrid44.Columns.Add("col8", "VXkk");
-            outputGrid44.Columns.Add("col9", "VXkn");
-            outputGrid44.Columns.Add("col10", "dXkc");
-            outputGrid44.Columns.Add("col11", "dXkk");
-            outputGrid44.Columns.Add("col12", "dXkn");
-            outputGrid44.Columns.Add("col13", "Xkp");
-            outputGrid44.Columns.Add("col14", "Xp");
-            outputGrid44.Columns.Add("col15", "Hturb");
-
-            for (int j = 0; j < arrDoubles.GetLength(0); j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-
-                for (int i = 0; i < arrDoubles.GetLength(1); i++)
-                {
-
-                    DataGridViewCell cell = new DataGridViewTextBoxCell();
-                    cell.Value = arrDoubles[j, i].ToString("0.###E+0", CultureInfo.InvariantCulture);
-                    row.Cells.Add(cell);
-                }
-                outputGrid44.Rows.Add(row);
-            }
-        }
-        private void Bind46(string[,] arr)
-        {
-            outputGrid46.Columns.Clear();
-            outputGrid46.Rows.Clear();
-
-            outputGrid46.Columns.Add("col1", "Sk");
-            outputGrid46.Columns.Add("col2", "Ssps");
-            outputGrid46.Columns.Add("col6", "Skj");
-            
-            for (int j = 0; j < arr.GetLength(0); j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-
-                for (int i = 0; i < 3; i++)
-                {
-
-                    DataGridViewCell cell = new DataGridViewTextBoxCell();
-                    cell.Value = arr[j, i];
-                    row.Cells.Add(cell);
-                }
-                outputGrid46.Rows.Add(row);
-            }
-        }
-        private void Bind44_46(string[,] arr)
-        {
-            outputGrid44_46.Columns.Clear();
-            outputGrid44_46.Rows.Clear();
-
-            outputGrid44_46.Columns.Add("col1", "Sk");
-            outputGrid44_46.Columns.Add("col2", "Ssps");
-            outputGrid44_46.Columns.Add("col6", "Skj");
-
-            for (int j = 0; j < arr.GetLength(0); j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-
-                for (int i = 0; i < 3; i++)
-                {
-
-                    DataGridViewCell cell = new DataGridViewTextBoxCell();
-                    cell.Value = arr[j, i];
-                    row.Cells.Add(cell);
-                }
-                outputGrid44_46.Rows.Add(row);
-            }
-        }
         private void FillDefaults44()
         {
-            double H = 60000;
-            if (inputGrid44.Rows[0].Cells[0].Value!=null)
+            var source = InputView.DataSource as BindingSource;
+            if (source == null)
             {
-                H = double.TryParse(inputGrid44.Rows[0].Cells[0].Value.ToString(), out H) ? H : 60000;
+                return;
             }
-            
-            
-            inputGrid44.Rows.Clear();
+            var items = source.DataSource as List<Imit44.InputData>;
+            if (items == null)
+            {
+                return;
+            }
+            var firstItem = !items.Any() ? new Imit44.InputData() { H = 60000, NeKrit = 1000000000000, NuKrit = 100000000, V = 6000, Type = 1, SubType = 1 } : items.First();
 
-            double[,] x = new double[20,3];
             for (int i = 0; i < 20; i++)
             {
+                var index = (Imit44.InputData) source.AddNew();
+
+                index.H = firstItem.H;
+                index.NeKrit = firstItem.NeKrit;
+                index.NuKrit = firstItem.NuKrit;
+                index.V = firstItem.V;
+                index.Type = firstItem.Type;
+                index.SubType = firstItem.SubType;
+
                 double k = i;
 
-                x[i, 0] = 5 + (k) * 10 / Math.Cos(0.2);
-                x[i, 1] = x[i, 0] + 5 / Math.Cos(0.2);
-                x[i, 2] = x[i, 1] + 5 / Math.Cos(0.2);
-            }
-
-            for (int j = 0; j < 20; j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-               // h ne nu ro v 
-                row.Cells.Add(new DataGridViewTextBoxCell() {Value = H.ToString()});
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "1000000000000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "100000000" });
-                //row.Cells.Add(new DataGridViewTextBoxCell() { Value = 0.001.ToString()});
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "6000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 0].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 1].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 2].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = 1 });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = 1 });
-                inputGrid44.Rows.Add(row);
+                index.Xkn = 5 + (k) * 10 / Math.Cos(0.2);
+                index.Xkc = index.Xkn + 5 / Math.Cos(0.2);
+                index.Xkk = index.Xkc + 5 / Math.Cos(0.2);
             }
         }
 
         private void FillDefaults44_46()
         {
-            double H = 40000;
-            double Ne = 1e13;
-            if (inputGrid44_46.Rows[0].Cells[0].Value != null)
+            var source = InputView.DataSource as BindingSource;
+            if (source == null)
             {
-                H = double.TryParse(inputGrid44_46.Rows[0].Cells[0].Value.ToString(), out H) ? H : 60000;
+                return;
             }
-            if (inputGrid44_46.Rows[0].Cells[1].Value != null)
+            var items = source.DataSource as List<Imit44_46.InputData>;
+            if (items == null)
             {
-                Ne = double.TryParse(inputGrid44_46.Rows[0].Cells[1].Value.ToString(), out Ne) ? Ne : 1e13;
+                return;
             }
-
-
-            inputGrid44_46.Rows.Clear();
-
-            double[,] x = new double[20, 3];
+            var firstItem = !items.Any() ? new Imit44_46.InputData() { H = 40000, NeKrit = 1e13, NuKrit = 100000000, V = 6000, Type = 1, SubType = 1 , angle = 0.2} : items.First();
             for (int i = 0; i < 20; i++)
             {
+                var index = (Imit44_46.InputData)source.AddNew();
+
+                index.H = firstItem.H;
+                index.NeKrit = firstItem.NeKrit;
+                index.NuKrit = firstItem.NuKrit;
+                index.V = firstItem.V;
+                index.Type = firstItem.Type;
+                index.SubType = firstItem.SubType;
+                index.angle = firstItem.angle;
                 double k = i;
 
-                x[i, 0] = 5+ (k) * 10 / Math.Cos(0.2);
-                x[i, 1] = x[i, 0] + 5 / Math.Cos(0.2);
-                x[i, 2] = x[i, 1] + 5 / Math.Cos(0.2);
+                index.Xkn = 5 + (k) * 10 / Math.Cos(0.2);
+                index.Xkc = index.Xkn + 5 / Math.Cos(0.2);
+                index.Xkk = index.Xkc + 5 / Math.Cos(0.2);
             }
 
-            for (int j = 0; j < 20; j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-                // h ne nu ro v 
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = H.ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = Ne.ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "100000000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = 0.001.ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "6000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 0].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 1].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 2].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "0,2" });
-                inputGrid44_46.Rows.Add(row);
-            }
         }
 
-        private void FillDefaults42(Imit42.InputData[] data)
+        private void FillDefaults42()
         {
-            inputGrid42.Rows.Clear();
+            var source=InputView.DataSource as BindingSource;
+            if (source == null)
+            {
+                return;
+            }
+            var items = source.DataSource as List<Imit42.InputData>;
+            if (items == null)
+            {
+                return;
+            }
+            var firstItem = !items.Any() ? new Imit42.InputData() { Angle = 0.1, Fi = 0.5, H = 70000, Rzatup = 0.1, V = 6600,Type = 1,SubType = 1} : items.First();
             
-            for (int j = 0; j < 20; j++)
+            var dots = new Imit42.InputData[19];
+            double h = firstItem.H;
+            double alfa = 0.8 / (2 * Math.Sin(firstItem.Fi));
+
+            for (int m = 1; m < 20; m++)
             {
-                DataGridViewRow row = new DataGridViewRow();
-                // rz v h angle fi
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].Rzatup });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].V });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].H });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].Angle });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].Fi });
-                
-                inputGrid42.Rows.Add(row);
-            }
-        }
-        private void FillDefaults42_43(imit42_43.InputData[] data)
-        {
-            input42_43.Rows.Clear();
-
-            for (int j = 0; j < data.Length; j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-                // kf xc yc omin omax r d1 d2 l gamma d kiz a c 
-                // H V angle
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].Type });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].SubType });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].H });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].V });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].Angle });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].Fi });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = data[j].Rzatup });
-
-                input42_43.Rows.Add(row);
-            }
-        }
-
-
-        private void FillDefaults46()
-        {
-            inputGrid46.Rows.Clear();
-
-            double[,] x = new double[20, 3];
-            for (int i = 0; i < 20; i++)
-            {
-                double k = i + 1;
-
-                x[i, 0] = (k - 1) * 10 / Math.Cos(0.2);
-                x[i, 1] = x[i, 0] + 5 / Math.Cos(0.2);
-                x[i, 2] = x[i, 1] + 5 / Math.Cos(0.2);
-            }
-
-            for (int j = 0; j < 20; j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-                // h ne nu ro v 
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "60000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "1000000000000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "100000000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = 0.001.ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = "6000" });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 0].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 1].ToString() });
-                row.Cells.Add(new DataGridViewTextBoxCell() { Value = x[j, 2].ToString() });
-                inputGrid44.Rows.Add(row);
-            }
-        }
-        private void Bind42_43(List<double[]> arrDoubles)
-        {
-            out42_43.Columns.Clear();
-            out42_43.Rows.Clear();
-
-            foreach (var array in arrDoubles)
-            {
-                if (array.Length > 1)
-                {
-                    for (int i = 0; i < 32; i++)
-                    {
-                        out42_43.Columns.Add("col", "S " + i);
-                    }
-                    break;
-                }
-            }
-
-            out42_43.Columns.Add("col", "S sum");
-
-            for (int j = 0; j < arrDoubles.Count; j++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-
-                for (int i = 0; i < arrDoubles[j].Length; i++)
-                {
-
-                    DataGridViewCell cell = new DataGridViewTextBoxCell();
-                    cell.Value = arrDoubles[j][i].ToString("0.###E+0", CultureInfo.InvariantCulture);
-                    row.Cells.Add(cell);
-                }
-                out42_43.Rows.Add(row);
-            }
-        }
-        private ShineDot toShineDot(string[] data)
-        {
-            return new ShineDot()
-            {
-                Kf =Int32.Parse(data[0]),
-                Xc = double.Parse(data[1]),
-                Yc = double.Parse(data[2]),
-                Omin = double.Parse(data[3]),
-                Omax = double.Parse(data[4]),
-                Rzatup = double.Parse(data[5]),
-                D1 = double.Parse(data[6]),
-                D2 = double.Parse(data[7]),
-                L = double.Parse(data[8]),
-                Gamma = double.Parse(data[9]),
-                D = double.Parse(data[10]),
-                Kiz = double.Parse(data[11]),
-                A = double.Parse(data[12]),
-                C = double.Parse(data[13])
-            };
-        }
-        private Imit42.InputData toDataPack42(string[] data)
-        {
-            return new Imit42.InputData()
-            {
-                Rzatup = double.Parse(data[0]),
-                V = double.Parse(data[1]),
-                H = double.Parse(data[2]),
-                Angle = double.Parse(data[3]),
-                Fi = double.Parse(data[4])
-            };
-        }
-        private imit42_43.InputData toDataPack42_43(string[] data)
-        {
-            return new imit42_43.InputData()
-            {
-                Type = int.Parse(data[0]),
-                SubType = int.Parse(data[1]),
-                V = double.Parse(data[3]),
-                H = double.Parse(data[2]),
-                Angle = double.Parse(data[4]),
-                Fi = double.Parse(data[5]),
-                Rzatup = double.Parse(data[6])
-            };
-        }
-        private Imit42.InputData[] GetDotList(double Rz,double Angle, double H, double Fi, double V)
-        {
-            var dots = new Imit42.InputData[20];
-            double h = H;
-            double alfa = 0.8 / (2 * Math.Sin(Fi));
-
-            for (int m = 1; m < 21; m++)
-            {
-                double v = V * Math.Exp((-alfa) * (Math.Exp(-(1.5e-4) * h)));
-                double s = Math.Sin(Fi);
-                h = h - v*s;
-                
-                dots[m-1]=new Imit42.InputData(){Rzatup = Rz, V = v,Angle = Angle,H = h,Fi = Fi};
-            }
-            return dots;
-        }
-        private imit42_43.InputData[] GetDotList(double Rz, double Angle, double H, double Fi, double V,int Type,int SubType)
-        {
-            var dots = new imit42_43.InputData[20];
-            double alfa = 0.8/(2*Math.Sin(Fi));
-
-            double h = H;
-            for (int m = 1; m < 21; m++)
-            {
-                double v = V * Math.Exp((-alfa) * (Math.Exp(-(1.5e-4) * h)));
-                double s = Math.Sin(Fi);
+                double v = firstItem.V * Math.Exp((-alfa) * (Math.Exp(-(1.5e-4) * h)));
+                double s = Math.Sin(firstItem.Fi);
                 h = h - v * s;
 
-                dots[m - 1] = new imit42_43.InputData() { Rzatup = Rz, V = v, Angle = Angle, H = h, Fi = Fi,Type = Type,SubType = SubType};
+                dots[m - 1] = new Imit42.InputData() { Rzatup = firstItem.Rzatup, V = v, Angle = firstItem.Angle, H = h, Fi = firstItem.Fi };
             }
-            return dots;
-        }
-        private Imit43.InputData toDataPack43(string[] data)
-        {
-            return new Imit43.InputData()
+            foreach (var dot in dots)
             {
-                //Kf =Int32.Parse(data[0]),
-                //Xc = double.Parse(data[1]),
-                //Yc = double.Parse(data[2]),
-                //Omin = double.Parse(data[3]),
-                //Omax = double.Parse(data[4]),
-                //Rcf = double.Parse(data[5]),
-                //D1 = double.Parse(data[6]),
-                //D2 = double.Parse(data[7]),
-                //L = double.Parse(data[8]),
-                //Gamma = double.Parse(data[9]),
-                //D = double.Parse(data[10]),
-                //Kiz = double.Parse(data[11]),
-                //A = double.Parse(data[12]),
-                //C = double.Parse(data[13]),
-                Type = Int32.Parse(data[0]),
-                SubTupe = Int32.Parse(data[1]),
-                Ne = double.Parse(data[2]),
-                Nu= double.Parse(data[3]),
-                Delta = double.Parse(data[4]),
-                Ageo = double.Parse(data[5]),
-                Bgeo = double.Parse(data[6]),
-                Angle = double.Parse(data[7]),
-                V = double.Parse(data[8]),
-                Rzatup = double.Parse(data[9]),
-                H = double.Parse(data[10]),
-                NeKrit = double.Parse(data[11])
-            
-            };
-        }
-
-        private Imit44.InputData toDataPack44(string[] data)
-        {
-            return new Imit44.InputData()
-            {
-                H = Int32.Parse(data[0]),
-                NeKrit = double.Parse(data[1]),
-                NuKrit = double.Parse(data[2]),
-                V = double.Parse(data[3]),
-                Xkn = double.Parse(data[4]),
-                Xkc = double.Parse(data[5]),
-                Xkk = double.Parse(data[6]),
-                Type = int.Parse(data[7]),
-                SubType = int.Parse(data[8])
-            };
-        }
-        private Imit44_46.InputData toDataPack44_46(string[] data)
-        {
-            return new Imit44_46.InputData()
-            {
-                H = Int32.Parse(data[0]),
-                NeKrit = double.Parse(data[1]),
-                NuKrit = double.Parse(data[2]),
-                V = double.Parse(data[4]),
-                Xkn = double.Parse(data[5]),
-                Xkc = double.Parse(data[6]),
-                Xkk = double.Parse(data[7]),
-                angle = double.Parse(data[8]),
-                Type = int.Parse(data[9]),
-                SubType = int.Parse(data[10])
-            };
-        }
-        private Imit46.InputData toDataPack46(string[] data)
-        {
-            return new Imit46.InputData()
-            {
-                H = Int32.Parse(data[0]),
-                V = double.Parse(data[1]),
-                dXkn = double.Parse(data[2]),
-                dXkc = double.Parse(data[3]),
-                dXkk = double.Parse(data[4]),
-                VXkn = double.Parse(data[5]),
-                VXkc = double.Parse(data[6]),
-                VXkk = double.Parse(data[7]),
-                NeXkn = double.Parse(data[8]),
-                NeXkc = double.Parse(data[9]),
-                NeXkk = double.Parse(data[10]),
-                NuXkn = double.Parse(data[11]),
-                NuXkc = double.Parse(data[12]),
-                NuXkk = double.Parse(data[13]),
-
-                Xp = double.Parse(data[14]),
-                Xkp = double.Parse(data[15]),
-                Angle = double.Parse(data[16]),
-                Hturb = double.Parse(data[17]),
-
-                Xkn = double.Parse(data[18]),
-                Xkc = double.Parse(data[19]),
-                Xkk = double.Parse(data[20])
-            };
-
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            FillDefaults44();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Imit42.InputData[] dotList = new Imit42.InputData[inputGrid42.Rows.Count - 1];
-            string[] dataRow = new string[5];
-
-            for (int rows = 0; rows < inputGrid42.Rows.Count - 1; rows++)
-            {
-                for (int col = 0; col < 5; col++)
-                {
-                    if (inputGrid42.Rows[rows].Cells[col].Value == null)
-                        dataRow[col] = "0";
-                    else
-                        dataRow[col] = inputGrid42.Rows[rows].Cells[col].Value.ToString();
-                }
-                dotList[rows] = toDataPack42(dataRow);
+                source.Add(dot);
             }
-            if (!dotList.Any())
-            {
-                dotList=new Imit42.InputData[]{new Imit42.InputData(){Angle = 0.1,Fi = 0.5,H=70000, Rzatup = 0.1,V=6600} };
-            }
-            dotList = GetDotList(dotList[0].Rzatup, dotList[0].Angle, dotList[0].H, dotList[0].Fi, dotList[0].V);
-            FillDefaults42(dotList);
-        }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            imit42_43.InputData[] dotList = new imit42_43.InputData[input42_43.Rows.Count - 1];
-            string[] dataRow = new string[7];
-
-            for (int rows = 0; rows < input42_43.Rows.Count - 1; rows++)
-            {
-                for (int col = 0; col < 7; col++)
-                {
-                    if (input42_43.Rows[rows].Cells[col].Value == null)
-                        dataRow[col] = "0";
-                    else
-                        dataRow[col] = input42_43.Rows[rows].Cells[col].Value.ToString();
-                }
-                dotList[rows] = toDataPack42_43(dataRow);
-            }
-            if (!dotList.Any())
-            {
-                dotList = new imit42_43.InputData[] { new imit42_43.InputData() { Angle = 0.1, Fi = 0.5, H = 70000, Rzatup = 0.1, V = 6600,SubType = 1,Type = 1} };
-            }
-            dotList = GetDotList(dotList[0].Rzatup, dotList[0].Angle, dotList[0].H, dotList[0].Fi, dotList[0].V, dotList[0].Type, dotList[0].SubType);
-            FillDefaults42_43(dotList);
+            InputView.Refresh();
         }
         
-        private void saveButton_Click(object sender, EventArgs e)
+        private void FillDefaults46()
         {
-            Stream myStream;
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog
-            {
-                Filter = "XML Files (*.xml)|*.xml",
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                var name= saveFileDialog1.FileName;
-
-                DataGridView bs=new DataGridView(); 
-
-                if (TabCntrl.SelectedIndex == 0)
-                {
-                    bs = InputGrid33;
-                }
-                else if (TabCntrl.SelectedIndex == 1)
-                {
-                    bs = inputGrid42;
-                }
-                else if (TabCntrl.SelectedIndex == 2)
-                {
-                    bs = inputGrid43;
-                }
-                else if (TabCntrl.SelectedIndex == 3)
-                {
-                    bs = input42_43;
-                }
-                else if (TabCntrl.SelectedIndex == 4)
-                {
-                    bs = inputGrid44;
-                }
-                else if (TabCntrl.SelectedIndex == 5)
-                {
-                    bs = inputGrid46;
-                }
-
-                DataTable dt = new DataTable();
-                for (int i = 1; i < bs.Columns.Count + 1; i++)
-                {
-                    DataColumn column = new DataColumn(bs.Columns[i - 1].HeaderText);
-                    dt.Columns.Add(column);
-                }
-                int ColumnCount = bs.Columns.Count;
-                foreach (DataGridViewRow dr in bs.Rows)
-                {
-                    DataRow dataRow = dt.NewRow();
-                    for (int i = 0; i < ColumnCount; i++)
-                    {
-                        dataRow[i] = dr.Cells[i].Value;
-                    }
-                    dt.Rows.Add(dataRow);
-                }
-                
-                DataSet ds = new DataSet();
-                ds.Tables.Add(dt);
-                ds.Tables[0].WriteXml(name); 
-            }
-
-            
+           
         }
 
-        private void loadButton_Click(object sender, EventArgs e)
+        private void FillDefaults43()
         {
-            Stream myStream;
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                Filter = "XML Files (*.xml)|*.xml",
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                var name = openFileDialog1.FileName;
-
-                DataGridView bs = new DataGridView();
-
-                if (TabCntrl.SelectedIndex == 0)
-                {
-                    bs = InputGrid33;
-                }
-                else if (TabCntrl.SelectedIndex == 1)
-                {
-                    bs = inputGrid42;
-                }
-                else if (TabCntrl.SelectedIndex == 2)
-                {
-                    bs = inputGrid43;
-                }
-                else if (TabCntrl.SelectedIndex == 3)
-                {
-                    bs = input42_43;
-                }
-                else if (TabCntrl.SelectedIndex == 4)
-                {
-                    bs = inputGrid44;
-                }
-                else if (TabCntrl.SelectedIndex == 5)
-                {
-                    bs = inputGrid46;
-                }
-
-                DataTable dt = new DataTable();
-                for (int i = 1; i < bs.Columns.Count + 1; i++)
-                {
-                    DataColumn column = new DataColumn(bs.Columns[i - 1].HeaderText);
-                    dt.Columns.Add(column);
-                }
-                int ColumnCount = bs.Columns.Count;
-                DataSet ds = new DataSet();
-                ds.Tables.Add(dt);
-                ds.Tables[0].ReadXml(name);
-                ds.Tables[0].Rows.RemoveAt(ds.Tables[0].Rows.Count-1);
-                bs.DataSource = null;
-
-                bs.Rows.Clear();
-                bs.Columns.Clear();
-
-                bs.DataSource = ds.Tables[0];
-
-            }
         }
 
-        private void delButton_Click(object sender, EventArgs e)
+        private void FillDefaults33()
         {
-            DataGridView bs = new DataGridView();
-
-            if (TabCntrl.SelectedIndex == 0)
-            {
-                bs = InputGrid33;
-            }
-            else if (TabCntrl.SelectedIndex == 1)
-            {
-                bs = inputGrid42;
-            }
-            else if (TabCntrl.SelectedIndex == 2)
-            {
-                bs = inputGrid43;
-            }
-            else if (TabCntrl.SelectedIndex == 3)
-            {
-                bs = input42_43;
-            }
-            else if (TabCntrl.SelectedIndex == 4)
-            {
-                bs = inputGrid44;
-            }
-            else if (TabCntrl.SelectedIndex == 5)
-            {
-                bs = inputGrid46;
-            }
-            else if (TabCntrl.SelectedIndex == 6)
-            {
-                bs = inputGrid44_46;
-            }
-            foreach (DataGridViewRow item in bs.SelectedRows)
-             {
-                 try
-                 {
-                     bs.Rows.RemoveAt(item.Index);
-                 }
-                 catch{}
-                
-             }
- 
         }
-
-        private void button4_Click_1(object sender, EventArgs e)
-        {
-            FillDefaults44_46();
-        }
-
+        
         private void TabCntrl_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TabCntrl.SelectedIndex == 7)
@@ -1255,7 +242,7 @@ namespace imitator
         private void AimSubtypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ConstantsView.AutoGenerateColumns = true;
-            ConstantsView.DataSource = Const.GetFlyingObject(AimTypeComboBox.SelectedIndex,AimSubtypeComboBox.SelectedIndex);
+            ConstantsView.DataSource =Const.GetFlyingObject(AimTypeComboBox.SelectedIndex+1,AimSubtypeComboBox.SelectedIndex+1).ShineDots;
             ConstantsView.Refresh();
         }
 
@@ -1297,11 +284,83 @@ namespace imitator
             }
         }
 
+        private void TypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var source = new BindingSource();
+            switch ((string)ImitTypeComboBox.SelectedItem)
+            {
+                case "33":
+                    var list33 = new List<Imit33.InputData> { };
+                    source.DataSource = list33;
+                    InputView.DataSource = source;
+                    break;
+                case "42":
+                    var list42 = new List<Imit42.InputData> {};
+                    source.DataSource = list42;
+                    InputView.DataSource = source;
+                    break;
+                case "43":
+                    var list43 = new List<Imit43.InputData> { };
+                    source.DataSource = list43;
+                    InputView.DataSource = source;
+                    break;
+                case "44":
+                    var list44 = new List<Imit44.InputData> { };
+                    source.DataSource = list44;
+                    InputView.DataSource = source;
+                    break;
+                case "46":
+                    var list46 = new List<Imit46.InputData> { };
+                    source.DataSource = list46;
+                    InputView.DataSource = source;
+                    break;
+                case "42+43":
+                    var list4243 = new List<Imit42.InputData> { };
+                    source.DataSource = list4243;
+                    InputView.DataSource = source;
+                    break;
+                case "44+46":
+                    var list4446 = new List<Imit44_46.InputData> { };
+                    source.DataSource = list4446;
+                    InputView.DataSource = source;
+                    break;
+                case "42-46":
+                    var list4246 = new List<Imit42_46.InputData> { };
+                    source.DataSource = list4246;
+                    InputView.DataSource = source;
+                    break;
+            }
+        }
+
+        private void Fill_Click(object sender, EventArgs e)
+        {
+            switch ((string)ImitTypeComboBox.SelectedItem)
+            {
+                case "33":
+                    FillDefaults33();
+                    break;
+                case "42":
+                    FillDefaults42();
+                    break;
+                case "43":
+                    FillDefaults43();
+                    break;
+                case "44":
+                    FillDefaults44();
+                    break;
+                case "46":
+                    FillDefaults46();
+                    break;
+                case "42+43":
+                    //FillDefaults42_43();
+                    break;
+                case "44+46":
+                    FillDefaults44_46();
+                    break;
+            }
+        }
 
 
-        #region Копирование/вставка ячеек
-
-        #endregion
         
     }
 }

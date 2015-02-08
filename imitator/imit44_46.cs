@@ -16,22 +16,22 @@ namespace imitator
         /// </summary>
         public class InputData:Imit44.InputData
         {
-            public double angle;
+            public double angle{ get; set; }
         }
 
         #endregion
 
 
-        public static Imit46.OutputData[] Exec(InputData[] data)
+        public static Imit46.OutputData[] Exec(List<InputData> data)
         {
-            Imit44.OutputData[] Out_44=new Imit44.OutputData[data.Length];
-            Imit46.InputData[] Inp_46 = new Imit46.InputData[data.Length];
+            Imit44.OutputData[] Out_44=new Imit44.OutputData[data.Count];
+            List<Imit46.InputData> Inp_46 = new List<Imit46.InputData>();
 
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < data.Count; i++)
             {
                 Out_44[i] = Imit44.Exec(data[i]);
 
-                Inp_46[i] = new Imit46.InputData()
+                Inp_46.Add(new Imit46.InputData()
                 {
                     Angle = data[i].angle,
                     H = data[i].H,
@@ -59,10 +59,11 @@ namespace imitator
                     Xp = Out_44[i].Xp,
                     dXkc = Out_44[i].dXkc,
                     dXkk = Out_44[i].dXkk,
-                    dXkn = Out_44[i].dXkn
-                };
-                    
-                Inp_46[i].Angle = data[i].angle;
+                    dXkn = Out_44[i].dXkn,
+
+                    Type = data[i].Type,
+                    SubType = data[i].SubType
+                });
             }
 
             return Imit46.Exec(Inp_46);

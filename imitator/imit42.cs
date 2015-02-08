@@ -5,7 +5,7 @@ using System.Text;
 
 namespace imitator
 {
-    class Imit42
+    public class Imit42
     {
         #region входные и выходные параметры
 
@@ -14,26 +14,26 @@ namespace imitator
         /// </summary>
         public class InputData
         {
-            public double Fi;
+            public double Fi{ get; set; }
             /// <summary>
             /// Радиус сферического затупления баллистической цели, м
             /// </summary>
-            public double Rzatup;
+            public double Rzatup{ get; set; }
             /// <summary>
             /// Текущий угол между линией визирования и осью элемен-та СБЦ, рад
             /// </summary>
-            public double Angle; 
+            public double Angle{ get; set; } 
             /// <summary>
             /// Текущая высота полета БЦ, м
             /// </summary>
-            public double H; 
+            public double H{ get; set; } 
             /// <summary>
             /// Скорость полета БЦ, м/с
             /// </summary>
-            public double V;
+            public double V{ get; set; }
 
-            public int Type;
-            public int SubType;
+            public int Type{ get; set; }
+            public int SubType{ get; set; }
         }
 
         /// <summary>
@@ -41,19 +41,16 @@ namespace imitator
         /// </summary>
         public class OutputData
         {
-            public double Ne1; //Электронная концентрация плазмы в точке наблюдения;
-            public double Nu1; //Эффективная частота со-ударений электронов в точке наблю-дения
+            public double NeKrit{ get; set; }
+            public double NuKrit{ get; set; }
 
-            public double NeKrit;
-            public double NuKrit;
+            public double Ne{ get; set; } //Электронная концентрация плазмы в точке наблюдения
+            public double Nu{ get; set; } //Эффективная частота со-ударений электронов в точке наблю-дения
+            public double Delta{ get; set; } //расстояние отхода удар-ной волны от поверхности баллистиче-ской цели
+            public double A{ get; set; } //геометриче-ские пара-метры удар-ной волны
+            public double B{ get; set; } //геометриче-ские пара-метры удар-ной волны
 
-            public double Ne; //Электронная концентрация плазмы в точке наблюдения;
-            public double Nu; //Эффективная частота со-ударений электронов в точке наблю-дения
-            public double Delta; //расстояние отхода удар-ной волны от поверхности баллистиче-ской цели
-            public double A; //геометриче-ские пара-метры удар-ной волны
-            public double B; //геометриче-ские пара-метры удар-ной волны
-
-            public double M; //Число Маха
+            public double M{ get; set; } //Число Маха
 
         }
         

@@ -43,28 +43,30 @@ namespace imitator
         /// </summary>
         public class OutputData
         {
-            public double Ne; //Электронная концентрация плазмы в точке наблюдения;
-            public double Nu; //Эффективная частота со-ударений электронов в точке наблю-дения
-      
-            public double A; //геометриче-ские пара-метры удар-ной волны
-            public double B; //геометриче-ские пара-метры удар-ной волны
+            public double Ssum { get; set; }
         }
         
         #endregion
 
-        public static List<double[]> Exec(InputData[] aims)
+        public static List<OutputData> Exec(List<InputData> aims)
         {
-            List<double[]> outIpr=new List<double[]>();
+            List<OutputData> outIpr = new List<OutputData>();
 
             foreach (var aim in aims)
             {
                 var aimWithParams=SetTypeInfo(aim);
-                outIpr.Add(GetIPR(aimWithParams));
+                outIpr.Add(new OutputData(){Ssum = GetIPR(aimWithParams)});
             }
             return outIpr;
         }
 
-        private static double[] GetIPR(List<InputData> dots)
+        public static OutputData Exec(InputData aim)
+        {
+            var aimWithParams = SetTypeInfo(aim);
+            return new OutputData() { Ssum = GetIPR(aimWithParams) };
+        }
+
+        private static double GetIPR(List<InputData> dots)
         {
             List<DotParams> NewDots = new List<DotParams>();
             //ВП0
@@ -76,28 +78,8 @@ namespace imitator
             {
                 NewDots.Add(GetReflectionKoeff(LambdaK, KLambda, dot, Const.F0));
             }
-            return new double[] {GetSummaryEpr(NewDots.ToArray())};
+            return GetSummaryEpr(NewDots.ToArray());
             
-            //else
-            //{
-            //    //ВП1
-            //    double[] reflKoeffs = new double[32];
-
-            //    for (int k = 0; k < 32; k++)
-            //    {
-            //        double Fk = Cnst.F0 + k*Cnst.DeltaF;
-            //        double LambdaK = (Cnst.C/Fk);
-            //        double KLambda = 2*Math.PI/LambdaK;
-
-            //        foreach (InputData dot in dots)
-            //        {
-            //            NewDots.Add(GetReflectionKoeff(LambdaK, KLambda, dot, Fk));
-            //        }
-            //        reflKoeffs[k] = GetSummaryEpr(NewDots.ToArray());
-            //        NewDots.Clear();
-            //    }
-            //    return reflKoeffs;
-            //}
         }
 
         private static List<InputData> SetTypeInfo(InputData aim)
