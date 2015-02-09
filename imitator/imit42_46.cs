@@ -9,14 +9,6 @@ namespace imitator
         #region входные и выходные параметры
 
         /// <summary>
-        /// ВХОДНАЯ ИНФОРМАЦИЯ
-        /// </summary>
-        public class InputData:Imit42.InputData
-        {
-           
-        }
-
-        /// <summary>
         /// ВЫХОДНАЯ ИНФОРМАЦИЯ
         /// </summary>
         public class OutputData : Imit46.OutputData
@@ -36,7 +28,7 @@ namespace imitator
         
         #endregion
 
-        public static OutputData[] Exec(InputData data)
+        public static OutputData[] Exec(Imit42.InputData data)
         {
             var out42 = Imit42.Exec(data);
             var inp43 = new Imit43.InputData()
@@ -55,13 +47,13 @@ namespace imitator
             };
             var res1 = Imit43.Exec(inp43);
 
-            var res2 = Imit44_46.Exec(Convert(res1, data, out42));
+            var res2 = Imit44_46.Exec(Convert(data, out42));
             var res3 = (from r in res2 select new OutputData(r){Ssum = res1.Ssum}).ToArray();
 
             return res3;
         }
 
-        private static List<Imit44_46.InputData> Convert(Imit43.OutputData data, InputData inputData, Imit42.OutputData out42)
+        private static List<Imit44_46.InputData> Convert(Imit42.InputData inputData, Imit42.OutputData out42)
         {
             var res = new List<Imit44_46.InputData>();
             for (int i = 0; i < 20; i++)

@@ -21,3 +21,4 @@ D:\Dropbox\code\imitator\imitator\obj\Release\imitator.Form1.resources
 D:\Dropbox\code\imitator\imitator\obj\Release\imitator.Properties.Resources.resources
 D:\Dropbox\code\imitator\imitator\obj\Release\imitator.csproj.GenerateResource.Cache
 C:\GitHub\imitator\imitator\obj\Release\imitator.csprojResolveAssemblyReference.cache
+D:\Dropbox\code\imitator\imitator\obj\Release\imitator.csprojResolveAssemblyReference.cache

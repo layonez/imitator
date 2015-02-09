@@ -23,8 +23,22 @@ namespace imitator
         public Form1()
         {
             InitializeComponent();
-            OutputView.DefaultCellStyle.Format = "0.###E+0";
-            InputView.DefaultCellStyle.Format = "0.###E+0";
+
+            TabCntrl_SelectedIndexChanged(null, null);
+
+            OutputView.ColumnAdded += ColumnAdded;
+            InputView.ColumnAdded += ColumnAdded;
+            
+            OutputView.DataSource = new BindingSource {new List<int>()};
+            ImitTypeComboBox.SelectedIndex = 0;
+        }
+
+        void ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            if (e.Column.ValueType==typeof(double))
+            {
+                e.Column.DefaultCellStyle.Format = "0.###E+0";
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -33,55 +47,68 @@ namespace imitator
             var sourse=bs as BindingSource;
             if (sourse != null)
             {
-                var type = sourse.DataSource.GetType().ToString();
+                OutputView.Columns.Clear();
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
 
-                switch (type)
+                switch ((string)ImitTypeComboBox.SelectedItem)
                 {
-                    case "System.Collections.Generic.List`1[imitator.Imit42+InputData]":
+                    case "33":
+                        break;
+                    case "42":
                         var i42 = sourse.DataSource as List<Imit42.InputData>;
                         var o42 = from inputItem in i42 select Imit42.Exec(inputItem);
                         var s42 = new BindingSource {DataSource = o42};
                         OutputView.DataSource = s42;
                         break;
-                    case "System.Collections.Generic.List`1[imitator.Imit43+InputData]":
+                    case "43":
                         var i43 = sourse.DataSource as List<Imit43.InputData>;
                         var o43 = Imit43.Exec(i43);
                         var s43 = new BindingSource {DataSource = o43};
                         OutputView.DataSource = s43;
                         break;
-                    case "System.Collections.Generic.List`1[imitator.Imit44+InputData]":
+                    case "44":
                         var i44 = sourse.DataSource as List<Imit44.InputData>;
                         var o44 = from inputItem in i44 select Imit44.Exec(inputItem);
                         var s44 = new BindingSource {DataSource = o44};
                         OutputView.DataSource = s44;
                         break;
-                    case "System.Collections.Generic.List`1[imitator.Imit46+InputData]":
+                    case "46":
                         var i46 = sourse.DataSource as List<Imit46.InputData>;
                         var o46 = Imit46.Exec(i46);
                         var s46 = new BindingSource { DataSource = o46 };
                         OutputView.DataSource = s46;
                         break;
-                    case "System.Collections.Generic.List`1[imitator.imit42_43+InputData]":
+                    case "42+43":
                         var i4243 = sourse.DataSource as List<Imit42.InputData>;
                         var o4243 = Imit42_43.Exec(i4243);
                         var s4243 = new BindingSource {DataSource = o4243};
                         OutputView.DataSource = s4243;
                         break;
-                    case "System.Collections.Generic.List`1[imitator.Imit44_46+InputData]":
+                    case "44+46":
                         var i4446 = sourse.DataSource as List<Imit44_46.InputData>;
                         var o4446 = Imit44_46.Exec(i4446);
                         var s4446 = new BindingSource {DataSource = o4446};
                         OutputView.DataSource = s4446;
                         break;
-                    case "System.Collections.Generic.List`1[imitator.Imit42_46+InputData]":
-                        var i4246 = sourse.DataSource as List<Imit42_46.InputData>;
+                    case "42-46":
+                        var i4246 = sourse.DataSource as List<Imit42.InputData>;
                         var o4246 = Imit42_46.Exec(i4246.First());
-                        var s4246 = new BindingSource { DataSource = o4246 };
-                        OutputView.DataSource = s4246;
+                        Bind44_46FromData(o4246);
                         break;
-
                 }
-                ImitTabCtrl.SelectTab(1);;
+
+                stopWatch.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = stopWatch.Elapsed;
+
+                // Format and display the TimeSpan value. 
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                TimeLable.Text = elapsedTime;
+
+                ImitTabCtrl.SelectTab(1);
             }
         }
 
@@ -175,7 +202,7 @@ namespace imitator
                 double s = Math.Sin(firstItem.Fi);
                 h = h - v * s;
 
-                dots[m - 1] = new Imit42.InputData() { Rzatup = firstItem.Rzatup, V = v, Angle = firstItem.Angle, H = h, Fi = firstItem.Fi };
+                dots[m - 1] = new Imit42.InputData() { Rzatup = firstItem.Rzatup, V = v, Angle = firstItem.Angle, H = h, Fi = firstItem.Fi, Type = firstItem.Type, SubType = firstItem.SubType};
             }
             foreach (var dot in dots)
             {
@@ -186,7 +213,6 @@ namespace imitator
         
         private void FillDefaults46()
         {
-           
         }
 
         private void FillDefaults43()
@@ -196,14 +222,75 @@ namespace imitator
         private void FillDefaults33()
         {
         }
-        
+
+        public static DataTable ConvertToDatatable<T>(List<T> data)
+        {
+            PropertyDescriptorCollection props =
+                TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            table.Columns.Add("Индекс", typeof(int));
+
+            for (int i = 0; i < props.Count; i++)
+            {
+                PropertyDescriptor prop = props[i];
+                if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    table.Columns.Add(prop.Name, prop.PropertyType.GetGenericArguments()[0]);
+                else
+                    table.Columns.Add(prop.Name, prop.PropertyType);
+            }
+            object[] values = new object[props.Count+1];
+            foreach (T item in data)
+            {
+                for (int i = 1; i < values.Length; i++)
+                {
+                    values[i] = props[i-1].GetValue(item);
+                }
+                values[0] = data.IndexOf(item);
+                table.Rows.Add(values);
+            }
+            return table;
+        }
+
+        private void Bind44_46FromData(Imit42_46.OutputData[] Data)
+        {
+            var ds= ConvertToDatatable(Data.ToList());
+            var minV = (int)(from outputData in Data
+                             from skj in outputData.Skj
+                             select skj).Min(x => x.V);
+            var maxV = (int)(from outputData in Data
+                             from skj in outputData.Skj
+                             select skj).Max(x => x.V);
+
+            for (int i = minV; i <= maxV; i = i + Data[0].dV)
+            {
+                ds.Columns.Add("V=" + i, typeof(double));
+            }
+
+            for (int j = 0; j < Data.Count(); j++)
+            {
+                var row = ds.Rows[j];
+
+                for (int i = 5; i < ds.Columns.Count; i++)
+                {
+                    foreach (var skj in Data[j].Skj)
+                    {
+                        if (ds.Columns[i].ColumnName == "V=" + skj.V)
+                        {
+                            row[i] = skj.S;
+                        }
+                    }
+                }
+            }
+            OutputView.DataSource = ds;
+        }
+
         private void TabCntrl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TabCntrl.SelectedIndex == 7)
+            if (TabCntrl.SelectedIndex == 1)
             {
-                var i = 0;
+                var i = 1;
                 var types = new ObservableCollection<int>();
-                foreach (var dot in Const.Objects)
+                foreach (var dot in Const.Objects.GroupBy(o=>o.Type))
                 {
                     types.Add(i++);
                 }
@@ -228,7 +315,7 @@ namespace imitator
             if (box != null)
             {
                 var obj = Const.Objects[box.SelectedIndex];
-                var i = 0;
+                var i = 1;
                 var subTypes = new ObservableCollection<int>();
                 foreach (var dot in obj.ShineDots)
                 {
@@ -242,7 +329,7 @@ namespace imitator
         private void AimSubtypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ConstantsView.AutoGenerateColumns = true;
-            ConstantsView.DataSource =Const.GetFlyingObject(AimTypeComboBox.SelectedIndex+1,AimSubtypeComboBox.SelectedIndex+1).ShineDots;
+            ConstantsView.DataSource =Const.GetFlyingObject((int)AimTypeComboBox.SelectedItem,(int)AimSubtypeComboBox.SelectedItem).ShineDots;
             ConstantsView.Refresh();
         }
 
@@ -293,41 +380,49 @@ namespace imitator
                     var list33 = new List<Imit33.InputData> { };
                     source.DataSource = list33;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = false;
                     break;
                 case "42":
                     var list42 = new List<Imit42.InputData> {};
                     source.DataSource = list42;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = true;
                     break;
                 case "43":
                     var list43 = new List<Imit43.InputData> { };
                     source.DataSource = list43;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = false;
                     break;
                 case "44":
                     var list44 = new List<Imit44.InputData> { };
                     source.DataSource = list44;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = true;
                     break;
                 case "46":
                     var list46 = new List<Imit46.InputData> { };
                     source.DataSource = list46;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = false;
                     break;
                 case "42+43":
                     var list4243 = new List<Imit42.InputData> { };
                     source.DataSource = list4243;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = true;
                     break;
                 case "44+46":
                     var list4446 = new List<Imit44_46.InputData> { };
                     source.DataSource = list4446;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = true;
                     break;
                 case "42-46":
-                    var list4246 = new List<Imit42_46.InputData> { };
+                    var list4246 = new List<Imit42.InputData> { };
                     source.DataSource = list4246;
                     InputView.DataSource = source;
+                    FillDefaultsButon.Enabled = true;
                     break;
             }
         }
@@ -352,15 +447,15 @@ namespace imitator
                     FillDefaults46();
                     break;
                 case "42+43":
-                    //FillDefaults42_43();
+                    FillDefaults42();
                     break;
                 case "44+46":
                     FillDefaults44_46();
                     break;
+                case "42-46":
+                    FillDefaults42();
+                    break;
             }
         }
-
-
-        
     }
 }

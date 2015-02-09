@@ -21,10 +21,11 @@ namespace imitator
             /// Распределение ЭПР СПС по дальности ( дальностный портрет)
             /// </summary>
             public double Sk{ get; set; }
+
             /// <summary>
             /// Матрица значений ЭПР ( дальностно – скоростной потрет СПС)
             /// </summary>
-            public VSpair[] Skj{ get; set; }
+            public VSpair[] Skj;
 
             //информация для отладки
             public double dXkc{ get; set; }
