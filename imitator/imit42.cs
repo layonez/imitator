@@ -16,10 +16,6 @@ namespace imitator
         {
             public double Fi{ get; set; }
             /// <summary>
-            /// Радиус сферического затупления баллистической цели, м
-            /// </summary>
-            public double Rzatup{ get; set; }
-            /// <summary>
             /// Текущий угол между линией визирования и осью элемен-та СБЦ, рад
             /// </summary>
             public double Angle{ get; set; } 
@@ -103,7 +99,7 @@ namespace imitator
             double e1 = -(
                 (2.02)*data.Angle +
                 (0.41)*data.Angle*data.Angle);
-            double e2 = (400 * data.Rzatup * data.Rzatup);
+            double e2 = (400 * Const.Rz * Const.Rz);
 
             double ex = Math.Exp(e1 / e2);
 
@@ -111,19 +107,19 @@ namespace imitator
               double Ne = NeKrit*ex;
               double nuEffect = nuKrit * Math.Exp(
                   -( (1.01)*data.Angle + (0.294) * data.Angle * data.Angle)/
-                       (400*data.Rzatup * data.Rzatup)
+                       (400 * Const.Rz * Const.Rz)
                    );
             //ВП7
             //Оценка геометрических параметров ударной волны
               var d1 = 1/
                     ((ROs / RO) - 1);
-            double delta = 0.67*data.Rzatup*d1;
+              double delta = 0.67 * Const.Rz * d1;
                 
 
             //число Маха 
             double M = data.V/330;
-            double a = (data.Rzatup + delta) * (M * M - 1);
-            double b = (data.Rzatup + delta) * Math.Sqrt(M * M - 1);
+            double a = (Const.Rz + delta) * (M * M - 1);
+            double b = (Const.Rz + delta) * Math.Sqrt(M * M - 1);
 
 
             return new OutputData() { A = a, B = b, Delta = delta, Ne = Ne, Nu = nuEffect, NeKrit = NeKrit, NuKrit = nuKrit, M = M };

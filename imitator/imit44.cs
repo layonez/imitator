@@ -172,7 +172,7 @@ namespace imitator
                     {
                         U = (data.H - dot.Hmin) / dot.dHis;
                     }
-                    NeR = 4e10 * U * Math.Pow((0.3 / (Rm * data.V * Ro)), 1.1) * Math.Pow((1e-3 * data.V), 6.04);
+                    NeR = 4e9 * U * Math.Pow((0.3 / (Rm * data.V * Ro)), 1.1) * Math.Pow((1e-3 * data.V), 6.04);
                 }
             }
             //Расчет аэродинамической силы, действующей на БЦ при полете в атмосфере

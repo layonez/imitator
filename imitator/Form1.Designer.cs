@@ -31,6 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TabCntrl = new System.Windows.Forms.TabControl();
+            this.ImitPage = new System.Windows.Forms.TabPage();
+            this.ImitTabCtrl = new System.Windows.Forms.TabControl();
+            this.tabPage23 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.ImitTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.InputView = new System.Windows.Forms.DataGridView();
+            this.tabPage24 = new System.Windows.Forms.TabPage();
+            this.OutputView = new System.Windows.Forms.DataGridView();
             this.EditorPage = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -39,6 +47,9 @@
             this.AimSubtypeComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.AimTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.dV = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -56,14 +67,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.K1 = new System.Windows.Forms.TextBox();
-            this.ImitPage = new System.Windows.Forms.TabPage();
-            this.ImitTabCtrl = new System.Windows.Forms.TabControl();
-            this.tabPage23 = new System.Windows.Forms.TabPage();
-            this.label14 = new System.Windows.Forms.Label();
-            this.ImitTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.InputView = new System.Windows.Forms.DataGridView();
-            this.tabPage24 = new System.Windows.Forms.TabPage();
-            this.OutputView = new System.Windows.Forms.DataGridView();
             this.FillDefaultsButon = new System.Windows.Forms.Button();
             this.TimeLable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -76,6 +79,12 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.TabCntrl.SuspendLayout();
+            this.ImitPage.SuspendLayout();
+            this.ImitTabCtrl.SuspendLayout();
+            this.tabPage23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InputView)).BeginInit();
+            this.tabPage24.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputView)).BeginInit();
             this.EditorPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -83,12 +92,6 @@
             this.splitContainer2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConstantsView)).BeginInit();
-            this.ImitPage.SuspendLayout();
-            this.ImitTabCtrl.SuspendLayout();
-            this.tabPage23.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InputView)).BeginInit();
-            this.tabPage24.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputView)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -108,8 +111,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.TimeLable);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Size = new System.Drawing.Size(678, 330);
-            this.splitContainer1.SplitterDistance = 545;
+            this.splitContainer1.Size = new System.Drawing.Size(1018, 390);
+            this.splitContainer1.SplitterDistance = 885;
             this.splitContainer1.TabIndex = 0;
             // 
             // TabCntrl
@@ -120,9 +123,106 @@
             this.TabCntrl.Location = new System.Drawing.Point(0, 0);
             this.TabCntrl.Name = "TabCntrl";
             this.TabCntrl.SelectedIndex = 0;
-            this.TabCntrl.Size = new System.Drawing.Size(545, 330);
+            this.TabCntrl.Size = new System.Drawing.Size(885, 390);
             this.TabCntrl.TabIndex = 1;
             this.TabCntrl.SelectedIndexChanged += new System.EventHandler(this.TabCntrl_SelectedIndexChanged);
+            // 
+            // ImitPage
+            // 
+            this.ImitPage.Controls.Add(this.ImitTabCtrl);
+            this.ImitPage.Location = new System.Drawing.Point(4, 22);
+            this.ImitPage.Name = "ImitPage";
+            this.ImitPage.Padding = new System.Windows.Forms.Padding(3);
+            this.ImitPage.Size = new System.Drawing.Size(877, 364);
+            this.ImitPage.TabIndex = 8;
+            this.ImitPage.Text = "Модуль ЧИ";
+            this.ImitPage.UseVisualStyleBackColor = true;
+            // 
+            // ImitTabCtrl
+            // 
+            this.ImitTabCtrl.Controls.Add(this.tabPage23);
+            this.ImitTabCtrl.Controls.Add(this.tabPage24);
+            this.ImitTabCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ImitTabCtrl.Location = new System.Drawing.Point(3, 3);
+            this.ImitTabCtrl.Name = "ImitTabCtrl";
+            this.ImitTabCtrl.SelectedIndex = 0;
+            this.ImitTabCtrl.Size = new System.Drawing.Size(871, 358);
+            this.ImitTabCtrl.TabIndex = 0;
+            // 
+            // tabPage23
+            // 
+            this.tabPage23.Controls.Add(this.label14);
+            this.tabPage23.Controls.Add(this.ImitTypeComboBox);
+            this.tabPage23.Controls.Add(this.InputView);
+            this.tabPage23.Location = new System.Drawing.Point(4, 22);
+            this.tabPage23.Name = "tabPage23";
+            this.tabPage23.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage23.Size = new System.Drawing.Size(863, 332);
+            this.tabPage23.TabIndex = 0;
+            this.tabPage23.Text = "Входные данные";
+            this.tabPage23.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.Location = new System.Drawing.Point(7, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(25, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "ЧИ";
+            // 
+            // ImitTypeComboBox
+            // 
+            this.ImitTypeComboBox.FormattingEnabled = true;
+            this.ImitTypeComboBox.Items.AddRange(new object[] {
+            "33",
+            "42",
+            "43",
+            "44",
+            "46",
+            "42+43",
+            "44+46",
+            "42-46"});
+            this.ImitTypeComboBox.Location = new System.Drawing.Point(38, 6);
+            this.ImitTypeComboBox.Name = "ImitTypeComboBox";
+            this.ImitTypeComboBox.Size = new System.Drawing.Size(100, 21);
+            this.ImitTypeComboBox.TabIndex = 1;
+            this.ImitTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.TypeComboBox_SelectedIndexChanged);
+            // 
+            // InputView
+            // 
+            this.InputView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.InputView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.InputView.Location = new System.Drawing.Point(6, 33);
+            this.InputView.Name = "InputView";
+            this.InputView.Size = new System.Drawing.Size(851, 293);
+            this.InputView.TabIndex = 0;
+            // 
+            // tabPage24
+            // 
+            this.tabPage24.Controls.Add(this.OutputView);
+            this.tabPage24.Location = new System.Drawing.Point(4, 22);
+            this.tabPage24.Name = "tabPage24";
+            this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage24.Size = new System.Drawing.Size(863, 332);
+            this.tabPage24.TabIndex = 1;
+            this.tabPage24.Text = "Выходные данные";
+            this.tabPage24.UseVisualStyleBackColor = true;
+            // 
+            // OutputView
+            // 
+            this.OutputView.AllowUserToOrderColumns = true;
+            this.OutputView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OutputView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.OutputView.Location = new System.Drawing.Point(6, 6);
+            this.OutputView.Name = "OutputView";
+            this.OutputView.Size = new System.Drawing.Size(511, 260);
+            this.OutputView.TabIndex = 1;
             // 
             // EditorPage
             // 
@@ -130,7 +230,7 @@
             this.EditorPage.Location = new System.Drawing.Point(4, 22);
             this.EditorPage.Name = "EditorPage";
             this.EditorPage.Padding = new System.Windows.Forms.Padding(3);
-            this.EditorPage.Size = new System.Drawing.Size(537, 304);
+            this.EditorPage.Size = new System.Drawing.Size(877, 364);
             this.EditorPage.TabIndex = 7;
             this.EditorPage.Text = "Редактор констант";
             this.EditorPage.UseVisualStyleBackColor = true;
@@ -148,6 +248,9 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.label15);
+            this.splitContainer2.Panel2.Controls.Add(this.label16);
+            this.splitContainer2.Panel2.Controls.Add(this.dV);
             this.splitContainer2.Panel2.Controls.Add(this.label12);
             this.splitContainer2.Panel2.Controls.Add(this.label13);
             this.splitContainer2.Panel2.Controls.Add(this.label9);
@@ -165,8 +268,8 @@
             this.splitContainer2.Panel2.Controls.Add(this.label5);
             this.splitContainer2.Panel2.Controls.Add(this.label4);
             this.splitContainer2.Panel2.Controls.Add(this.K1);
-            this.splitContainer2.Size = new System.Drawing.Size(531, 298);
-            this.splitContainer2.SplitterDistance = 148;
+            this.splitContainer2.Size = new System.Drawing.Size(871, 358);
+            this.splitContainer2.SplitterDistance = 177;
             this.splitContainer2.TabIndex = 7;
             // 
             // panel1
@@ -179,7 +282,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(531, 148);
+            this.panel1.Size = new System.Drawing.Size(871, 177);
             this.panel1.TabIndex = 6;
             // 
             // ConstantsView
@@ -190,7 +293,7 @@
             this.ConstantsView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ConstantsView.Location = new System.Drawing.Point(17, 36);
             this.ConstantsView.Name = "ConstantsView";
-            this.ConstantsView.Size = new System.Drawing.Size(501, 102);
+            this.ConstantsView.Size = new System.Drawing.Size(841, 131);
             this.ConstantsView.TabIndex = 5;
             // 
             // label2
@@ -228,6 +331,33 @@
             this.AimTypeComboBox.Size = new System.Drawing.Size(121, 21);
             this.AimTypeComboBox.TabIndex = 3;
             this.AimTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.AimTypeComboBox_SelectedIndexChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(500, 57);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(278, 26);
+            this.label15.TabIndex = 19;
+            this.label15.Text = "Разрешающая способность дальностно-скоростного\r\nпортрета по скорости";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(500, 90);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(20, 13);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "dV";
+            this.label16.Click += new System.EventHandler(this.label16_Click);
+            // 
+            // dV
+            // 
+            this.dV.Location = new System.Drawing.Point(536, 87);
+            this.dV.Name = "dV";
+            this.dV.Size = new System.Drawing.Size(100, 20);
+            this.dV.TabIndex = 17;
+            this.dV.TextChanged += new System.EventHandler(this.K_TextChanged);
             // 
             // label12
             // 
@@ -375,103 +505,6 @@
             this.K1.TabIndex = 0;
             this.K1.TextChanged += new System.EventHandler(this.K_TextChanged);
             // 
-            // ImitPage
-            // 
-            this.ImitPage.Controls.Add(this.ImitTabCtrl);
-            this.ImitPage.Location = new System.Drawing.Point(4, 22);
-            this.ImitPage.Name = "ImitPage";
-            this.ImitPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ImitPage.Size = new System.Drawing.Size(537, 304);
-            this.ImitPage.TabIndex = 8;
-            this.ImitPage.Text = "Модуль ЧИ";
-            this.ImitPage.UseVisualStyleBackColor = true;
-            // 
-            // ImitTabCtrl
-            // 
-            this.ImitTabCtrl.Controls.Add(this.tabPage23);
-            this.ImitTabCtrl.Controls.Add(this.tabPage24);
-            this.ImitTabCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ImitTabCtrl.Location = new System.Drawing.Point(3, 3);
-            this.ImitTabCtrl.Name = "ImitTabCtrl";
-            this.ImitTabCtrl.SelectedIndex = 0;
-            this.ImitTabCtrl.Size = new System.Drawing.Size(531, 298);
-            this.ImitTabCtrl.TabIndex = 0;
-            // 
-            // tabPage23
-            // 
-            this.tabPage23.Controls.Add(this.label14);
-            this.tabPage23.Controls.Add(this.ImitTypeComboBox);
-            this.tabPage23.Controls.Add(this.InputView);
-            this.tabPage23.Location = new System.Drawing.Point(4, 22);
-            this.tabPage23.Name = "tabPage23";
-            this.tabPage23.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage23.Size = new System.Drawing.Size(523, 272);
-            this.tabPage23.TabIndex = 0;
-            this.tabPage23.Text = "Входные данные";
-            this.tabPage23.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(7, 9);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(25, 13);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "ЧИ";
-            // 
-            // ImitTypeComboBox
-            // 
-            this.ImitTypeComboBox.FormattingEnabled = true;
-            this.ImitTypeComboBox.Items.AddRange(new object[] {
-            "33",
-            "42",
-            "43",
-            "44",
-            "46",
-            "42+43",
-            "44+46",
-            "42-46"});
-            this.ImitTypeComboBox.Location = new System.Drawing.Point(38, 6);
-            this.ImitTypeComboBox.Name = "ImitTypeComboBox";
-            this.ImitTypeComboBox.Size = new System.Drawing.Size(100, 21);
-            this.ImitTypeComboBox.TabIndex = 1;
-            this.ImitTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.TypeComboBox_SelectedIndexChanged);
-            // 
-            // InputView
-            // 
-            this.InputView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InputView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.InputView.Location = new System.Drawing.Point(6, 33);
-            this.InputView.Name = "InputView";
-            this.InputView.Size = new System.Drawing.Size(511, 233);
-            this.InputView.TabIndex = 0;
-            // 
-            // tabPage24
-            // 
-            this.tabPage24.Controls.Add(this.OutputView);
-            this.tabPage24.Location = new System.Drawing.Point(4, 22);
-            this.tabPage24.Name = "tabPage24";
-            this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage24.Size = new System.Drawing.Size(523, 272);
-            this.tabPage24.TabIndex = 1;
-            this.tabPage24.Text = "Выходные данные";
-            this.tabPage24.UseVisualStyleBackColor = true;
-            // 
-            // OutputView
-            // 
-            this.OutputView.AllowUserToOrderColumns = true;
-            this.OutputView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.OutputView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.OutputView.Location = new System.Drawing.Point(6, 6);
-            this.OutputView.Name = "OutputView";
-            this.OutputView.Size = new System.Drawing.Size(511, 260);
-            this.OutputView.TabIndex = 1;
-            // 
             // FillDefaultsButon
             // 
             this.FillDefaultsButon.Location = new System.Drawing.Point(3, 56);
@@ -528,7 +561,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 330);
+            this.ClientSize = new System.Drawing.Size(1018, 390);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Программный модуль имитации РЛХ ЭСБЦ";
@@ -538,6 +571,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.TabCntrl.ResumeLayout(false);
+            this.ImitPage.ResumeLayout(false);
+            this.ImitTabCtrl.ResumeLayout(false);
+            this.tabPage23.ResumeLayout(false);
+            this.tabPage23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InputView)).EndInit();
+            this.tabPage24.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.OutputView)).EndInit();
             this.EditorPage.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -547,13 +587,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConstantsView)).EndInit();
-            this.ImitPage.ResumeLayout(false);
-            this.ImitTabCtrl.ResumeLayout(false);
-            this.tabPage23.ResumeLayout(false);
-            this.tabPage23.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InputView)).EndInit();
-            this.tabPage24.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.OutputView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -602,6 +635,9 @@
         private System.Windows.Forms.DataGridView InputView;
         private System.Windows.Forms.TabPage tabPage24;
         private System.Windows.Forms.DataGridView OutputView;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox dV;
     }
 }
 

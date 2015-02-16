@@ -54,6 +54,10 @@ namespace imitator
                 switch ((string)ImitTypeComboBox.SelectedItem)
                 {
                     case "33":
+                        var i33 = sourse.DataSource as List<ShineDot>;
+                        var o33 = Imit33.Exec(i33.ToArray());
+                        var s33 = new BindingSource {DataSource = o33};
+                        OutputView.DataSource = s33;
                         break;
                     case "42":
                         var i42 = sourse.DataSource as List<Imit42.InputData>;
@@ -76,8 +80,7 @@ namespace imitator
                     case "46":
                         var i46 = sourse.DataSource as List<Imit46.InputData>;
                         var o46 = Imit46.Exec(i46);
-                        var s46 = new BindingSource { DataSource = o46 };
-                        OutputView.DataSource = s46;
+                        Bind44_46FromData(o46);
                         break;
                     case "42+43":
                         var i4243 = sourse.DataSource as List<Imit42.InputData>;
@@ -110,6 +113,39 @@ namespace imitator
 
                 ImitTabCtrl.SelectTab(1);
             }
+        }
+
+        private void Bind44_46FromData(Imit46.OutputData[] Data)
+        {
+            var ds = ConvertToDatatable(Data.ToList());
+            var minV = (int)(from outputData in Data
+                             from skj in outputData.Skj
+                             select skj).Min(x => x.V);
+            var maxV = (int)(from outputData in Data
+                             from skj in outputData.Skj
+                             select skj).Max(x => x.V);
+
+            for (int i = minV; i <= maxV; i = i + Data[0].dV)
+            {
+                ds.Columns.Add("V=" + i, typeof(double));
+            }
+
+            for (int j = 0; j < Data.Count(); j++)
+            {
+                var row = ds.Rows[j];
+
+                for (int i = 5; i < ds.Columns.Count; i++)
+                {
+                    foreach (var skj in Data[j].Skj)
+                    {
+                        if (ds.Columns[i].ColumnName == "V=" + skj.V)
+                        {
+                            row[i] = skj.S;
+                        }
+                    }
+                }
+            }
+            OutputView.DataSource = ds;
         }
 
         private void FillDefaults44()
@@ -190,7 +226,7 @@ namespace imitator
             {
                 return;
             }
-            var firstItem = !items.Any() ? new Imit42.InputData() { Angle = 0.1, Fi = 0.5, H = 70000, Rzatup = 0.1, V = 6600,Type = 1,SubType = 1} : items.First();
+            var firstItem = !items.Any() ? new Imit42.InputData() { Angle = 0.1, Fi = 0.5, H = 70000, V = 6600,Type = 1,SubType = 1} : items.First();
             
             var dots = new Imit42.InputData[19];
             double h = firstItem.H;
@@ -202,7 +238,7 @@ namespace imitator
                 double s = Math.Sin(firstItem.Fi);
                 h = h - v * s;
 
-                dots[m - 1] = new Imit42.InputData() { Rzatup = firstItem.Rzatup, V = v, Angle = firstItem.Angle, H = h, Fi = firstItem.Fi, Type = firstItem.Type, SubType = firstItem.SubType};
+                dots[m - 1] = new Imit42.InputData() { V = v, Angle = firstItem.Angle, H = h, Fi = firstItem.Fi, Type = firstItem.Type, SubType = firstItem.SubType};
             }
             foreach (var dot in dots)
             {
@@ -296,6 +332,7 @@ namespace imitator
                 }
                 AimTypeComboBox.DataSource = types;
 
+                dV.Text = Const.DV.ToString();
                 K1.Text = Const.K1.ToString();
                 K2.Text = Const.K2.ToString();
                 K3.Text = Const.K3.ToString();
@@ -344,6 +381,9 @@ namespace imitator
                     case "K0":
                         Const.K0 = val;
                         break;
+                    case "dV":
+                        Const.DV = (int)val;
+                        break;
                     case "K1":
                         Const.K1 = val;
                         break;
@@ -377,7 +417,7 @@ namespace imitator
             switch ((string)ImitTypeComboBox.SelectedItem)
             {
                 case "33":
-                    var list33 = new List<Imit33.InputData> { };
+                    var list33 = new List<ShineDot> { };
                     source.DataSource = list33;
                     InputView.DataSource = source;
                     FillDefaultsButon.Enabled = false;
@@ -457,5 +497,11 @@ namespace imitator
                     break;
             }
         }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

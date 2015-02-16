@@ -10,10 +10,34 @@ namespace imitator
     {
         #region входные и выходные параметры, константы
 
+        public class InputData
+        {
+            /// <summary>
+            /// Тип объекта
+            /// </summary>
+            public int Type { get; set; }
+            /// <summary>
+            /// Подтип объекта
+            /// </summary>
+            public int SubTupe { get; set; }
+
+            public double H { get; set; } //Высота
+            // Скорость полета БЦ, м/с
+            public double V { get; set; }
+
+            public double Angle { get; set; } //Угол
+            public double Ne { get; set; } //Электронная концентрация плазмы в точке наблюдения
+            public double Nu { get; set; } //Эффективная частота со-ударений электронов в точке наблю-дения
+            public double NeKrit { get; set; }
+            public double Delta { get; set; } //расстояние отхода удар-ной волны от поверхности баллистиче-ской цели
+            public double Ageo { get; set; } //геометриче-ские пара-метры удар-ной волны
+            public double Bgeo { get; set; } //геометриче-ские пара-метры удар-ной волны
+        }
+
         /// <summary>
         /// ВХОДНАЯ ИНФОРМАЦИЯ
         /// </summary>
-        public class InputData:ShineDot
+        public class InputDataLocal:ShineDot
         {
             /// <summary>
             /// Тип объекта
@@ -66,7 +90,7 @@ namespace imitator
             return new OutputData() { Ssum = GetIPR(aimWithParams) };
         }
 
-        private static double GetIPR(List<InputData> dots)
+        private static double GetIPR(List<InputDataLocal> dots)
         {
             List<DotParams> NewDots = new List<DotParams>();
             //ВП0
@@ -74,7 +98,7 @@ namespace imitator
             double LambdaK = (Const.C/Const.F0);
             double KLambda = 2*Math.PI/LambdaK;
 
-            foreach (InputData dot in dots)
+            foreach (InputDataLocal dot in dots)
             {
                 NewDots.Add(GetReflectionKoeff(LambdaK, KLambda, dot, Const.F0));
             }
@@ -82,13 +106,13 @@ namespace imitator
             
         }
 
-        private static List<InputData> SetTypeInfo(InputData aim)
+        private static List<InputDataLocal> SetTypeInfo(InputData aim)
         {
-            var dotList = new List<InputData>();
+            var dotList = new List<InputDataLocal>();
             
                 foreach (var dot in Const.GetFlyingObject(aim.Type,aim.SubTupe).ShineDots)
                 {
-                    var newInputDataItem = new InputData
+                    var newInputDataItem = new InputDataLocal
                     {
                         Kf = dot.Kf,
                         Xc = dot.Xc,
@@ -122,7 +146,7 @@ namespace imitator
             return dotList;
         }
 
-        private static DotParams GetReflectionKoeff(double lambdaK, double kLambda, InputData dot, double fk)
+        private static DotParams GetReflectionKoeff(double lambdaK, double kLambda, InputDataLocal dot, double fk)
         {
             double s0=0;
             double ips=0;
@@ -470,7 +494,7 @@ namespace imitator
             return dotParams;
         }
 
-        public static double GetKp(InputData i,double fk,double klambda)
+        public static double GetKp(InputDataLocal i,double fk,double klambda)
         {
             double Xg = i.Rzatup + i.Delta + i.Ageo;
             double t = Math.Tan(i.Angle);
