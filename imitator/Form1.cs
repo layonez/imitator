@@ -56,7 +56,10 @@ namespace imitator
                     case "33":
                         var i33 = sourse.DataSource as List<ShineDot>;
                         var o33 = Imit33.Exec(i33.ToArray());
-                        var s33 = new BindingSource {DataSource = o33};
+
+                        var list33= toList(o33);
+
+                        var s33 = new BindingSource { DataSource = list33 };
                         OutputView.DataSource = s33;
                         break;
                     case "42":
@@ -91,8 +94,7 @@ namespace imitator
                     case "44+46":
                         var i4446 = sourse.DataSource as List<Imit44_46.InputData>;
                         var o4446 = Imit44_46.Exec(i4446);
-                        var s4446 = new BindingSource {DataSource = o4446};
-                        OutputView.DataSource = s4446;
+                        Bind44_46FromData(o4446);
                         break;
                     case "42-46":
                         var i4246 = sourse.DataSource as List<Imit42.InputData>;
@@ -113,6 +115,31 @@ namespace imitator
 
                 ImitTabCtrl.SelectTab(1);
             }
+        }
+
+        private DataTable toList(double[,] o33)
+        {
+            DataTable table = new DataTable();
+            for (int j = 0; j < o33.GetLength(0); j++)
+            {
+                table.Columns.Add(j.ToString(), typeof (double));
+            }
+
+
+            for (int i = 0; i < o33.GetLength(1); i++)
+            {
+                var values = new object[o33.GetLength(0)];
+
+                for (int j = 0; j < o33.GetLength(0); j++)
+                {
+                    values[j] = o33[j, i];
+                }
+
+                table.Rows.Add(values);
+            }
+
+
+            return table;
         }
 
         private void Bind44_46FromData(Imit46.OutputData[] Data)

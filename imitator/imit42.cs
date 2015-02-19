@@ -83,7 +83,7 @@ namespace imitator
 
             //ВП4
             //Оценка электронной концентрации и эффективной частоты соударений электронов в критической точке
-            double nu = ROs/imitator.Const.Ro0;
+            double nu = ROs/Const.Ro0;
             double NeKrit = GetElectronConc(nu,Ts);
 
             double x1 =(7.2e9)*ROs*Math.Sqrt(Ts);
@@ -92,34 +92,38 @@ namespace imitator
             double x3 = (1.3e-10) * NeKrit * Math.Sqrt(Ts);
 
             double nuKrit = x1 + x2 + x3;
-            
+
+
+            double Rzatup = Const.GetFlyingObject(data.Type, data.SubType).ShineDots.First().Rzatup;
             //ВП6
             //Оценка электронной концентрации и эф-фективной частоты соударений электро-нов в точке наблюдения
 
             double e1 = -(
-                (2.02)*data.Angle +
-                (0.41)*data.Angle*data.Angle);
-            double e2 = (400 * Const.Rz * Const.Rz);
+                (2.02) * data.Angle +
+                (0.41) * data.Angle * data.Angle);
+            double e2 = (400 * Rzatup * Rzatup);
 
             double ex = Math.Exp(e1 / e2);
 
 
-              double Ne = NeKrit*ex;
-              double nuEffect = nuKrit * Math.Exp(
-                  -( (1.01)*data.Angle + (0.294) * data.Angle * data.Angle)/
-                       (400 * Const.Rz * Const.Rz)
-                   );
+            double Ne = NeKrit * ex;
+            double nuEffect = nuKrit * Math.Exp(
+                -((1.01) * data.Angle + (0.294) * data.Angle * data.Angle) /
+                     (400 * Rzatup * Rzatup)
+                 );
             //ВП7
             //Оценка геометрических параметров ударной волны
-              var d1 = 1/
-                    ((ROs / RO) - 1);
-              double delta = 0.67 * Const.Rz * d1;
-                
+            var d1 = 1 /
+                  ((ROs / RO) - 1);
+            double delta = 0.67 * Rzatup * d1;
+
 
             //число Маха 
-            double M = data.V/330;
-            double a = (Const.Rz + delta) * (M * M - 1);
-            double b = (Const.Rz + delta) * Math.Sqrt(M * M - 1);
+            double M = data.V / 330;
+            double a = (Rzatup + delta) * (M * M - 1);
+            double b = (Rzatup + delta) * Math.Sqrt(M * M - 1);
+
+
 
 
             return new OutputData() { A = a, B = b, Delta = delta, Ne = Ne, Nu = nuEffect, NeKrit = NeKrit, NuKrit = nuKrit, M = M };
